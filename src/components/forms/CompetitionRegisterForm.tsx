@@ -361,11 +361,19 @@ function isAcceptedFile(file: File): boolean {
 
 interface CompetitionRegisterFormProps {
   locale: SiteLocale;
+  initialFullName?: string;
+  initialEmail?: string;
 }
 
-export function CompetitionRegisterForm({ locale }: CompetitionRegisterFormProps) {
+export function CompetitionRegisterForm({
+  locale,
+  initialFullName = "",
+  initialEmail = ""
+}: CompetitionRegisterFormProps) {
   const copy = COPY[locale];
   const isRtl = locale === "ar";
+  const defaultFullName = initialFullName.trim();
+  const defaultEmail = initialEmail.trim().toLowerCase();
 
   const [step, setStep] = useState(0);
   const [mode, setMode] = useState<ParticipationType>("individual");
@@ -375,8 +383,8 @@ export function CompetitionRegisterForm({ locale }: CompetitionRegisterFormProps
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitNote, setSubmitNote] = useState<string | null>(null);
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState(defaultFullName);
+  const [email, setEmail] = useState(defaultEmail);
   const [phone, setPhone] = useState("");
   const [university, setUniversity] = useState("");
   const [branch, setBranch] = useState("");
@@ -568,7 +576,9 @@ export function CompetitionRegisterForm({ locale }: CompetitionRegisterFormProps
           demoFormat,
           heardFrom,
           fileBase64,
-          fileName
+          fileName,
+          fileType: file?.type || "",
+          fileSize: file?.size ?? null
         })
       });
 
@@ -597,8 +607,8 @@ export function CompetitionRegisterForm({ locale }: CompetitionRegisterFormProps
     setErrors({});
     setSubmitError(null);
     setSubmitNote(null);
-    setFullName("");
-    setEmail("");
+    setFullName(defaultFullName);
+    setEmail(defaultEmail);
     setPhone("");
     setUniversity("");
     setBranch("");

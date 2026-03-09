@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Rajdhani, Teko } from "next/font/google";
 import "./globals.css";
 
+const metadataBase = process.env.NEXT_PUBLIC_SITE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+  : process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
+    : new URL("http://localhost:3000");
+
 const display = Teko({
   subsets: ["latin", "latin-ext"],
   variable: "--font-teko",
@@ -15,6 +21,7 @@ const body = Rajdhani({
 });
 
 export const metadata: Metadata = {
+  metadataBase,
   title: "JP4F 2026",
   description: "Journées Pédagogiques des 4 Filières à l'ENSA Fès"
 };

@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 describe("ThemeToggle", () => {
   it("switches html theme attribute", () => {
     document.documentElement.setAttribute("data-theme", "dark");
-    render(<ThemeToggle />);
+    render(<ThemeToggle locale="fr" />);
 
     const button = screen.getByRole("button");
     fireEvent.click(button);
@@ -21,7 +21,7 @@ describe("ThemeToggle", () => {
       throw new Error("blocked");
     });
 
-    render(<ThemeToggle />);
+    render(<ThemeToggle locale="fr" />);
     expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
 
     spy.mockRestore();

@@ -1,4 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import { CompetitionRegisterForm } from "@/components/forms/CompetitionRegisterForm";
 import { PageIntro } from "@/components/sections/PageIntro";
 import { Reveal } from "@/components/ui/Reveal";
@@ -33,13 +35,32 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function CompetitionRegisterPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await getValidatedLocale(params);
   const copy = COPY[locale];
+  const session = await auth().catch(() => null);
+
+  if (!session?.user?.email) {
+    redirect(`/auth/login?callbackUrl=%2F${locale}%2Fcompetition%2Fregister`);
+  }
 
   return (
     <>
       <PageIntro tag={copy.tag} title={copy.title} subtitle={copy.subtitle} />
       <section className="section-shell mt-6 pb-20">
         <Reveal>
-          <CompetitionRegisterForm locale={locale} />
+          <article className="glass-card mb-4 p-4 sm:p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45">
+              Google connecte
+            </p>
+            <p className="mt-2 text-sm text-ink/72 sm:text-base">
+              {session.user.name || session.user.email}
+            </p>
+          </article>
+        </Reveal>
+        <Reveal>
+          <CompetitionRegisterForm
+            locale={locale}
+            initialFullName={session.user.name || ""}
+            initialEmail={session.user.email || ""}
+          />
         </Reveal>
       </section>
     </>
