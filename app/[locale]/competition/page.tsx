@@ -6,6 +6,7 @@ import { getSiteContent } from "@/content";
 import type { CompetitionTimelineItem, SiteLocale } from "@/content/types";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getValidatedLocale } from "@/lib/locale-page";
+import { localizeHref } from "@/lib/routing";
 
 const COMP_ACCENT = "#fbb724";
 
@@ -61,6 +62,8 @@ function labelsByLocale(locale: SiteLocale) {
       contact: "Contact",
       formats: "Presentation formats",
       openBadge: "JESI'2025 — Applications open",
+      orientationQuiz: "Take the orientation quiz",
+      orientationHint: "Unsure about your branch? Run the 5-question smart quiz.",
     };
   }
 
@@ -71,6 +74,8 @@ function labelsByLocale(locale: SiteLocale) {
       contact: "التواصل",
       formats: "صيغ التقديم",
       openBadge: "JESI'2025 — باب الترشح مفتوح",
+      orientationQuiz: "قم باختبار التوجيه",
+      orientationHint: "غير متأكد من المسلك؟ جرب اختبار التوجيه الذكي من 5 أسئلة.",
     };
   }
 
@@ -80,6 +85,8 @@ function labelsByLocale(locale: SiteLocale) {
     contact: "Contact",
     formats: "Formats de présentation",
     openBadge: "JESI'2025 — Ouvert aux candidatures",
+    orientationQuiz: "Faire le quiz d'orientation",
+    orientationHint: "Pas encore décidé ? Lance le quiz intelligent en 5 questions.",
   };
 }
 
@@ -297,6 +304,17 @@ export default async function CompetitionPage({ params }: { params: Promise<{ lo
           background-color: var(--comp-accent) !important;
           color: #0a0c10 !important;
           box-shadow: 0 10px 28px rgba(251, 191, 36, 0.45), 0 0 0 1px rgba(251, 191, 36, 0.5) !important;
+        }
+
+        .comp-cta-secondary {
+          transition: border-color 0.24s ease, color 0.24s ease, background-color 0.24s ease, letter-spacing 0.24s ease;
+        }
+
+        .comp-cta-secondary:hover {
+          border-color: var(--comp-accent) !important;
+          color: var(--comp-accent) !important;
+          background-color: rgba(251, 191, 36, 0.08) !important;
+          letter-spacing: 0.14em !important;
         }
       `}</style>
 
@@ -549,10 +567,19 @@ export default async function CompetitionPage({ params }: { params: Promise<{ lo
                   <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: "var(--comp-warning)" }}>
                     {content.competition.deadlineLabel}
                   </p>
+                  <p className="mb-3 max-w-xl font-mono text-[11px] leading-relaxed" style={{ color: "var(--comp-text-muted)" }}>
+                    {labels.orientationHint}
+                  </p>
                   <Link
-                    href={content.competition.registrationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={localizeHref(locale, "/quiz")}
+                    className="comp-cta-secondary mb-3 inline-flex items-center gap-2 rounded border px-6 py-3 font-display text-base font-semibold uppercase tracking-[0.1em] no-underline"
+                    style={{ borderColor: "var(--comp-line-strong)", color: "var(--comp-text-strong)", backgroundColor: "transparent" }}
+                  >
+                    {labels.orientationQuiz}
+                  </Link>
+                  <br />
+                  <Link
+                    href={localizeHref(locale, "/competition/register")}
                     className="comp-cta inline-flex items-center gap-3 rounded px-8 py-4 font-display text-xl font-semibold uppercase tracking-[0.14em] no-underline"
                     style={{ color: "#0a0c10", backgroundColor: "var(--comp-accent)", boxShadow: "0 8px 32px rgba(251,191,36,.35), 0 0 0 1px rgba(251,191,36,.3)" }}
                   >

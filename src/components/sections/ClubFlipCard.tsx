@@ -216,6 +216,7 @@ const TRENZ_MEMBERS: MemberSeed[] = [
     email: "",
     linkedin: "",
     instagram: "",
+    photo: "/images/uknown women.png",
   },
   {
     name: "Ikram Kab",
@@ -231,6 +232,7 @@ const TRENZ_MEMBERS: MemberSeed[] = [
     email: "",
     linkedin: "",
     instagram: "",
+    photo: "/images/uknown women.png",
   },
   {
     name: "Khadija Eddebbarhi",
@@ -238,6 +240,7 @@ const TRENZ_MEMBERS: MemberSeed[] = [
     email: "",
     linkedin: "",
     instagram: "",
+    photo: "/images/uknown women.png",
   },
   {
     name: "Abdelilah El Kasmy",
@@ -1183,3 +1186,4 @@ export function ClubFlipCard({ club, locale }: ClubFlipCardProps) {
     </div>
   );
 }
+

@@ -25,27 +25,6 @@
   --color-ink: var(--ink);
   --card-outline: rgba(249, 115, 22, 0.92);
   --card-outline-soft: rgba(249, 115, 22, 0.44);
-  --card-shape: polygon(
-    0 14%,
-    0 6%,
-    2% 2%,
-    6% 0,
-    80% 0,
-    84% 1%,
-    88% 5%,
-    98% 22%,
-    100% 30%,
-    100% 84%,
-    99% 90%,
-    97% 96%,
-    92% 99%,
-    86% 100%,
-    20% 100%,
-    14% 99%,
-    9% 97%,
-    2% 88%,
-    0 80%
-  );
 
   --theme-layer:
     radial-gradient(circle at 14% -6%, rgba(139, 92, 246, 0.16), transparent 36%),
@@ -130,9 +109,8 @@ a {
 .outlined-cut-card {
   position: relative;
   overflow: hidden;
-  border-radius: 3rem;
+  border-radius: 14px;
   border: 1px solid var(--card-outline-soft);
-  clip-path: var(--card-shape);
 }
 
 .outlined-cut-card::after {
@@ -142,15 +120,13 @@ a {
   pointer-events: none;
   border: 1.5px solid var(--card-outline);
   border-radius: inherit;
-  clip-path: var(--card-shape);
 }
 
 .glass-card {
   @apply relative overflow-hidden shadow-card backdrop-blur-xl;
   border: 1px solid var(--card-outline-soft);
-  border-radius: 3rem;
+  border-radius: 14px;
   background: linear-gradient(142deg, var(--panel-strong) 0%, var(--panel) 58%, var(--panel-muted) 100%);
-  clip-path: var(--card-shape);
 }
 
 .glass-card::before {
@@ -170,7 +146,6 @@ a {
   pointer-events: none;
   border: 1.5px solid var(--card-outline);
   border-radius: inherit;
-  clip-path: var(--card-shape);
 }
 
 .badge-line {

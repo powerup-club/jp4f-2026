@@ -57,6 +57,28 @@ npm install
 npm run dev
 ```
 
+## Environment
+
+Create `.env.local` with:
+
+```bash
+GROQ_API_KEY=gsk_your_key_here
+GOOGLE_SCRIPT_URL_QUIZ=https://script.google.com/macros/s/YOUR_QUIZ_SCRIPT_ID/exec
+GOOGLE_SCRIPT_URL_REGISTER=https://script.google.com/macros/s/YOUR_REGISTER_SCRIPT_ID/exec
+```
+
+Optional legacy fallback:
+
+```bash
+GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/YOUR_DEFAULT_SCRIPT_ID/exec
+```
+
+Routing behavior:
+
+- `/api/quiz/save` uses `GOOGLE_SCRIPT_URL_QUIZ`, then falls back to `GOOGLE_SCRIPT_URL`
+- `/api/register` uses `GOOGLE_SCRIPT_URL_REGISTER`, then falls back to `GOOGLE_SCRIPT_URL`
+- `/api/quiz/chat` uses only `GROQ_API_KEY`
+
 ## Tests
 
 ```bash

@@ -9,6 +9,12 @@ interface HomeHeroProps {
   home: HomeContent;
 }
 
+function registerLabelByLocale(locale: SiteLocale): string {
+  if (locale === "en") return "Register for Innov'Dom";
+  if (locale === "ar") return "التسجيل في Innov'Dom";
+  return "S'inscrire a Innov'Dom";
+}
+
 export function HomeHero({ locale, home }: HomeHeroProps) {
   return (
     <section className="section-shell pt-6">
@@ -37,6 +43,12 @@ export function HomeHero({ locale, home }: HomeHeroProps) {
               className="rounded-full border border-edge/75 bg-panel/90 px-6 py-3 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
             >
               {home.secondaryCta.label}
+            </Link>
+            <Link
+              href={localizeHref(locale, "/competition/register")}
+              className="rounded-full border border-edge/75 bg-panel/90 px-6 py-3 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
+            >
+              {registerLabelByLocale(locale)}
             </Link>
           </div>
         </div>
