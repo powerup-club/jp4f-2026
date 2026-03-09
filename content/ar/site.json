@@ -1,0 +1,606 @@
+{
+  "locale": "ar",
+  "meta": {
+    "languageLabel": "العربية",
+    "siteName": "JP4F 2026",
+    "description": "الأيام البيداغوجية للمسالك الأربعة بمدرسة ENSA فاس: البرنامج، تحدي Innov'Dom، المتدخلون والأندية المنظمة."
+  },
+  "navigation": [
+    {
+      "href": "/",
+      "label": "الرئيسية"
+    },
+    {
+      "href": "/programme",
+      "label": "البرنامج"
+    },
+    {
+      "href": "/filieres",
+      "label": "المسالك"
+    },
+    {
+      "href": "/competition",
+      "label": "التحدي"
+    },
+    {
+      "href": "/intervenants",
+      "label": "المتدخلون"
+    },
+    {
+      "href": "/clubs",
+      "label": "الأندية"
+    },
+    {
+      "href": "/comite",
+      "label": "اللجنة"
+    }
+  ],
+  "mobileNavigation": [
+    {
+      "href": "/",
+      "label": "الرئيسية",
+      "shortLabel": "رئيسية"
+    },
+    {
+      "href": "/programme",
+      "label": "البرنامج",
+      "shortLabel": "برنامج"
+    },
+    {
+      "href": "/filieres",
+      "label": "المسالك",
+      "shortLabel": "مسالك"
+    },
+    {
+      "href": "/competition",
+      "label": "التحدي",
+      "shortLabel": "تحدي"
+    },
+    {
+      "href": "/clubs",
+      "label": "الأندية",
+      "shortLabel": "أندية"
+    }
+  ],
+  "footer": {
+    "about": "يجمع JP4F مسالك GESI وGM وGI وGMéca في فضاء واحد للتوجيه والابتكار وربط الطالب بعالم الصناعة.",
+    "quickLinks": [
+      {
+        "label": "البرنامج",
+        "href": "/programme"
+      },
+      {
+        "label": "المسالك",
+        "href": "/filieres"
+      },
+      {
+        "label": "Innov'Dom Challenge -Connecter à l'Avenir -",
+        "href": "/competition"
+      },
+      {
+        "label": "المتدخلون",
+        "href": "/intervenants"
+      },
+      {
+        "label": "اللجنة العلمية",
+        "href": "/comite-scientifique"
+      }
+    ],
+    "clubs": [
+      {
+        "label": "PowerUP - 0624809871 - nouary.houssaine@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/company/club-powerup/",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz - 0640540978 - boustitiamine3@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+        "external": true
+      },
+      {
+        "label": "IEC - +212 631 207 295 - mahaelghzizal@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+        "external": true
+      }
+    ],
+    "contacts": [
+      {
+        "label": "+212 5 35 60 82 14",
+        "href": "tel:+212535608214",
+        "external": true
+      },
+      {
+        "label": "Ecole Nationale des Sciences Appliquées, Avenue My Abdallah Km 5, Route d'Imouzzer, Fès. Maroc",
+        "href": "https://maps.google.com/?q=Ecole%20Nationale%20des%20Sciences%20Appliqu%C3%A9es%2C%20Avenue%20My%20Abdallah%20Km%205%2C%20Route%20d'Imouzzer%2C%20F%C3%A8s.%20Maroc",
+        "external": true
+      },
+      {
+        "label": "ensaf.ac.ma",
+        "href": "https://ensaf.ac.ma",
+        "external": true
+      },
+      {
+        "label": "PowerUP phone: 0624809871",
+        "href": "tel:0624809871",
+        "external": true
+      },
+      {
+        "label": "PowerUP email: nouary.houssaine@gmail.com",
+        "href": "mailto:nouary.houssaine@gmail.com",
+        "external": true
+      },
+      {
+        "label": "PowerUP LinkedIn",
+        "href": "https://www.linkedin.com/company/club-powerup/",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz phone: 0640540978",
+        "href": "tel:0640540978",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz email: boustitiamine3@gmail.com",
+        "href": "mailto:boustitiamine3@gmail.com",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+        "external": true
+      },
+      {
+        "label": "IEC phone: +212 631 207 295",
+        "href": "tel:+212631207295",
+        "external": true
+      },
+      {
+        "label": "IEC email: mahaelghzizal@gmail.com",
+        "href": "mailto:mahaelghzizal@gmail.com",
+        "external": true
+      },
+      {
+        "label": "IEC LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+        "external": true
+      }
+    ],
+    "legal": "© 2026 ENSA Fès / USMBA. جميع الحقوق محفوظة.",
+    "badges": [
+      "PowerUP",
+      "IEC",
+      "Mechatronics Trendz"
+    ]
+  },
+  "home": {
+    "tag": "// نسخة 2026",
+    "badge": "ENSA فاس · USMBA · طريق صفرو",
+    "title": "JP4F",
+    "titleAccent": "2026",
+    "subtitle": "الأيام البيداغوجية للمسالك الهندسية الأربعة",
+    "slogan": "4 مسالك. حرم جامعي واحد. مشاريع تنتقل إلى التنفيذ.",
+    "primaryCta": {
+      "label": "عرض البرنامج",
+      "href": "/programme"
+    },
+    "secondaryCta": {
+      "label": "المشاركة في Innov'Dom",
+      "href": "/competition"
+    },
+    "countdownLabel": "العد التنازلي إلى 17 أبريل 2026",
+    "dateLabel": "17 أبريل 2026",
+    "locationLabel": "Ecole Nationale des Sciences Appliquées, Avenue My Abdallah Km 5, Route d'Imouzzer, Fès. Maroc",
+    "challengeLabel": "Innov'Dom Challenge -Connecter à l'Avenir - جائزة 6000 درهم",
+    "clubsLabel": "PowerUP - IEC - Mechatronics Trendz",
+    "stats": [
+      {
+        "value": 2,
+        "label": "أيام"
+      },
+      {
+        "value": 4,
+        "label": "مسالك"
+      },
+      {
+        "value": 5,
+        "label": "محاضرات"
+      },
+      {
+        "value": 200,
+        "label": "مشارك",
+        "suffix": "+"
+      }
+    ],
+    "filieresTag": "// 4 مسارات",
+    "filieresTitle": "اختر مسارك الهندسي",
+    "filieresSubtitle": "تعرف على التخصصات الأربعة التي يقدمها JP4F.",
+    "clubsTag": "// التنظيم المشترك",
+    "clubsTitle": "الأندية التي تقود JP4F",
+    "clubsSubtitle": "ثلاث فرق طلابية برؤية موحدة للتنفيذ.",
+    "challengeTag": "// التسجيل مفتوح",
+    "challengeTitle": "هل أنت جاهز لعرض فكرتك؟",
+    "challengeSubtitle": "انضم إلى Innov'Dom Challenge -Connecter à l'Avenir - واعرض مشروعك أمام لجنة أكاديمية وصناعية."
+  },
+  "programme": {
+    "tag": "// البرنامج الرسمي",
+    "title": "برنامج JP4F 2026",
+    "subtitle": "يومان من المحاضرات وورش المسالك وجلسات التشبيك.",
+    "day1Label": "اليوم 1 - 17 أبريل 2026",
+    "day2Label": "اليوم 2 - 18 أبريل 2026",
+    "day1": [
+      {
+        "time": "08:30",
+        "title": "استقبال وتسجيل",
+        "location": "القاعة الرئيسية"
+      },
+      {
+        "time": "09:00",
+        "title": "الافتتاح الرسمي",
+        "location": "المدرج الرئيسي"
+      },
+      {
+        "time": "09:30",
+        "title": "محاضرة 1: مهندس الغد"
+      },
+      {
+        "time": "10:30",
+        "title": "محاضرة 2: التحول الطاقي"
+      },
+      {
+        "time": "11:30",
+        "title": "استراحة تشبيك",
+        "location": "الأغورا"
+      },
+      {
+        "time": "12:00",
+        "title": "ورش المسالك GESI وGM",
+        "location": "القاعتان A/B"
+      },
+      {
+        "time": "14:00",
+        "title": "ورش المسالك GI وGMéca",
+        "location": "القاعتان A/B"
+      },
+      {
+        "time": "16:00",
+        "title": "طاولة مستديرة بين الأندية والأساتذة"
+      },
+      {
+        "time": "17:00",
+        "title": "اختتام اليوم الأول"
+      }
+    ],
+    "day2": [
+      {
+        "time": "08:45",
+        "title": "استقبال اليوم الثاني",
+        "location": "القاعة الرئيسية"
+      },
+      {
+        "time": "09:15",
+        "title": "محاضرة 3: الذكاء الاصطناعي والأنظمة الذكية"
+      },
+      {
+        "time": "10:15",
+        "title": "محاضرة 4: الروبوتات والأتمتة"
+      },
+      {
+        "time": "11:30",
+        "title": "الإطلاق الرسمي لتحدي Innov'Dom"
+      },
+      {
+        "time": "12:30",
+        "title": "استراحة غذاء",
+        "location": "المطعم"
+      },
+      {
+        "time": "14:00",
+        "title": "عروض الفرق النهائية"
+      },
+      {
+        "time": "15:30",
+        "title": "مداولة لجنة التحكيم"
+      },
+      {
+        "time": "16:15",
+        "title": "توزيع جوائز Innov'Dom"
+      },
+      {
+        "time": "17:00",
+        "title": "كلمة الاختتام"
+      }
+    ]
+  },
+  "filieres": {
+    "tag": "// التوجيه",
+    "title": "المسالك الأربعة في الواجهة",
+    "subtitle": "عرض واضح للمهارات والفرص المهنية لكل مسلك.",
+    "items": [
+      {
+        "code": "GESI",
+        "name": "الهندسة الطاقية والأنظمة الذكية",
+        "summary": "الطاقات المتجددة، التحكم الذكي في الطاقة، وأنظمة المراقبة.",
+        "color": "gesi"
+      },
+      {
+        "code": "GM",
+        "name": "الهندسة الميكانيكية",
+        "summary": "التصميم والتصنيع والصيانة وتحسين الأنظمة الميكانيكية.",
+        "color": "gm"
+      },
+      {
+        "code": "GI",
+        "name": "الهندسة الصناعية",
+        "summary": "أنظمة الإنتاج، الجودة، سلاسل التوريد، والأداء الصناعي.",
+        "color": "gi"
+      },
+      {
+        "code": "GMéca",
+        "name": "الهندسة الميكاترونيكية",
+        "summary": "الأنظمة المدمجة، الروبوتات، القياس، وتكامل الميكانيك والكهرباء والمعلوميات.",
+        "color": "gmeca"
+      }
+    ]
+  },
+  "competition": {
+    "tag": "JESI'2025",
+    "title": "تحدي Innov'Dom",
+    "subtitle": "في إطار يوم الطاقة والأنظمة الذكية JESI'2025، تنظم المدرسة الوطنية للعلوم التطبيقية بفاس مسابقة تكنولوجية مفتوحة للطلاب والباحثين المغاربة والأجانب.",
+    "statAxes": "محاور موضوعاتية",
+    "statFormat": "عرض شفهي",
+    "statDate": "تاريخ الفعالية",
+    "statVenue": "المكان",
+    "statIdeas": "الأفكار المنتظرة",
+    "axesTitle": "المحاور الموضوعاتية",
+    "axes": [
+      "المنزل الذكي والتقنيات المنزلية",
+      "التنقل والنقل الذكي",
+      "إدارة الطاقة وتحسينها",
+      "الرقمنة والأنظمة الذكية",
+      "التأثير المتقاطع متعدد القطاعات"
+    ],
+    "eligibilityTitle": "من يمكنه المشاركة؟",
+    "eligibility": "الطلاب والباحثون والشركات الناشئة والمهنيون المهتمون بالابتكار في مجال الطاقة والكهرباء وتطبيقاتها المتقاطعة.",
+    "prizeTitle": "الجوائز والمكافآت",
+    "prizeAmount": "حفل رسمي",
+    "prizeDescription": "سيتم تكريم أفضل المشاريع خلال حفل رسمي يُنظَّم بالمدرسة الوطنية للعلوم التطبيقية بفاس يوم الاثنين 21 أبريل 2025.",
+    "criteriaTitle": "معايير التقييم",
+    "criteria": [
+      "الابتكار والأصالة",
+      "الجدوى التقنية والأثر المحتمل على قطاعات متعددة",
+      "وضوح وجودة العرض",
+      "الارتباط بتحديات الرقمنة والتقنيات المنزلية وتحسين الطاقة"
+    ],
+    "timelineTitle": "الجدول الزمني",
+    "timeline": [
+      {
+        "date": "15 أبريل 2025",
+        "text": "الموعد النهائي لتقديم الترشيحات"
+      },
+      {
+        "date": "19 أبريل 2025",
+        "text": "الموعد النهائي الممتد — آخر أجل"
+      },
+      {
+        "date": "21 أبريل 2025",
+        "text": "يوم JESI'2025 — العروض وحفل توزيع الجوائز بالمدرسة الوطنية للعلوم التطبيقية بفاس"
+      }
+    ],
+    "formats": [
+      "عرض شفهي 5–10 دقائق",
+      "عرض تقديمي",
+      "عرض تجريبي مباشر",
+      "نموذج أولي",
+      "واقع معزز",
+      "تطبيق تفاعلي"
+    ],
+    "partners": [
+      "Power Up",
+      "Ingelec",
+      "Master Tec",
+      "ALTEN",
+      "RADEEF",
+      "UM5 Rabat",
+      "Capgemini",
+      "ANCCO"
+    ],
+    "contact": {
+      "name": "الأستاذ هيهي هشام — ENSA فاس، المغرب",
+      "email": "hicham.hihi@usmba.ac.ma",
+      "phone": "06.00.30.12.76",
+      "site": "www.ensaf.ac.ma"
+    },
+    "registrationHeading": "شارك وشارك أفكارك!",
+    "registrationLabel": "تقديم ترشحي",
+    "registrationUrl": "https://forms.gle/N57ipJYXy6REBJs49",
+    "deadlineLabel": "الترشيحات مفتوحة حتى 19 أبريل 2025"
+  },
+  "intervenants": {
+    "tag": "// خبراء",
+    "title": "المتدخلون",
+    "subtitle": "كفاءات أكاديمية وصناعية تربط التكوين بالواقع المهني.",
+    "speakers": [
+      {
+        "name": "الأستاذ هشام حيحي",
+        "role": "أستاذ التعليم العالي - GESI",
+        "affiliation": "ENSA فاس / مختبر LISA",
+        "topic": "أنظمة التحكم في الطاقات المتجددة",
+        "image": "/images/intervenants/hihi.jpg"
+      },
+      {
+        "name": "الأستاذ عبد المجيد الساكة",
+        "role": "أستاذ التعليم العالي - منسق GM",
+        "affiliation": "ENSA فاس / مختبر LISA",
+        "topic": "من التصميم إلى الروبوتات: مسار المهندس الميكانيكي",
+        "image": "/images/intervenants/saka.jpg"
+      },
+      {
+        "name": "الأستاذ محمد علي بولعيش",
+        "role": "أستاذ - الهندسة الصناعية",
+        "affiliation": "ENSA فاس",
+        "topic": "الهندسة الصناعية وتحول المؤسسات",
+        "image": "/images/intervenants/boulaich.jpg"
+      },
+      {
+        "name": "خبير صناعي (قيد التأكيد)",
+        "role": "ضيف شرف",
+        "affiliation": "منظومة فاس مكناس",
+        "topic": "تجربة ميدانية حول تحويل المشاريع الطلابية إلى حلول عملية"
+      }
+    ]
+  },
+  "clubsPage": {
+    "tag": "// الأندية المنظمة",
+    "title": "الأندية المنظمة",
+    "subtitle": "ثلاثة أندية طلابية تقود اللوجستيك والتواصل وتنفيذ التحدي.",
+    "clubs": [
+      {
+        "id": "powerup",
+        "name": "Power Up",
+        "tagline": "نادي الابتكار الطاقي",
+        "description": "يواكب نادي Power Up الطلبة في النمذجة السريعة وتدبير المشاريع والابتكار التطبيقي في مجال الطاقة.",
+        "logo": "/images/clubs/logo-powerup.png",
+        "phone": "0624809871",
+        "email": "nouary.houssaine@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/power_uuup",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/company/club-powerup/",
+            "external": true
+          },
+          {
+            "label": "الموقع",
+            "href": "https://nouary.github.io/Power-Up/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "id": "trenz",
+        "name": "Mechatronics Trendz",
+        "tagline": "نادي الروبوتات والأتمتة",
+        "description": "يدعم نادي Trendz الطلبة في الأنظمة الميكاترونيكية والروبوتات المدمجة وهندسة التحكم.",
+        "logo": "/images/clubs/logo-trenz.png",
+        "phone": "0640540978",
+        "email": "boustitiamine3@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/mechatronicstrendz/",
+            "external": true
+          },
+          {
+            "label": "Facebook",
+            "href": "https://www.facebook.com/Mechatronicstrendz/",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+            "external": true
+          }
+        ]
+      },
+      {
+        "id": "iec",
+        "name": "IEC 4.0",
+        "tagline": "نادي الهندسة الصناعية",
+        "description": "يرسخ IEC 4.0 ثقافة التحسين المستمر واستعمال البيانات الصناعية وتدبير الأداء داخل المشاريع.",
+        "logo": "/images/clubs/logo-iec.png",
+        "phone": "+212631207295",
+        "email": "mahaelghzizal@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/iec4.0_ensaf",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+            "external": true
+          }
+        ]
+      }
+    ]
+  },
+  "comite": {
+    "tag": "// التنظيم",
+    "title": "اللجنة التنظيمية",
+    "subtitle": "فريق مشترك بين الأندية مسؤول عن التنفيذ الكامل لفعالية JP4F.",
+    "members": [
+      {
+        "name": "حسين نواري",
+        "role": "الرئيس",
+        "club": "Power Up",
+        "track": "التنسيق العام"
+      },
+      {
+        "name": "أمينة بوسطي",
+        "role": "نائبة الرئيس",
+        "club": "Mechatronics Trendz",
+        "track": "الشراكات"
+      },
+      {
+        "name": "مها الغزازل",
+        "role": "مسؤولة اللوجستيك",
+        "club": "IEC 4.0",
+        "track": "الفضاء والعمليات"
+      },
+      {
+        "name": "سارة الإدريسي",
+        "role": "مسؤولة التواصل",
+        "club": "Power Up",
+        "track": "الإعلام والهوية"
+      },
+      {
+        "name": "ياسين بنعلي",
+        "role": "مسؤول التحدي",
+        "club": "Mechatronics Trendz",
+        "track": "Innov'Dom"
+      },
+      {
+        "name": "سلمى آيت الحسن",
+        "role": "مسؤولة البرنامج",
+        "club": "IEC 4.0",
+        "track": "المتدخلون والجلسات"
+      }
+    ]
+  },
+  "comiteScientifique": {
+    "tag": "// الإشراف الأكاديمي",
+    "title": "اللجنة العلمية",
+    "subtitle": "أساتذة باحثون يضمنون الجودة العلمية والتوجيه البيداغوجي للمحتوى.",
+    "members": [
+      {
+        "name": "الأستاذ هشام حيحي",
+        "role": "رئيس اللجنة",
+        "club": "ENSA فاس",
+        "track": "GESI"
+      },
+      {
+        "name": "الأستاذ عبد المجيد الساكة",
+        "role": "عضو",
+        "club": "ENSA فاس",
+        "track": "GM"
+      },
+      {
+        "name": "الأستاذ محمد علي بولعيش",
+        "role": "عضو",
+        "club": "ENSA فاس",
+        "track": "GI"
+      },
+      {
+        "name": "الأستاذة ليلى بن كيران",
+        "role": "عضو",
+        "club": "ENSA فاس",
+        "track": "GMéca"
+      }
+    ]
+  }
+}

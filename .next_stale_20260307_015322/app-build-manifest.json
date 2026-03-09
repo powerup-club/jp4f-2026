@@ -1,0 +1,101 @@
+{
+  "pages": {
+    "/not-found": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/874-3bb74a6081bb4bd7.js",
+      "static/chunks/app/not-found-73e3b17cdafbc316.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/_not-found/page-2c5a5adf258927c2.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/css/1d2661d92c717242.css",
+      "static/chunks/app/layout-3b9f77ee49ea2ea0.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/page-3133337661c2698b.js"
+    ],
+    "/[locale]/layout": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/874-3bb74a6081bb4bd7.js",
+      "static/chunks/app/[locale]/layout-32aaf03748187f43.js"
+    ],
+    "/[locale]/competition/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/874-3bb74a6081bb4bd7.js",
+      "static/chunks/app/[locale]/competition/page-9e7892cfdb20a192.js"
+    ],
+    "/[locale]/comite-scientifique/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/[locale]/comite-scientifique/page-8ad5f0edefa72e24.js"
+    ],
+    "/[locale]/filieres/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/[locale]/filieres/page-2bffac2221b14773.js"
+    ],
+    "/[locale]/clubs/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/874-3bb74a6081bb4bd7.js",
+      "static/chunks/app/[locale]/clubs/page-cfe4bcb72f65ed74.js"
+    ],
+    "/[locale]/programme/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/[locale]/programme/page-3b76e6f7a46cc63c.js"
+    ],
+    "/[locale]/intervenants/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/[locale]/intervenants/page-f0afc85e0a89f9e4.js"
+    ],
+    "/[locale]/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/874-3bb74a6081bb4bd7.js",
+      "static/chunks/app/[locale]/page-42efc4910b5a7fdd.js"
+    ],
+    "/[locale]/comite/page": [
+      "static/chunks/webpack-f31df33bb324f744.js",
+      "static/chunks/4bd1b696-e6a523994589e18b.js",
+      "static/chunks/684-18f7fc791d46bc86.js",
+      "static/chunks/main-app-ea2f862c83fa32fb.js",
+      "static/chunks/app/[locale]/comite/page-75cf4902ca710091.js"
+    ]
+  }
+}

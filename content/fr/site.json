@@ -1,0 +1,606 @@
+{
+  "locale": "fr",
+  "meta": {
+    "languageLabel": "Français",
+    "siteName": "JP4F 2026",
+    "description": "Journées Pédagogiques des 4 Filières à l'ENSA Fès : programme, challenge Innov'Dom, intervenants et clubs organisateurs."
+  },
+  "navigation": [
+    {
+      "href": "/",
+      "label": "Accueil"
+    },
+    {
+      "href": "/programme",
+      "label": "Programme"
+    },
+    {
+      "href": "/filieres",
+      "label": "Filières"
+    },
+    {
+      "href": "/competition",
+      "label": "Challenge"
+    },
+    {
+      "href": "/intervenants",
+      "label": "Intervenants"
+    },
+    {
+      "href": "/clubs",
+      "label": "Clubs"
+    },
+    {
+      "href": "/comite",
+      "label": "Comité"
+    }
+  ],
+  "mobileNavigation": [
+    {
+      "href": "/",
+      "label": "Accueil",
+      "shortLabel": "Home"
+    },
+    {
+      "href": "/programme",
+      "label": "Programme",
+      "shortLabel": "Prog"
+    },
+    {
+      "href": "/filieres",
+      "label": "Filières",
+      "shortLabel": "Voies"
+    },
+    {
+      "href": "/competition",
+      "label": "Challenge",
+      "shortLabel": "Défi"
+    },
+    {
+      "href": "/clubs",
+      "label": "Clubs",
+      "shortLabel": "Clubs"
+    }
+  ],
+  "footer": {
+    "about": "JP4F rassemble les communautés GESI, GM, GI et GMéca autour d'une journée d'orientation, d'innovation et de networking industriel.",
+    "quickLinks": [
+      {
+        "label": "Programme",
+        "href": "/programme"
+      },
+      {
+        "label": "Filières",
+        "href": "/filieres"
+      },
+      {
+        "label": "Innov'Dom Challenge -Connecter à l'Avenir -",
+        "href": "/competition"
+      },
+      {
+        "label": "Intervenants",
+        "href": "/intervenants"
+      },
+      {
+        "label": "Comité scientifique",
+        "href": "/comite-scientifique"
+      }
+    ],
+    "clubs": [
+      {
+        "label": "PowerUP - 0624809871 - nouary.houssaine@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/company/club-powerup/",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz - 0640540978 - boustitiamine3@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+        "external": true
+      },
+      {
+        "label": "IEC - +212 631 207 295 - mahaelghzizal@gmail.com - LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+        "external": true
+      }
+    ],
+    "contacts": [
+      {
+        "label": "+212 5 35 60 82 14",
+        "href": "tel:+212535608214",
+        "external": true
+      },
+      {
+        "label": "Ecole Nationale des Sciences Appliquées, Avenue My Abdallah Km 5, Route d'Imouzzer, Fès. Maroc",
+        "href": "https://maps.google.com/?q=Ecole%20Nationale%20des%20Sciences%20Appliqu%C3%A9es%2C%20Avenue%20My%20Abdallah%20Km%205%2C%20Route%20d'Imouzzer%2C%20F%C3%A8s.%20Maroc",
+        "external": true
+      },
+      {
+        "label": "ensaf.ac.ma",
+        "href": "https://ensaf.ac.ma",
+        "external": true
+      },
+      {
+        "label": "PowerUP phone: 0624809871",
+        "href": "tel:0624809871",
+        "external": true
+      },
+      {
+        "label": "PowerUP email: nouary.houssaine@gmail.com",
+        "href": "mailto:nouary.houssaine@gmail.com",
+        "external": true
+      },
+      {
+        "label": "PowerUP LinkedIn",
+        "href": "https://www.linkedin.com/company/club-powerup/",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz phone: 0640540978",
+        "href": "tel:0640540978",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz email: boustitiamine3@gmail.com",
+        "href": "mailto:boustitiamine3@gmail.com",
+        "external": true
+      },
+      {
+        "label": "Mechatronics Trendz LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+        "external": true
+      },
+      {
+        "label": "IEC phone: +212 631 207 295",
+        "href": "tel:+212631207295",
+        "external": true
+      },
+      {
+        "label": "IEC email: mahaelghzizal@gmail.com",
+        "href": "mailto:mahaelghzizal@gmail.com",
+        "external": true
+      },
+      {
+        "label": "IEC LinkedIn",
+        "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+        "external": true
+      }
+    ],
+    "legal": "© 2026 ENSA Fès / USMBA. Tous droits réservés.",
+    "badges": [
+      "PowerUP",
+      "IEC",
+      "Mechatronics Trendz"
+    ]
+  },
+  "home": {
+    "tag": "// édition 2026",
+    "badge": "ENSA Fès · USMBA · Route Sefrou",
+    "title": "JP4F",
+    "titleAccent": "2026",
+    "subtitle": "Journées Pédagogiques des 4 Filières",
+    "slogan": "4 filières. 1 campus. Des projets qui passent à l'action.",
+    "primaryCta": {
+      "label": "Voir le programme",
+      "href": "/programme"
+    },
+    "secondaryCta": {
+      "label": "Participer à Innov'Dom",
+      "href": "/competition"
+    },
+    "countdownLabel": "Compte à rebours jusqu'au 17 avril 2026",
+    "dateLabel": "17 avril 2026",
+    "locationLabel": "Ecole Nationale des Sciences Appliquées, Avenue My Abdallah Km 5, Route d'Imouzzer, Fès. Maroc",
+    "challengeLabel": "Innov'Dom Challenge -Connecter à l'Avenir - Prix de 6 000 DH",
+    "clubsLabel": "PowerUP - IEC - Mechatronics Trendz",
+    "stats": [
+      {
+        "value": 2,
+        "label": "Journées"
+      },
+      {
+        "value": 4,
+        "label": "Filières"
+      },
+      {
+        "value": 5,
+        "label": "Conférences"
+      },
+      {
+        "value": 200,
+        "label": "Participants",
+        "suffix": "+"
+      }
+    ],
+    "filieresTag": "// 4 parcours",
+    "filieresTitle": "Choisis ta voie d'ingénieur",
+    "filieresSubtitle": "Découvre les spécialisations présentées pendant JP4F.",
+    "clubsTag": "// co-organisation",
+    "clubsTitle": "Les clubs qui portent JP4F",
+    "clubsSubtitle": "Trois équipes étudiantes alignées sur une seule vision.",
+    "challengeTag": "// inscriptions ouvertes",
+    "challengeTitle": "Prêt à pitcher ton idée ?",
+    "challengeSubtitle": "Rejoins Innov'Dom Challenge -Connecter à l'Avenir - et défends ta solution devant un jury académique et industriel."
+  },
+  "programme": {
+    "tag": "// programme officiel",
+    "title": "Le programme JP4F 2026",
+    "subtitle": "Deux journées de conférences, ateliers filières et sessions de networking.",
+    "day1Label": "Jour 1 - 17 avril 2026",
+    "day2Label": "Jour 2 - 18 avril 2026",
+    "day1": [
+      {
+        "time": "08:30",
+        "title": "Accueil et enregistrement",
+        "location": "Hall principal"
+      },
+      {
+        "time": "09:00",
+        "title": "Cérémonie d'ouverture",
+        "location": "Amphi principal"
+      },
+      {
+        "time": "09:30",
+        "title": "Conférence 1 : L'ingénieur de demain"
+      },
+      {
+        "time": "10:30",
+        "title": "Conférence 2 : Transition énergétique"
+      },
+      {
+        "time": "11:30",
+        "title": "Pause networking",
+        "location": "Agora"
+      },
+      {
+        "time": "12:00",
+        "title": "Ateliers filières GESI et GM",
+        "location": "Salles A/B"
+      },
+      {
+        "time": "14:00",
+        "title": "Ateliers filières GI et GMéca",
+        "location": "Salles A/B"
+      },
+      {
+        "time": "16:00",
+        "title": "Table ronde clubs/enseignants"
+      },
+      {
+        "time": "17:00",
+        "title": "Clôture journée 1"
+      }
+    ],
+    "day2": [
+      {
+        "time": "08:45",
+        "title": "Accueil jour 2",
+        "location": "Hall principal"
+      },
+      {
+        "time": "09:15",
+        "title": "Conférence 3 : IA et systèmes intelligents"
+      },
+      {
+        "time": "10:15",
+        "title": "Conférence 4 : Robotique et automatisation"
+      },
+      {
+        "time": "11:30",
+        "title": "Lancement officiel Innov'Dom Challenge -Connecter à l'Avenir -"
+      },
+      {
+        "time": "12:30",
+        "title": "Déjeuner",
+        "location": "Cafétéria"
+      },
+      {
+        "time": "14:00",
+        "title": "Pitchs des équipes - Phase finale"
+      },
+      {
+        "time": "15:30",
+        "title": "Délibération du jury"
+      },
+      {
+        "time": "16:15",
+        "title": "Remise des prix Innov'Dom"
+      },
+      {
+        "time": "17:00",
+        "title": "Mot de clôture"
+      }
+    ]
+  },
+  "filieres": {
+    "tag": "// orientation",
+    "title": "Les 4 filières à l'honneur",
+    "subtitle": "Un panorama clair des compétences et débouchés de chaque filière.",
+    "items": [
+      {
+        "code": "GESI",
+        "name": "Génie Énergétique et Systèmes Intelligents",
+        "summary": "Énergies renouvelables, automatisation énergétique, supervision intelligente.",
+        "color": "gesi"
+      },
+      {
+        "code": "GM",
+        "name": "Génie Mécanique",
+        "summary": "Conception, fabrication, maintenance et optimisation des systèmes mécaniques.",
+        "color": "gm"
+      },
+      {
+        "code": "GI",
+        "name": "Génie Industriel",
+        "summary": "Pilotage de production, qualité, supply chain et performance industrielle.",
+        "color": "gi"
+      },
+      {
+        "code": "GMéca",
+        "name": "Génie Mécatronique",
+        "summary": "Systèmes embarqués, robotique, instrumentation et intégration méca-élec-info.",
+        "color": "gmeca"
+      }
+    ]
+  },
+  "competition": {
+    "tag": "JESI'2025",
+    "title": "Innov'Dom Challenge",
+    "subtitle": "Dans le cadre de la Journée Énergétique et Systèmes Intelligents, l'ENSA de Fès organise une compétition ouverte aux jeunes étudiants et chercheurs Marocains et Étrangers.",
+    "statAxes": "Axes thématiques",
+    "statFormat": "Pitch oral",
+    "statDate": "Date de l'événement",
+    "statVenue": "Lieu",
+    "statIdeas": "Idées attendues",
+    "axesTitle": "Axes Thématiques",
+    "axes": [
+      "Habitat intelligent & domotique",
+      "Mobilité & transport intelligent",
+      "Gestion & optimisation énergétique",
+      "Digitalisation & systèmes intelligents",
+      "Impact transversal multi-secteurs"
+    ],
+    "eligibilityTitle": "Qui peut participer ?",
+    "eligibility": "Étudiants, chercheurs, start-ups et professionnels passionnés par l'innovation dans le domaine énergétique, électrique et ses applications transversales.",
+    "prizeTitle": "Prix & Récompenses",
+    "prizeAmount": "Cérémonie Officielle",
+    "prizeDescription": "Les meilleurs projets seront récompensés lors d'une cérémonie officielle organisée à l'ENSA de Fès, le Lundi 21 Avril 2025.",
+    "criteriaTitle": "Critères d'évaluation",
+    "criteria": [
+      "Innovation et originalité",
+      "Faisabilité technique et impact potentiel sur plusieurs secteurs",
+      "Clarté et qualité de la présentation",
+      "Pertinence par rapport aux enjeux de la digitalisation, de la domotique et de l'optimisation énergétique"
+    ],
+    "timelineTitle": "Calendrier",
+    "timeline": [
+      {
+        "date": "15 Avril 2025",
+        "text": "Date limite de dépôt des candidatures"
+      },
+      {
+        "date": "19 Avril 2025",
+        "text": "Date limite prolongée — dernier délai"
+      },
+      {
+        "date": "21 Avril 2025",
+        "text": "Journée JESI'2025 — Présentation & remise des prix à l'ENSA de Fès"
+      }
+    ],
+    "formats": [
+      "Pitch oral 5–10 min",
+      "Diaporama",
+      "Démonstration",
+      "Prototype",
+      "Réalité augmentée",
+      "Application interactive"
+    ],
+    "partners": [
+      "Power Up",
+      "Ingelec",
+      "Master Tec",
+      "ALTEN",
+      "RADEEF",
+      "UM5 Rabat",
+      "Capgemini",
+      "ANCCO"
+    ],
+    "contact": {
+      "name": "Pr. HIHI Hicham — ENSA Fès, Maroc",
+      "email": "hicham.hihi@usmba.ac.ma",
+      "phone": "06.00.30.12.76",
+      "site": "www.ensaf.ac.ma"
+    },
+    "registrationHeading": "Participez et partagez vos idées !",
+    "registrationLabel": "Soumettre ma candidature",
+    "registrationUrl": "https://forms.gle/N57ipJYXy6REBJs49",
+    "deadlineLabel": "Candidatures jusqu'au 19 Avril 2025"
+  },
+  "intervenants": {
+    "tag": "// experts",
+    "title": "Conférenciers et intervenants",
+    "subtitle": "Des profils académiques et industriels pour connecter formation et terrain.",
+    "speakers": [
+      {
+        "name": "Pr. Hicham HIHI",
+        "role": "Professeur PES - GESI",
+        "affiliation": "ENSA Fès / LISA",
+        "topic": "Systèmes de commande pour l'énergie renouvelable",
+        "image": "/images/intervenants/hihi.jpg"
+      },
+      {
+        "name": "Pr. Abdelmajid SAKA",
+        "role": "Professeur PES - Coordinateur GM",
+        "affiliation": "ENSA Fès / LISA",
+        "topic": "De la CAO à la robotique : trajectoire de l'ingénieur mécanique",
+        "image": "/images/intervenants/saka.jpg"
+      },
+      {
+        "name": "Pr. Mohammed Ali BOULAICH",
+        "role": "Professeur - Génie Industriel",
+        "affiliation": "ENSA Fès",
+        "topic": "Ingénierie industrielle et transformation des organisations",
+        "image": "/images/intervenants/boulaich.jpg"
+      },
+      {
+        "name": "Intervenant industriel (à confirmer)",
+        "role": "Expert invité",
+        "affiliation": "Écosystème Fès-Meknès",
+        "topic": "Retour d'expérience sur l'industrialisation de projets étudiants"
+      }
+    ]
+  },
+  "clubsPage": {
+    "tag": "// clubs organisateurs",
+    "title": "Les clubs organisateurs",
+    "subtitle": "Trois communautés étudiantes qui pilotent la logistique, la communication et le challenge.",
+    "clubs": [
+      {
+        "id": "powerup",
+        "name": "Power Up",
+        "tagline": "Club innovation énergétique",
+        "description": "Power Up forme les étudiants aux outils de prototypage rapide, gestion de projets et innovation appliquée à l'énergie.",
+        "logo": "/images/clubs/logo-powerup.png",
+        "phone": "0624809871",
+        "email": "nouary.houssaine@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/power_uuup",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/company/club-powerup/",
+            "external": true
+          },
+          {
+            "label": "Site",
+            "href": "https://nouary.github.io/Power-Up/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "id": "trenz",
+        "name": "Mechatronics Trendz",
+        "tagline": "Club robotique et automatisation",
+        "description": "Trendz accompagne les étudiants sur les systèmes mécatroniques, la robotique embarquée et l'ingénierie de contrôle.",
+        "logo": "/images/clubs/logo-trenz.png",
+        "phone": "0640540978",
+        "email": "boustitiamine3@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/mechatronicstrendz/",
+            "external": true
+          },
+          {
+            "label": "Facebook",
+            "href": "https://www.facebook.com/Mechatronicstrendz/",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/search/results/companies/?keywords=Mechatronics%20Trendz%20ENSA%20F%C3%A8s",
+            "external": true
+          }
+        ]
+      },
+      {
+        "id": "iec",
+        "name": "IEC 4.0",
+        "tagline": "Industrial Engineering Circle",
+        "description": "IEC 4.0 développe la culture amélioration continue, data industrielle et management de performance.",
+        "logo": "/images/clubs/logo-iec.png",
+        "phone": "+212631207295",
+        "email": "mahaelghzizal@gmail.com",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/iec4.0_ensaf",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/search/results/companies/?keywords=IEC%204.0%20ENSA%20F%C3%A8s",
+            "external": true
+          }
+        ]
+      }
+    ]
+  },
+  "comite": {
+    "tag": "// organisation",
+    "title": "Comité d'organisation",
+    "subtitle": "Une équipe inter-clubs responsable de l'exécution de JP4F.",
+    "members": [
+      {
+        "name": "Houssaine Nouary",
+        "role": "Président",
+        "club": "Power Up",
+        "track": "Coordination générale"
+      },
+      {
+        "name": "Amina Boustiti",
+        "role": "Vice-présidente",
+        "club": "Mechatronics Trendz",
+        "track": "Partenariats"
+      },
+      {
+        "name": "Maha El Ghzizal",
+        "role": "Responsable logistique",
+        "club": "IEC 4.0",
+        "track": "Site et opérations"
+      },
+      {
+        "name": "Sara El Idrissi",
+        "role": "Responsable communication",
+        "club": "Power Up",
+        "track": "Médias et branding"
+      },
+      {
+        "name": "Yassine Benali",
+        "role": "Responsable challenge",
+        "club": "Mechatronics Trendz",
+        "track": "Innov'Dom Challenge -Connecter à l'Avenir -"
+      },
+      {
+        "name": "Salma Ait Lahcen",
+        "role": "Responsable programme",
+        "club": "IEC 4.0",
+        "track": "Intervenants et sessions"
+      }
+    ]
+  },
+  "comiteScientifique": {
+    "tag": "// supervision académique",
+    "title": "Comité scientifique",
+    "subtitle": "Enseignants-chercheurs qui valident les contenus et l'orientation pédagogique.",
+    "members": [
+      {
+        "name": "Pr. Hicham HIHI",
+        "role": "Président du comité",
+        "club": "ENSA Fès",
+        "track": "GESI"
+      },
+      {
+        "name": "Pr. Abdelmajid SAKA",
+        "role": "Membre",
+        "club": "ENSA Fès",
+        "track": "GM"
+      },
+      {
+        "name": "Pr. Mohammed Ali BOULAICH",
+        "role": "Membre",
+        "club": "ENSA Fès",
+        "track": "GI"
+      },
+      {
+        "name": "Pr. Leila Benkirane",
+        "role": "Membre",
+        "club": "ENSA Fès",
+        "track": "GMéca"
+      }
+    ]
+  }
+}

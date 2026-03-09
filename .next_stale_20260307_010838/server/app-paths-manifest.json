@@ -1,0 +1,10 @@
+{
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/clubs/page": "app/[locale]/clubs/page.js",
+  "/[locale]/filieres/page": "app/[locale]/filieres/page.js",
+  "/[locale]/programme/page": "app/[locale]/programme/page.js",
+  "/[locale]/comite-scientifique/page": "app/[locale]/comite-scientifique/page.js",
+  "/[locale]/competition/page": "app/[locale]/competition/page.js",
+  "/[locale]/intervenants/page": "app/[locale]/intervenants/page.js",
+  "/[locale]/comite/page": "app/[locale]/comite/page.js"
+}

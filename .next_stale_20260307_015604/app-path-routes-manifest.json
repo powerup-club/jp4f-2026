@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/[locale]/clubs/page": "/[locale]/clubs",
+  "/[locale]/filieres/page": "/[locale]/filieres",
+  "/[locale]/competition/page": "/[locale]/competition",
+  "/[locale]/programme/page": "/[locale]/programme",
+  "/[locale]/comite-scientifique/page": "/[locale]/comite-scientifique",
+  "/[locale]/comite/page": "/[locale]/comite",
+  "/[locale]/page": "/[locale]",
+  "/[locale]/intervenants/page": "/[locale]/intervenants"
+}

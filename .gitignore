@@ -1,0 +1,23 @@
+﻿# dependencies
+node_modules
+
+# next.js
+.next
+out
+
+# tests
+playwright-report
+test-results
+coverage
+
+# env
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode
+.DS_Store
+
+# legacy
+package-lock.json

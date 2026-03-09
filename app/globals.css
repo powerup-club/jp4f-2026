@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-indigo: #6366f1;
+  --brand-violet: #8b5cf6;
+  --brand-pink: #ec4899;
+  --brand-rose: #f43f5e;
+  --brand-orange: #f97316;
+  --neutral-light: #e5e7eb;
+  --neutral-dark: #1f2937;
+
+  --ink: #1f2937;
+  --paper: #f2f4f8;
+  --panel: rgba(255, 255, 255, 0.84);
+  --panel-strong: rgba(255, 255, 255, 0.95);
+  --panel-muted: rgba(229, 231, 235, 0.86);
+  --edge: rgba(249, 115, 22, 0.58);
+  --accent: var(--brand-orange);
+  --accent2: var(--brand-pink);
+  --signal: var(--brand-indigo);
+  --violet: var(--brand-violet);
+  --rose: var(--brand-rose);
+  --color-ink: var(--ink);
+  --card-outline: rgba(249, 115, 22, 0.92);
+  --card-outline-soft: rgba(249, 115, 22, 0.44);
+  --card-shape: polygon(
+    0 14%,
+    0 6%,
+    2% 2%,
+    6% 0,
+    80% 0,
+    84% 1%,
+    88% 5%,
+    98% 22%,
+    100% 30%,
+    100% 84%,
+    99% 90%,
+    97% 96%,
+    92% 99%,
+    86% 100%,
+    20% 100%,
+    14% 99%,
+    9% 97%,
+    2% 88%,
+    0 80%
+  );
+
+  --theme-layer:
+    radial-gradient(circle at 14% -6%, rgba(139, 92, 246, 0.16), transparent 36%),
+    radial-gradient(circle at 92% 0%, rgba(249, 115, 22, 0.14), transparent 34%),
+    linear-gradient(160deg, #f8fafc 0%, #f2f4f8 52%, #edf1f5 100%);
+  --theme-pattern: url("data:image/svg+xml,%3Csvg width='76' height='46' viewBox='0 0 76 46' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4.5' y='8.5' width='67' height='29' rx='9' fill='none' stroke='%23cfd5dd' stroke-width='1.1'/%3E%3C/svg%3E");
+  --theme-pattern-opacity: 0.62;
+}
+
+html[data-theme="dark"] {
+  --ink: #e5e7eb;
+  --paper: #101827;
+  --panel: rgba(23, 34, 58, 0.84);
+  --panel-strong: rgba(31, 41, 55, 0.94);
+  --panel-muted: rgba(31, 41, 55, 0.86);
+  --edge: rgba(139, 92, 246, 0.58);
+  --accent: var(--brand-orange);
+  --accent2: var(--brand-pink);
+  --signal: var(--brand-violet);
+  --violet: var(--brand-indigo);
+  --rose: var(--brand-rose);
+  --card-outline: rgba(249, 115, 22, 0.88);
+  --card-outline-soft: rgba(249, 115, 22, 0.52);
+
+  --theme-layer:
+    radial-gradient(circle at 14% -6%, rgba(139, 92, 246, 0.32), transparent 36%),
+    radial-gradient(circle at 92% 0%, rgba(249, 115, 22, 0.2), transparent 34%),
+    linear-gradient(160deg, #0f1728 0%, #17223a 52%, #1f2937 100%);
+  --theme-pattern: url("data:image/svg+xml,%3Csvg width='76' height='46' viewBox='0 0 76 46' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4.5' y='8.5' width='67' height='29' rx='9' fill='none' stroke='%233f4b61' stroke-width='1.1'/%3E%3C/svg%3E");
+  --theme-pattern-opacity: 0.44;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  @apply font-body text-ink antialiased;
+  position: relative;
+  background-color: var(--paper);
+  background-image: var(--theme-layer);
+  letter-spacing: 0.01em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: var(--theme-pattern);
+  background-size: 76px 46px;
+  opacity: var(--theme-pattern-opacity);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-teko), sans-serif;
+  letter-spacing: 0.03em;
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.28);
+  color: var(--ink);
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.outlined-cut-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3rem;
+  border: 1px solid var(--card-outline-soft);
+  clip-path: var(--card-shape);
+}
+
+.outlined-cut-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1.5px solid var(--card-outline);
+  border-radius: inherit;
+  clip-path: var(--card-shape);
+}
+
+.glass-card {
+  @apply relative overflow-hidden shadow-card backdrop-blur-xl;
+  border: 1px solid var(--card-outline-soft);
+  border-radius: 3rem;
+  background: linear-gradient(142deg, var(--panel-strong) 0%, var(--panel) 58%, var(--panel-muted) 100%);
+  clip-path: var(--card-shape);
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(130deg, rgba(99, 102, 241, 0.1), transparent 35%, rgba(249, 115, 22, 0.1)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04));
+}
+
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1.5px solid var(--card-outline);
+  border-radius: inherit;
+  clip-path: var(--card-shape);
+}
+
+.badge-line {
+  @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em];
+  font-family: var(--font-teko), sans-serif;
+  border: 1px solid rgba(249, 115, 22, 0.58);
+  background: linear-gradient(120deg, rgba(99, 102, 241, 0.14), rgba(236, 72, 153, 0.14));
+}
+
+.gradient-title {
+  background-image: linear-gradient(
+    90deg,
+    var(--signal) 0%,
+    var(--violet) 35%,
+    var(--accent2) 70%,
+    var(--accent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.team-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(249, 115, 22, 0.48) transparent;
+}
+
+.team-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.team-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(249, 115, 22, 0.42);
+}
+
+.team-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.65);
+}
+
+[data-locale-dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+[data-locale-dir="rtl"] .hero-grid,
+[data-locale-dir="rtl"] .auto-grid {
+  direction: rtl;
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

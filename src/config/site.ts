@@ -1,0 +1,5 @@
+﻿export const EVENT_DATE_ISO = "2026-04-17T08:30:00+01:00";
+export const EVENT_LOCATION = "Ecole Nationale des Sciences Appliquées, Avenue My Abdallah Km 5, Route d'Imouzzer, Fès. Maroc";
+export const EVENT_TITLE = "JP4F 2026";
+export const CHALLENGE_REGISTRATION_URL = "https://forms.gle/JP4F-Innov4-Registration";
+export const OG_IMAGE = "/images/powerup-banner.png";
