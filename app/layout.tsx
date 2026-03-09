@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Rajdhani, Teko } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const metadataBase = process.env.NEXT_PUBLIC_SITE_URL
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" suppressHydrationWarning data-theme="light">
       <body className={`${display.variable} ${body.variable}`}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
