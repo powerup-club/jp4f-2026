@@ -24,3 +24,11 @@ package-lock.json
 
 #env
 .env.local
+.env.local copy.example
+.env.local.example
+
+node_modules/
+node_modules copy/
+.env
+.env.local
+.next/
