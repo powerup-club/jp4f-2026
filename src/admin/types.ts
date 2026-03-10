@@ -8,7 +8,14 @@ export interface AdminDataSetup {
 }
 
 export interface AdminApiError {
-  code: "unauthorized" | "forbidden" | "invalid_type" | "missing_config" | "upstream_failed" | "invalid_payload";
+  code:
+    | "unauthorized"
+    | "forbidden"
+    | "invalid_type"
+    | "missing_config"
+    | "upstream_failed"
+    | "invalid_payload"
+    | "database_error";
   message: string;
   details?: string;
 }

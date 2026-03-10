@@ -1,6 +1,8 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import type { ApplicantApplicationRecord } from "@/applicant/types";
 import type { SiteLocale } from "@/config/locales";
 
 type ParticipationType = "individual" | "team";
@@ -363,20 +365,43 @@ interface CompetitionRegisterFormProps {
   locale: SiteLocale;
   initialFullName?: string;
   initialEmail?: string;
+  initialApplication?: ApplicantApplicationRecord | null;
+  successRedirectPath?: string | null;
 }
 
 export function CompetitionRegisterForm({
   locale,
   initialFullName = "",
-  initialEmail = ""
+  initialEmail = "",
+  initialApplication = null,
+  successRedirectPath = null
 }: CompetitionRegisterFormProps) {
   const copy = COPY[locale];
   const isRtl = locale === "ar";
-  const defaultFullName = initialFullName.trim();
-  const defaultEmail = initialEmail.trim().toLowerCase();
+  const router = useRouter();
+  const defaultFullName = (initialApplication?.contactFullName || initialFullName).trim();
+  const defaultEmail = (initialApplication?.contactEmail || initialEmail).trim().toLowerCase();
+  const defaultMode = initialApplication?.participationType === "team" ? "team" : "individual";
+  const defaultPhone = initialApplication?.phone ?? "";
+  const defaultUniversity = initialApplication?.university ?? "";
+  const defaultBranch = initialApplication?.branch ?? "";
+  const defaultYearOfStudy = initialApplication?.yearOfStudy ?? "";
+  const defaultLinkedin = initialApplication?.linkedin ?? "";
+  const defaultTeamName = initialApplication?.teamName ?? "";
+  const defaultTeamMembers = [
+    initialApplication?.teamMembers?.[0] ?? { name: "", email: "" },
+    initialApplication?.teamMembers?.[1] ?? { name: "", email: "" },
+    initialApplication?.teamMembers?.[2] ?? { name: "", email: "" }
+  ];
+  const defaultProjectTitle = initialApplication?.projectTitle ?? "";
+  const defaultProjectDomain = initialApplication?.projectDomain ?? "";
+  const defaultProjectDesc = initialApplication?.projectDesc ?? "";
+  const defaultInnovation = initialApplication?.innovation ?? "";
+  const defaultDemoFormat = initialApplication?.demoFormat ?? "";
+  const defaultHeardFrom = initialApplication?.heardFrom ?? "";
 
   const [step, setStep] = useState(0);
-  const [mode, setMode] = useState<ParticipationType>("individual");
+  const [mode, setMode] = useState<ParticipationType>(defaultMode);
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -385,25 +410,21 @@ export function CompetitionRegisterForm({
 
   const [fullName, setFullName] = useState(defaultFullName);
   const [email, setEmail] = useState(defaultEmail);
-  const [phone, setPhone] = useState("");
-  const [university, setUniversity] = useState("");
-  const [branch, setBranch] = useState("");
-  const [yearOfStudy, setYearOfStudy] = useState("");
-  const [linkedin, setLinkedin] = useState("");
+  const [phone, setPhone] = useState(defaultPhone);
+  const [university, setUniversity] = useState(defaultUniversity);
+  const [branch, setBranch] = useState(defaultBranch);
+  const [yearOfStudy, setYearOfStudy] = useState(defaultYearOfStudy);
+  const [linkedin, setLinkedin] = useState(defaultLinkedin);
 
-  const [teamName, setTeamName] = useState("");
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
-    { name: "", email: "" },
-    { name: "", email: "" },
-    { name: "", email: "" }
-  ]);
+  const [teamName, setTeamName] = useState(defaultTeamName);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(defaultTeamMembers);
 
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectDomain, setProjectDomain] = useState("");
-  const [projectDesc, setProjectDesc] = useState("");
-  const [innovation, setInnovation] = useState("");
-  const [demoFormat, setDemoFormat] = useState("");
-  const [heardFrom, setHeardFrom] = useState("");
+  const [projectTitle, setProjectTitle] = useState(defaultProjectTitle);
+  const [projectDomain, setProjectDomain] = useState(defaultProjectDomain);
+  const [projectDesc, setProjectDesc] = useState(defaultProjectDesc);
+  const [innovation, setInnovation] = useState(defaultInnovation);
+  const [demoFormat, setDemoFormat] = useState(defaultDemoFormat);
+  const [heardFrom, setHeardFrom] = useState(defaultHeardFrom);
 
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
@@ -591,6 +612,12 @@ export function CompetitionRegisterForm({
         setSubmitNote(copy.skippedSave);
       }
 
+      if (successRedirectPath) {
+        router.push(successRedirectPath);
+        router.refresh();
+        return;
+      }
+
       setDone(true);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : copy.submitError);
@@ -601,7 +628,7 @@ export function CompetitionRegisterForm({
 
   const restart = () => {
     setStep(0);
-    setMode("individual");
+    setMode(defaultMode);
     setDone(false);
     setSubmitting(false);
     setErrors({});
@@ -609,23 +636,19 @@ export function CompetitionRegisterForm({
     setSubmitNote(null);
     setFullName(defaultFullName);
     setEmail(defaultEmail);
-    setPhone("");
-    setUniversity("");
-    setBranch("");
-    setYearOfStudy("");
-    setLinkedin("");
-    setTeamName("");
-    setTeamMembers([
-      { name: "", email: "" },
-      { name: "", email: "" },
-      { name: "", email: "" }
-    ]);
-    setProjectTitle("");
-    setProjectDomain("");
-    setProjectDesc("");
-    setInnovation("");
-    setDemoFormat("");
-    setHeardFrom("");
+    setPhone(defaultPhone);
+    setUniversity(defaultUniversity);
+    setBranch(defaultBranch);
+    setYearOfStudy(defaultYearOfStudy);
+    setLinkedin(defaultLinkedin);
+    setTeamName(defaultTeamName);
+    setTeamMembers(defaultTeamMembers);
+    setProjectTitle(defaultProjectTitle);
+    setProjectDomain(defaultProjectDomain);
+    setProjectDesc(defaultProjectDesc);
+    setInnovation(defaultInnovation);
+    setDemoFormat(defaultDemoFormat);
+    setHeardFrom(defaultHeardFrom);
     clearFile();
   };
 
@@ -1031,9 +1054,21 @@ export function CompetitionRegisterForm({
             <input ref={fileInputRef} type="file" className="hidden" accept=".pdf,.doc,.docx,.ppt,.pptx" onChange={handleFile} />
 
             {!file ? (
-              <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full rounded border border-dashed px-4 py-6 text-center" style={{ borderColor: "var(--rf-accent)", background: "var(--rf-accent-soft)", color: "var(--rf-accent)" }}>
-                {copy.fileChoose}
-              </button>
+              <div className="space-y-3">
+                <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full rounded border border-dashed px-4 py-6 text-center" style={{ borderColor: "var(--rf-accent)", background: "var(--rf-accent-soft)", color: "var(--rf-accent)" }}>
+                  {copy.fileChoose}
+                </button>
+                {initialApplication?.fileName ? (
+                  <div className="rounded border p-3" style={{ borderColor: "var(--rf-line)" }}>
+                    <p className="text-xs" style={{ color: "var(--rf-muted)" }}>
+                      {copy.fileSelected}
+                    </p>
+                    <p className="text-sm" style={{ color: "var(--rf-text)" }}>
+                      {initialApplication.fileName}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
             ) : (
               <div className="rounded border p-3" style={{ borderColor: "var(--rf-line)" }}>
                 <p className="text-xs" style={{ color: "var(--rf-muted)" }}>

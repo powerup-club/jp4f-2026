@@ -44,6 +44,10 @@
   ],
   "exclude": [
     "node_modules",
-    "admin-dashboard"
+    "admin-dashboard",
+    "portal",
+    "app copy",
+    ".next copy",
+    "node_modules copy"
   ]
 }

@@ -75,4 +75,31 @@ describe("admin data route", () => {
     expect(payload.total).toBe(1);
     expect(fetchAdminDataMock).toHaveBeenCalledWith("register");
   });
+
+  it("maps database errors to a 500 response", async () => {
+    authMock.mockResolvedValue({ user: { email: "admin@example.com" } });
+    fetchAdminDataMock.mockResolvedValue({
+      ok: false,
+      type: "register",
+      rows: [],
+      total: 0,
+      fetchedAt: "2026-03-09T10:00:00.000Z",
+      setup: {
+        ready: true,
+        secretConfigured: true,
+        sourceConfigured: true,
+        issues: []
+      },
+      error: {
+        code: "database_error",
+        message: "Impossible de lire les donnees Neon"
+      }
+    });
+
+    const response = await GET(new Request("http://localhost/api/admin/data?type=register"));
+    const payload = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(payload.error.code).toBe("database_error");
+  });
 });

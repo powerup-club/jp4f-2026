@@ -92,7 +92,9 @@ export async function GET(request: Request) {
     const status =
       response.error.code === "missing_config"
         ? 503
-        : response.error.code === "invalid_payload" || response.error.code === "upstream_failed"
+        : response.error.code === "database_error"
+          ? 500
+          : response.error.code === "invalid_payload" || response.error.code === "upstream_failed"
           ? 502
           : 400;
 

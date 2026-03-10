@@ -8,6 +8,10 @@ export function getApplicantDatabaseUrl(): string {
   return cleanEnv(process.env.DATABASE_URL);
 }
 
+export function getApplicantContactScriptUrl(): string {
+  return cleanEnv(process.env.GOOGLE_SCRIPT_URL_CONTACT_RESPONSIBLE);
+}
+
 export function getApplicantPersistenceSetup(): ApplicantPersistenceSetup {
   const issues: string[] = [];
 

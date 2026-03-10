@@ -262,11 +262,14 @@ async function saveQuiz(payload: {
   lang: QuizLocale;
   branch: QuizBranch;
   profile: string;
+  description: string;
+  tagline: string;
+  why: string;
   history: QuizHistoryEntry[];
   rating: number;
   comment: string;
-}) {
-  const response = await fetch("/api/quiz/save", {
+}, endpoint: string) {
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -280,15 +283,23 @@ async function saveQuiz(payload: {
 
 interface OrientationQuizProps {
   locale: QuizLocale;
+  saveEndpoint?: string;
+  initialFirstName?: string;
+  initialLastName?: string;
 }
 
-export function OrientationQuiz({ locale }: OrientationQuizProps) {
+export function OrientationQuiz({
+  locale,
+  saveEndpoint = "/api/quiz/save",
+  initialFirstName = "",
+  initialLastName = ""
+}: OrientationQuizProps) {
   const copy = COPY[locale];
   const isRtl = locale === "ar";
 
   const [phase, setPhase] = useState<QuizPhase>("intro");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState(initialFirstName);
+  const [lastName, setLastName] = useState(initialLastName);
   const [nameError, setNameError] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [question, setQuestion] = useState<QuizQuestion | null>(null);
@@ -403,10 +414,13 @@ export function OrientationQuiz({ locale }: OrientationQuizProps) {
         lang: locale,
         branch: result.branch,
         profile: result.profile,
+        description: result.description,
+        tagline: result.tagline,
+        why: result.why,
         history,
         rating,
         comment
-      });
+      }, saveEndpoint);
       setPhase("done");
     } catch {
       setError(copy.saveError);
@@ -417,8 +431,8 @@ export function OrientationQuiz({ locale }: OrientationQuizProps) {
 
   const resetQuiz = () => {
     setPhase("intro");
-    setFirstName("");
-    setLastName("");
+    setFirstName(initialFirstName);
+    setLastName(initialLastName);
     setNameError(false);
     setMessages([]);
     setQuestion(null);

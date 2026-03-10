@@ -117,9 +117,9 @@ describe("AdminDashboardClient", () => {
           fetchedAt: "2026-03-09T10:00:00.000Z",
           setup: {
             ready: false,
-            secretConfigured: false,
+            secretConfigured: true,
             sourceConfigured: false,
-            issues: ["ADMIN_DATA_SECRET manquant"]
+            issues: ["DATABASE_URL manquant pour le dashboard admin"]
           },
           error: {
             code: "missing_config",
@@ -150,6 +150,6 @@ describe("AdminDashboardClient", () => {
       expect(screen.getByText("Source inscriptions")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("ADMIN_DATA_SECRET manquant")).toBeInTheDocument();
+    expect(screen.getByText("DATABASE_URL manquant pour le dashboard admin")).toBeInTheDocument();
   });
 });

@@ -1,43 +1,53 @@
 import { auth } from "@/auth";
 import { getApplicantPersistenceSetup } from "@/applicant/config";
 import { saveApplicantApplication } from "@/applicant/data";
-import { buildApplicantSaveInput, type ApplicantFormPayload } from "@/applicant/types";
+import { buildApplicantSaveInput, type ApplicantFileStorage, type ApplicantFormPayload } from "@/applicant/types";
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function toPersistedFileLink(value: unknown): string {
+  const fileLink = text(value);
+  return /^https?:\/\//i.test(fileLink) ? fileLink : "";
 }
 
 export async function POST(request: Request) {
   let body: ApplicantFormPayload | null = null;
   let sessionEmail = "";
   let sessionName = "";
+  let submittedAt: string | null = null;
+  let hasPersistedApplication = false;
+  const persistenceSetup = getApplicantPersistenceSetup();
 
   async function persistApplication(options: {
-    status: "draft" | "submitted";
+    status: "submitted";
     sheetSyncStatus: "pending" | "synced" | "skipped" | "failed";
     sheetSyncMessage?: string;
     submittedAt?: string | null;
     lastSyncedAt?: string | null;
+    fileUrl?: string | null;
+    fileStorage?: ApplicantFileStorage | null;
   }) {
-    if (!body || !sessionEmail || !getApplicantPersistenceSetup().ready) {
-      return;
+    if (!body || !sessionEmail || !persistenceSetup.ready) {
+      throw new Error("Applicant persistence is not configured");
     }
 
-    try {
-      await saveApplicantApplication(
-        buildApplicantSaveInput(body, {
-          accountEmail: sessionEmail,
-          accountName: sessionName,
-          status: options.status,
-          sheetSyncStatus: options.sheetSyncStatus,
-          sheetSyncMessage: options.sheetSyncMessage,
-          submittedAt: options.submittedAt,
-          lastSyncedAt: options.lastSyncedAt
-        })
-      );
-    } catch {
-      // Sheets submission remains the source of truth for this route.
-    }
+    const record = await saveApplicantApplication(
+      buildApplicantSaveInput(body, {
+        accountEmail: sessionEmail,
+        accountName: sessionName,
+        status: options.status,
+        sheetSyncStatus: options.sheetSyncStatus,
+        sheetSyncMessage: options.sheetSyncMessage,
+        submittedAt: options.submittedAt,
+        lastSyncedAt: options.lastSyncedAt,
+        fileUrlOverride: options.fileUrl,
+        fileStorageOverride: options.fileStorage
+      })
+    );
+    hasPersistedApplication = true;
+    return record;
   }
 
   try {
@@ -49,22 +59,35 @@ export async function POST(request: Request) {
     sessionEmail = session.user.email;
     sessionName = session.user.name?.trim() ?? "";
     body = (await request.json()) as ApplicantFormPayload;
+    if (!persistenceSetup.ready) {
+      return Response.json(
+        { error: "Applicant persistence is not configured", setup: persistenceSetup },
+        { status: 503 }
+      );
+    }
+
     const scriptUrl = process.env.GOOGLE_SCRIPT_URL_REGISTER ?? process.env.GOOGLE_SCRIPT_URL;
+    submittedAt = new Date().toISOString();
 
     if (!scriptUrl) {
-      const syncedAt = new Date().toISOString();
       await persistApplication({
         status: "submitted",
         sheetSyncStatus: "skipped",
         sheetSyncMessage: "GOOGLE_SCRIPT_URL_REGISTER manquant",
-        submittedAt: syncedAt,
-        lastSyncedAt: syncedAt
+        submittedAt,
+        lastSyncedAt: submittedAt
       });
       return Response.json({ success: true, skipped: true });
     }
 
+    await persistApplication({
+      status: "submitted",
+      sheetSyncStatus: "pending",
+      submittedAt
+    });
+
     const mappedPayload = {
-      timestamp: new Date().toISOString(),
+      timestamp: submittedAt,
       lang: text(body.lang),
       type: text(body.type),
       fullName: text(body.fullName),
@@ -105,20 +128,24 @@ export async function POST(request: Request) {
           || text((data as { error?: unknown; message?: unknown }).message)
           || "Upstream save failed";
         await persistApplication({
-          status: "draft",
+          status: "submitted",
           sheetSyncStatus: "failed",
           sheetSyncMessage: message,
+          submittedAt,
           lastSyncedAt: new Date().toISOString()
         });
         return Response.json(data, { status: 502 });
       }
 
       const syncedAt = new Date().toISOString();
+      const fileLink = toPersistedFileLink((data as { fileLink?: unknown }).fileLink);
       await persistApplication({
         status: "submitted",
         sheetSyncStatus: "synced",
-        submittedAt: syncedAt,
-        lastSyncedAt: syncedAt
+        submittedAt,
+        lastSyncedAt: syncedAt,
+        fileUrl: fileLink || undefined,
+        fileStorage: fileLink ? "google_script_only" : undefined
       });
       return Response.json(data, { status: 200 });
     }
@@ -126,9 +153,10 @@ export async function POST(request: Request) {
     const raw = await upstream.text().catch(() => "");
     if (!upstream.ok) {
       await persistApplication({
-        status: "draft",
+        status: "submitted",
         sheetSyncStatus: "failed",
         sheetSyncMessage: raw.slice(0, 220) || "Upstream save failed",
+        submittedAt,
         lastSyncedAt: new Date().toISOString()
       });
       return Response.json({ error: "Upstream save failed", details: raw.slice(0, 220) }, { status: 502 });
@@ -138,18 +166,25 @@ export async function POST(request: Request) {
     await persistApplication({
       status: "submitted",
       sheetSyncStatus: "synced",
-      submittedAt: syncedAt,
+      submittedAt,
       lastSyncedAt: syncedAt
     });
     return Response.json({ success: true, raw: raw.slice(0, 220) });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Register failed";
-    await persistApplication({
-      status: "draft",
-      sheetSyncStatus: "failed",
-      sheetSyncMessage: message,
-      lastSyncedAt: new Date().toISOString()
-    });
+    if (hasPersistedApplication && body && sessionEmail && persistenceSetup.ready) {
+      try {
+        await persistApplication({
+          status: "submitted",
+          sheetSyncStatus: "failed",
+          sheetSyncMessage: message,
+          submittedAt,
+          lastSyncedAt: new Date().toISOString()
+        });
+      } catch {
+        // Preserve the original failure when the fallback write also fails.
+      }
+    }
     return Response.json({ error: message }, { status: 500 });
   }
 }

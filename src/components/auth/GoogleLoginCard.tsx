@@ -54,8 +54,8 @@ function copyForMode(mode: LoginMode) {
       "Connexion Google pour preparer le futur espace candidat, le suivi de dossier et les echanges.",
     submitLabel: "Se connecter avec Google",
     footerNote: "Base de l'espace candidat en cours de mise en place.",
-    returnHref: "/fr/competition/register",
-    returnLabel: "Retour au formulaire"
+    returnHref: "/fr/application",
+    returnLabel: "Retour au portail"
   };
 }
 

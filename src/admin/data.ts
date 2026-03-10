@@ -1,4 +1,5 @@
-import { getAdminDataSecret, getAdminDataSetup, getGoogleScriptUrl } from "@/admin/config";
+import { neon } from "@neondatabase/serverless";
+import { getAdminDataSetup } from "@/admin/config";
 import type {
   AdminApiError,
   AdminDataResponse,
@@ -7,8 +8,27 @@ import type {
   AdminQuizRow,
   AdminRegistrationRow
 } from "@/admin/types";
+import { getApplicantDatabaseUrl } from "@/applicant/config";
+import { getApplicantErrorDetails } from "@/applicant/errors";
 
 type RawRow = Record<string, unknown>;
+
+let cachedUrl = "";
+let cachedSql: ReturnType<typeof neon> | null = null;
+
+function getSql() {
+  const url = getApplicantDatabaseUrl();
+  if (!url) {
+    return null;
+  }
+
+  if (!cachedSql || cachedUrl !== url) {
+    cachedSql = neon(url);
+    cachedUrl = url;
+  }
+
+  return cachedSql;
+}
 
 function canonicalizeKey(key: string): string {
   return key
@@ -60,6 +80,26 @@ function normalizeRating(value: string): number {
     return 0;
   }
   return Math.max(0, Math.min(5, parsed));
+}
+
+function splitFullName(fullName: string): { firstName: string; lastName: string } {
+  const parts = fullName
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (parts.length === 0) {
+    return { firstName: "", lastName: "" };
+  }
+
+  if (parts.length === 1) {
+    return { firstName: parts[0], lastName: "" };
+  }
+
+  return {
+    firstName: parts[0],
+    lastName: parts.slice(1).join(" ")
+  };
 }
 
 export function normalizeRegistrationRow(row: RawRow): AdminRegistrationRow {
@@ -116,19 +156,6 @@ function createError(
   };
 }
 
-function toRowsPayload(payload: unknown): RawRow[] | null {
-  if (!payload || typeof payload !== "object" || !("rows" in payload)) {
-    return null;
-  }
-
-  const rows = (payload as { rows?: unknown }).rows;
-  if (!Array.isArray(rows)) {
-    return null;
-  }
-
-  return rows.filter((row): row is RawRow => Boolean(row && typeof row === "object"));
-}
-
 export async function fetchAdminData(
   type: "register"
 ): Promise<AdminDataResponse<AdminRegistrationRow>>;
@@ -147,59 +174,92 @@ export async function fetchAdminData(
     });
   }
 
-  const scriptUrl = getGoogleScriptUrl(type);
-  const secret = getAdminDataSecret();
-  const url = new URL(scriptUrl);
-  url.searchParams.set("action", "getData");
-  url.searchParams.set("secret", secret);
+  const sql = getSql();
+  if (!sql) {
+    return createError(type, setup, {
+      code: "missing_config",
+      message: "Configuration admin incomplete",
+      details: setup.issues.join(", ")
+    });
+  }
 
-  let upstreamResponse: Response;
   try {
-    upstreamResponse = await fetch(url, {
-      method: "GET",
-      cache: "no-store"
-    });
-  } catch (error) {
-    return createError(type, setup, {
-      code: "upstream_failed",
-      message: "Impossible de joindre Google Apps Script",
-      details: error instanceof Error ? error.message : undefined
-    });
-  }
+    if (type === "quiz") {
+      const rawRows = (await sql`
+        WITH latest_quiz AS (
+          SELECT DISTINCT ON (quiz.application_id)
+            quiz.application_id,
+            quiz.created_at AS "timestamp",
+            quiz.locale AS "lang",
+            quiz.branch AS "branch",
+            quiz.profile AS "profile",
+            quiz.rating AS "rating",
+            quiz.comment AS "comment",
+            COALESCE(
+              NULLIF(app.contact_full_name, ''),
+              NULLIF(app.account_name, ''),
+              NULLIF(app.contact_email, ''),
+              NULLIF(app.account_email, '')
+            ) AS "fullName"
+          FROM application_quiz_attempts AS quiz
+          INNER JOIN applicant_applications AS app
+            ON app.id = quiz.application_id
+          ORDER BY quiz.application_id, quiz.created_at DESC, quiz.id DESC
+        )
+        SELECT "timestamp", "lang", "branch", "profile", "rating", "comment", "fullName"
+        FROM latest_quiz
+        ORDER BY "timestamp" DESC NULLS LAST, application_id DESC
+      `) as RawRow[];
 
-  let payload: unknown;
-  try {
-    payload = await upstreamResponse.json();
-  } catch {
-    return createError(type, setup, {
-      code: "invalid_payload",
-      message: "La reponse Apps Script n'est pas un JSON valide"
-    });
-  }
+      const rows = rawRows.map((row) => {
+        const index = toIndex(row);
+        const names = splitFullName(pick(index, ["fullName", "fullname", "name", "nom"]));
 
-  if (!upstreamResponse.ok) {
-    const details =
-      payload && typeof payload === "object" && "error" in payload
-        ? String((payload as { error?: unknown }).error ?? "")
-        : upstreamResponse.statusText;
+        return normalizeQuizRow({
+          timestamp: pick(index, ["timestamp", "date", "createdAt", "createdat"]),
+          firstName: names.firstName,
+          lastName: names.lastName,
+          lang: pick(index, ["lang", "language", "langue"]),
+          branch: pick(index, ["branch", "filiere", "track"]),
+          profile: pick(index, ["profile", "profil"]),
+          rating: pick(index, ["rating", "note", "stars"]),
+          comment: pick(index, ["comment", "commentaire", "feedback"])
+        });
+      });
 
-    return createError(type, setup, {
-      code: "upstream_failed",
-      message: "Apps Script a retourne une erreur",
-      details
-    });
-  }
+      return {
+        ok: true,
+        type,
+        rows,
+        total: rows.length,
+        fetchedAt: new Date().toISOString(),
+        setup
+      };
+    }
 
-  const rawRows = toRowsPayload(payload);
-  if (!rawRows) {
-    return createError(type, setup, {
-      code: "invalid_payload",
-      message: "Le format de reponse Apps Script est invalide"
-    });
-  }
+    const rawRows = (await sql`
+      SELECT
+        COALESCE(submitted_at, updated_at, created_at) AS "timestamp",
+        locale AS "lang",
+        participation_type AS "type",
+        COALESCE(NULLIF(contact_full_name, ''), NULLIF(account_name, '')) AS "fullName",
+        COALESCE(NULLIF(contact_email, ''), NULLIF(account_email, '')) AS "email",
+        phone AS "phone",
+        university AS "university",
+        branch AS "branch",
+        year_of_study AS "yearOfStudy",
+        team_name AS "teamName",
+        project_title AS "projTitle",
+        project_domain AS "projDomain",
+        demo_format AS "demoFormat",
+        heard_from AS "heardFrom",
+        file_url AS "fileLink"
+      FROM applicant_applications
+      WHERE status = 'submitted'
+      ORDER BY COALESCE(submitted_at, updated_at, created_at) DESC NULLS LAST, id DESC
+    `) as RawRow[];
 
-  if (type === "quiz") {
-    const rows = rawRows.map(normalizeQuizRow);
+    const rows = rawRows.map(normalizeRegistrationRow);
     return {
       ok: true,
       type,
@@ -208,15 +268,12 @@ export async function fetchAdminData(
       fetchedAt: new Date().toISOString(),
       setup
     };
+  } catch (error) {
+    const details = getApplicantErrorDetails(error);
+    return createError(type, setup, {
+      code: "database_error",
+      message: "Impossible de lire les donnees Neon",
+      details: details.message
+    });
   }
-
-  const rows = rawRows.map(normalizeRegistrationRow);
-  return {
-    ok: true,
-    type,
-    rows,
-    total: rows.length,
-    fetchedAt: new Date().toISOString(),
-    setup
-  };
 }

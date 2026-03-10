@@ -3,6 +3,9 @@ export type ApplicantStatus = "draft" | "submitted";
 export type ApplicantSheetSyncStatus = "pending" | "synced" | "skipped" | "failed";
 export type ApplicantFileStorage = "none" | "google_script_only" | "external";
 export type ApplicantMessageRole = "applicant" | "admin" | "system";
+export type ApplicantWorkspaceErrorCode = "database_error" | "schema_missing";
+export type ApplicantAiMessageRole = "user" | "assistant" | "system";
+export type ApplicantQuizBranch = "GESI" | "MECA" | "MECATRONIQUE" | "GI";
 
 export interface ApplicantTeamMember {
   name: string;
@@ -85,6 +88,7 @@ export interface ApplicantApplicationSaveInput extends NormalizedApplicantFormPa
 
 export interface ApplicantApplicationRecord {
   id: number;
+  teamId: string;
   accountEmail: string;
   accountName: string;
   locale: string;
@@ -127,14 +131,85 @@ export interface ApplicantChatMessage {
   createdAt: string;
 }
 
+export interface ApplicantAiChatMessage {
+  id: number;
+  role: ApplicantAiMessageRole;
+  content: string;
+  createdAt: string;
+}
+
+export interface ApplicantQuizHistoryEntry {
+  q: string;
+  a: string;
+}
+
+export interface ApplicantQuizAttemptRecord {
+  id: number;
+  locale: string;
+  branch: ApplicantQuizBranch;
+  profile: string;
+  description: string;
+  tagline: string;
+  why: string;
+  history: ApplicantQuizHistoryEntry[];
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
+export interface ApplicantQuizAttemptSaveInput {
+  applicationId: number;
+  locale: string;
+  branch: ApplicantQuizBranch;
+  profile: string;
+  description: string;
+  tagline: string;
+  why: string;
+  history: ApplicantQuizHistoryEntry[];
+  rating: number;
+  comment: string;
+}
+
+export interface ApplicantContactRequestRecord {
+  id: number;
+  applicationId: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  teamId: string;
+  message: string;
+  sheetSyncStatus: ApplicantSheetSyncStatus;
+  sheetSyncMessage: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApplicantContactRequestSaveInput {
+  applicationId: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  teamId: string;
+  message: string;
+  sheetSyncStatus: ApplicantSheetSyncStatus;
+  sheetSyncMessage: string;
+}
+
 export interface ApplicantWorkspaceState {
   setup: ApplicantPersistenceSetup;
   application: ApplicantApplicationRecord | null;
+  latestQuizAttempt: ApplicantQuizAttemptRecord | null;
+  latestContactRequest: ApplicantContactRequestRecord | null;
   error: string | null;
+  errorCode: ApplicantWorkspaceErrorCode | null;
 }
 
 export interface ApplicantChatState extends ApplicantWorkspaceState {
   messages: ApplicantChatMessage[];
+}
+
+export interface ApplicantAiChatState extends ApplicantWorkspaceState {
+  messages: ApplicantAiChatMessage[];
 }
 
 function cleanText(value: unknown): string {
@@ -244,9 +319,12 @@ export function buildApplicantSaveInput(
     sheetSyncMessage?: string | null;
     submittedAt?: string | null;
     lastSyncedAt?: string | null;
+    fileUrlOverride?: string | null;
+    fileStorageOverride?: ApplicantFileStorage | null;
   }
 ): ApplicantApplicationSaveInput {
   const normalized = normalizeApplicantFormPayload(payload);
+  const fileUrl = cleanText(options.fileUrlOverride ?? normalized.fileUrl);
 
   return {
     ...normalized,
@@ -256,6 +334,37 @@ export function buildApplicantSaveInput(
     sheetSyncStatus: options.sheetSyncStatus ?? "pending",
     sheetSyncMessage: cleanText(options.sheetSyncMessage),
     submittedAt: options.submittedAt ?? null,
-    lastSyncedAt: options.lastSyncedAt ?? null
+    lastSyncedAt: options.lastSyncedAt ?? null,
+    fileUrl,
+    fileStorage: options.fileStorageOverride ?? normalized.fileStorage
+  };
+}
+
+export function formatApplicantTeamId(applicationId: number | string | null | undefined): string {
+  const numericId =
+    typeof applicationId === "number"
+      ? applicationId
+      : typeof applicationId === "string" && applicationId.trim()
+        ? Number(applicationId)
+        : 0;
+
+  const safeId = Number.isFinite(numericId) && numericId > 0 ? Math.trunc(numericId) : 0;
+  return `JP4F-${String(safeId).padStart(6, "0")}`;
+}
+
+export function splitDisplayName(fullName: string): { firstName: string; lastName: string } {
+  const normalized = cleanText(fullName);
+  if (!normalized) {
+    return { firstName: "", lastName: "" };
+  }
+
+  const parts = normalized.split(/\s+/).filter(Boolean);
+  if (parts.length === 1) {
+    return { firstName: parts[0], lastName: "" };
+  }
+
+  return {
+    firstName: parts[0],
+    lastName: parts.slice(1).join(" ")
   };
 }

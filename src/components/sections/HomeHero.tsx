@@ -45,7 +45,7 @@ export function HomeHero({ locale, home }: HomeHeroProps) {
               {home.secondaryCta.label}
             </Link>
             <Link
-              href={localizeHref(locale, "/competition/register")}
+              href={localizeHref(locale, "/application")}
               className="rounded-full border border-edge/75 bg-panel/90 px-6 py-3 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
             >
               {registerLabelByLocale(locale)}

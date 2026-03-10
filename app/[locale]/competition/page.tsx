@@ -579,7 +579,7 @@ export default async function CompetitionPage({ params }: { params: Promise<{ lo
                   </Link>
                   <br />
                   <Link
-                    href={localizeHref(locale, "/competition/register")}
+                    href={localizeHref(locale, "/application")}
                     className="comp-cta inline-flex items-center gap-3 rounded px-8 py-4 font-display text-xl font-semibold uppercase tracking-[0.14em] no-underline"
                     style={{ color: "#0a0c10", backgroundColor: "var(--comp-accent)", boxShadow: "0 8px 32px rgba(251,191,36,.35), 0 0 0 1px rgba(251,191,36,.3)" }}
                   >

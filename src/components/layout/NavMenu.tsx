@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { NavigationItem } from "@/content/types";
 import type { SiteLocale } from "@/config/locales";
 import { localizeHref } from "@/lib/routing";
+import { isLocalizedNavItemActive, withPortalNavItem } from "./nav-items";
 
 interface NavMenuProps {
   locale: SiteLocale;
@@ -13,12 +14,13 @@ interface NavMenuProps {
 
 export function NavMenu({ locale, items }: NavMenuProps) {
   const pathname = usePathname();
+  const navItems = withPortalNavItem(locale, items);
 
   return (
     <div className="hidden items-center gap-1 lg:flex">
-      {items.map((item) => {
+      {navItems.map((item) => {
         const href = localizeHref(locale, item.href);
-        const active = pathname === href;
+        const active = isLocalizedNavItemActive(pathname, href);
         return (
           <Link
             key={`${item.href}-${item.label}`}

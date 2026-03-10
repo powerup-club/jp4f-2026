@@ -1,4 +1,5 @@
 import type { AdminDataSetup, AdminDataType } from "@/admin/types";
+import { getApplicantDatabaseUrl } from "@/applicant/config";
 
 function cleanEnv(value: string | undefined): string {
   return value?.trim() ?? "";
@@ -81,27 +82,18 @@ export function getGoogleAuthSetup() {
   };
 }
 
-export function getAdminDataSetup(type: AdminDataType): AdminDataSetup {
-  const secretConfigured = Boolean(getAdminDataSecret());
-  const sourceConfigured = Boolean(getGoogleScriptUrl(type));
+export function getAdminDataSetup(_type: AdminDataType): AdminDataSetup {
+  const databaseConfigured = Boolean(getApplicantDatabaseUrl());
   const issues: string[] = [];
 
-  if (!sourceConfigured) {
-    issues.push(
-      type === "quiz"
-        ? "GOOGLE_SCRIPT_URL_QUIZ manquant"
-        : "GOOGLE_SCRIPT_URL_REGISTER manquant"
-    );
-  }
-
-  if (!secretConfigured) {
-    issues.push("ADMIN_DATA_SECRET manquant");
+  if (!databaseConfigured) {
+    issues.push("DATABASE_URL manquant pour le dashboard admin");
   }
 
   return {
     ready: issues.length === 0,
-    sourceConfigured,
-    secretConfigured,
+    sourceConfigured: databaseConfigured,
+    secretConfigured: true,
     issues
   };
 }
