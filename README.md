@@ -98,6 +98,41 @@ Typed content contracts live in:
 - `src/content/types.ts`
 
 ## Main UI Features
+ 
+### AI-Powered Project Evaluation (2026)
+
+This feature is now fully implemented in the candidate portal:
+
+**PDF Analysis:** Users upload their project PDF, which is parsed and analyzed by the AI.
+**Criteria Scoring:** The AI automatically scores:
+  - **Innovation** (highest weight)
+  - **Feasibility**
+  - **Technology and Techniques Used**
+  - **Impact**
+**Reflective Jury Feedback:**
+  - The AI jury reviews the PDF and project idea, providing remarks and reflective questions.
+  - No solutions or final results are given; only weaknesses and questions to help students improve.
+  - Jury feedback and scores are stored in Neon and displayed in the applicant portal.
+
+**How It Works:**
+1. Applicant submits project details (title, domain, description, innovation claim)
+2. Applicant self-scores the 5 evaluation criteria (1-5 scale)
+3. Click "Get AI jury feedback" to trigger the evaluation
+4. AI (Groq) analyzes the project and generates:
+   - Global score (0-100)
+   - Verdict (excellent, strong, solid, improve, rework)
+   - Summary of the project state
+   - Strengths (3 items)
+   - Areas for improvement (3 items)
+   - Final reflective tip/question
+5. Results are automatically saved to Neon
+6. User can see their previous evaluation anytime on the page
+
+**Note:** The jury does not provide direct answers or solutions, only feedback and questions for reflection. This feature is live and available for all candidates.
+
+**Routes:**
+- `/{locale}/application/evaluate` - Project evaluation page
+- `/api/application/evaluate` - API endpoint for getting AI evaluation
 
 - shared event landing page and content sections
 - theme toggle with localStorage persistence
@@ -126,6 +161,11 @@ Typed content contracts live in:
   - authenticated applicant record read/update endpoint for Neon-backed draft data
 - `/api/application/chat`
   - authenticated applicant chat read/write endpoint for Neon-backed messages
+- `/api/application/evaluate`
+  - AI-powered project evaluation endpoint
+  - accepts project details and self-scores
+  - returns AI jury feedback with verdict, summary, strengths, improvements, and tips
+  - saves evaluation results to Neon for persistence
 
 ## Authentication
 
@@ -158,8 +198,9 @@ Authorized JavaScript origins:
 Create `.env.local` with:
 
 ```bash
-# AI quiz
+# AI - Main and fallback API keys for redundancy
 GROQ_API_KEY=gsk_your_key_here
+GROQ_API_KEY_FALLBACK=gsk_your_fallback_key_here
 
 # Registration / quiz save targets
 GOOGLE_SCRIPT_URL_QUIZ=https://script.google.com/macros/s/YOUR_QUIZ_SCRIPT_ID/exec
@@ -191,16 +232,22 @@ GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/YOUR_DEFAULT_SCRIPT_ID/exec
 
 The applicant portal uses Neon for applicant records and chat persistence.
 
-### Schema file
+### Schema files
 
-Run this SQL in your Neon project:
+Run these SQL migrations in your Neon project in order:
 
 - `db/neon/001_applicant_portal.sql`
+- `db/neon/002_application_portal_features.sql`
+- `db/neon/005_project_evaluations.sql`
 
 This creates:
 
 - `applicant_applications`
 - `application_messages`
+- `application_ai_messages`
+- `application_quiz_attempts`
+- `application_contact_requests`
+- `application_project_evaluations`
 
 ### What Neon currently stores
 
@@ -210,6 +257,10 @@ This creates:
 - file metadata
 - submission status and sheet sync status
 - chat messages
+- AI chat history
+- quiz attempt results
+- contact request submissions
+- project evaluation results with jury feedback
 
 ### What Neon does not store yet
 
@@ -233,6 +284,28 @@ Use the same secret value in:
 
 - `ADMIN_DATA_SECRET`
 - the Apps Script `ADMIN_SECRET`
+
+## AI Service Configuration (Groq)
+
+The application uses Groq AI for project evaluation and quiz generation.
+
+### API Key Fallback Strategy
+
+To ensure reliability and avoid service disruptions due to API quotas:
+
+1. **Primary Key**: `GROQ_API_KEY` - Your main Groq API key
+2. **Fallback Key**: `GROQ_API_KEY_FALLBACK` - Secondary API key for failover
+
+**How it works:**
+- The system automatically tries the primary key first
+- If the primary key fails due to rate limits (429), quotas, or server errors (5xx), it switches to the fallback key
+- If both keys are unavailable, the service returns a graceful fallback response
+- Authentication errors (invalid key, etc.) fail immediately without trying fallback
+
+**Setup:**
+- Provide at least one valid Groq API key
+- Optionally add a second key for redundancy (recommended for production)
+- Both keys are treated equally for fallover purposes
 
 ## Local Development
 
@@ -280,6 +353,7 @@ Current status:
 - registration access protection: done
 - Neon persistence for applicant records: done
 - Neon persistence for applicant chat: done
+- AI-powered project evaluation with jury feedback: done ✅
 - editable applicant workspace forms: still to do
 - object storage for uploaded files: still to do
 - admin replies inside applicant chat: still to do
@@ -546,3 +620,44 @@ npm run dev
 
 
 [text](innov-dom-form/innov-form/.next) [text](innov-dom-form/innov-form/app) [text](innov-dom-form/innov-form/node_modules) [text](innov-dom-form/innov-form/.env.local) [text](innov-dom-form/innov-form/.env.local.example) [text](innov-dom-form/innov-form/.gitignore) [text](innov-dom-form/innov-form/google-apps-script.js) [text](innov-dom-form/innov-form/next.config.js) [text](innov-dom-form/innov-form/package-lock.json) [text](innov-dom-form/innov-form/package.json) [text](innov-dom-form/innov-form/README.md)
+
+**Title:** Add AI Detection to Project Evaluation (Keep /100)
+
+**Summary**
+Add AI detection fields to the evaluation output, persist them in the DB, and surface them in the applicant evaluation UI and the admin evaluations panel. Keep global score scale at 0–100 (no /1000).
+
+**Key Changes**
+1. **API evaluation output**
+   - Extend `app/api/application/evaluate` to request and return:
+     - `aiTextLikelihood` (0–100 integer) + `aiTextSummary` (short explanation)
+     - `projectAiUsage` ("yes" | "partial" | "no") + `projectAiSummary` (short explanation)
+   - Update `normalizeResult` and fallback to include these fields, with safe defaults if missing.
+   - Update the prompt text to refer to “AI scores” (not self‑scores).
+
+2. **Persistence + types**
+   - Add a new JSONB column `ai_detection` to `application_project_evaluations` (new migration file).
+   - Update data types and mapping in:
+     - `src/applicant/types.ts` (add `aiDetection`)
+     - `src/applicant/data.ts` (add `ai_detection` to row type, mapping, and insert/return).
+   - Ensure older rows without `ai_detection` map to a neutral default.
+
+3. **Applicant UI**
+   - Extend `src/components/application/ApplicantProjectEvaluation.tsx` to display a new “AI Detection” section in both live and locked views.
+   - Show:
+     - AI‑written text likelihood as a percentage + short summary.
+     - AI usage classification for the project + short summary.
+
+4. **Admin UI + API**
+   - Update `app/api/admin/evaluations` to include `ai_detection`.
+   - Extend `src/components/admin/AdminEvaluationsPanel.tsx` to display AI detection in the expanded view.
+
+**Test Plan**
+- Manual:
+  1. Submit evaluation; confirm AI detection fields appear.
+  2. Reload evaluation; confirm locked view shows saved AI detection.
+  3. Open admin evaluations; confirm AI detection renders for recent entries.
+- Verify DB migration by inserting a new evaluation and checking stored `ai_detection`.
+
+**Assumptions**
+- Global score remains 0–100 despite the earlier /1000 request (per your latest answers). If you want /1000, I will revise the plan.
+- AI detection is informational only and does not change verdict thresholds.

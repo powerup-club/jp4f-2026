@@ -48,6 +48,7 @@ export default async function ApplicantEvaluatePage({ params }: { params: Promis
     locale
   });
   const application = workspace.application;
+  const savedEvaluation = workspace.latestProjectEvaluation;
 
   return (
     <>
@@ -60,6 +61,7 @@ export default async function ApplicantEvaluatePage({ params }: { params: Promis
         projectDesc={application?.projectDesc || ""}
         innovation={application?.innovation || ""}
         formHref={`/${locale}/application/form`}
+        savedEvaluation={savedEvaluation}
       />
     </>
   );

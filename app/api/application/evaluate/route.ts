@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
 import { extractGroqJson, requestGroqCompletion } from "@/lib/groq";
+import { getApplicantWorkspace, saveApplicantProjectEvaluation } from "@/applicant/data";
 
 type SupportedLocale = "fr" | "en" | "ar";
 type EvaluationVerdictKey = "excellent" | "strong" | "solid" | "improve" | "rework";
+type AiUsageLabel = "yes" | "partial" | "no";
 
 interface EvaluatePayload {
   locale?: unknown;
@@ -16,6 +18,10 @@ interface EvaluatePayload {
 interface EvaluationResult {
   globalScore: number;
   verdictKey: EvaluationVerdictKey;
+  aiTextLikelihood: number;
+  aiTextSummary: string;
+  projectAiUsage: AiUsageLabel;
+  projectAiSummary: string;
   summary: string;
   strengths: string[];
   improvements: string[];
@@ -61,6 +67,19 @@ function normalizeVerdictKey(value: unknown): EvaluationVerdictKey {
     : "solid";
 }
 
+function normalizeAiUsage(value: unknown): AiUsageLabel {
+  return value === "yes" || value === "partial" || value === "no" ? value : "no";
+}
+
+function normalizeAiLikelihood(value: unknown): number {
+  const parsed = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(parsed)) {
+    return 0;
+  }
+
+  return Math.max(0, Math.min(100, Math.round(parsed)));
+}
+
 function normalizeList(value: unknown): string[] {
   if (!Array.isArray(value)) {
     return [];
@@ -76,18 +95,26 @@ function normalizeResult(value: unknown): EvaluationResult {
 
   const payload = value as Record<string, unknown>;
   const globalScore = Math.max(0, Math.min(100, Math.round(Number(payload.globalScore) || 0)));
+  const aiTextLikelihood = normalizeAiLikelihood(payload.aiTextLikelihood);
+  const aiTextSummary = text(payload.aiTextSummary);
+  const projectAiUsage = normalizeAiUsage(payload.projectAiUsage);
+  const projectAiSummary = text(payload.projectAiSummary);
   const summary = text(payload.summary);
   const strengths = normalizeList(payload.strengths);
   const improvements = normalizeList(payload.improvements);
   const juryTip = text(payload.juryTip);
 
-  if (!summary || strengths.length === 0 || improvements.length === 0 || !juryTip) {
+  if (!summary || strengths.length === 0 || improvements.length === 0 || !juryTip || !aiTextSummary || !projectAiSummary) {
     throw new Error("Incomplete evaluation payload");
   }
 
   return {
     globalScore,
     verdictKey: normalizeVerdictKey(payload.verdictKey),
+    aiTextLikelihood,
+    aiTextSummary,
+    projectAiUsage,
+    projectAiSummary,
     summary,
     strengths,
     improvements,
@@ -109,7 +136,7 @@ Project domain: ${projDomain}
 Project description: ${projDesc}
 Claimed innovation: ${innovation}
 
-Applicant self-scores out of 5:
+AI scores out of 5:
 - innovation: ${scores.innovation}
 - feasibility: ${scores.feasibility}
 - impact: ${scores.impact}
@@ -120,36 +147,43 @@ Return valid JSON only:
 {
   "globalScore": 0-100 integer,
   "verdictKey": "excellent" | "strong" | "solid" | "improve" | "rework",
+  "aiTextLikelihood": 0-100 integer (likelihood the description is AI-generated),
+  "aiTextSummary": "short explanation in English",
+  "projectAiUsage": "yes" | "partial" | "no" (does the project itself use AI?),
+  "projectAiSummary": "short explanation in English",
   "summary": "2-3 sentences in English",
   "strengths": ["item 1", "item 2", "item 3"],
   "improvements": ["item 1", "item 2", "item 3"],
   "juryTip": "one sharp final tip"
 }`;
   }
-
   if (locale === "ar") {
-    return `أنت مدرب قبل لجنة التحكيم لمسابقة Innov'Dom ضمن JP4F 2026 في ENSA Fes.
+    return `??? ???? ??? ???? ??????? ??????? Innov'Dom ??? JP4F 2026 ?? ENSA Fes.
 
-عنوان المشروع: ${projTitle}
-مجال المشروع: ${projDomain}
-وصف المشروع: ${projDesc}
-عنصر الابتكار المعلن: ${innovation}
+????? ???????: ${projTitle}
+???? ???????: ${projDomain}
+??? ???????: ${projDesc}
+???? ???????? ??????: ${innovation}
 
-التقييم الذاتي للمترشح من 5:
-- الابتكار: ${scores.innovation}
-- القابلية التقنية: ${scores.feasibility}
-- الأثر: ${scores.impact}
-- جودة العرض: ${scores.presentation}
-- العمق التقني: ${scores.technical}
+???? ?????? ????????? ?? 5:
+- ????????: ${scores.innovation}
+- ???????? ???????: ${scores.feasibility}
+- ?????: ${scores.impact}
+- ???? ?????: ${scores.presentation}
+- ????? ??????: ${scores.technical}
 
-أرجع JSON صالحا فقط بالشكل التالي:
+???? JSON ????? ??? ?????? ??????:
 {
-  "globalScore": عدد صحيح من 0 إلى 100,
+  "globalScore": ??? ???? ?? 0 ??? 100,
   "verdictKey": "excellent" | "strong" | "solid" | "improve" | "rework",
-  "summary": "ملخص من 2 إلى 3 جمل بالعربية",
-  "strengths": ["عنصر 1", "عنصر 2", "عنصر 3"],
-  "improvements": ["عنصر 1", "عنصر 2", "عنصر 3"],
-  "juryTip": "نصيحة ختامية قصيرة"
+  "aiTextLikelihood": ??? ???? ?? 0 ??? 100 (?????? ?? ????? ???? ??????? ?????????),
+  "aiTextSummary": "??? ???? ????????",
+  "projectAiUsage": "yes" | "partial" | "no" (?? ??????? ???? ?????? ?????? ??????????),
+  "projectAiSummary": "??? ???? ????????",
+  "summary": "???? ?? 2 ??? 3 ??? ????????",
+  "strengths": ["???? 1", "???? 2", "???? 3"],
+  "improvements": ["???? 1", "???? 2", "???? 3"],
+  "juryTip": "????? ?????? ?????"
 }`;
   }
 
@@ -160,7 +194,7 @@ Domaine du projet : ${projDomain}
 Description du projet : ${projDesc}
 Promesse d'innovation : ${innovation}
 
-Auto-evaluation du candidat sur 5 :
+Scores IA sur 5 :
 - innovation : ${scores.innovation}
 - faisabilite : ${scores.feasibility}
 - impact : ${scores.impact}
@@ -171,6 +205,10 @@ Retourne uniquement un JSON valide :
 {
   "globalScore": entier de 0 a 100,
   "verdictKey": "excellent" | "strong" | "solid" | "improve" | "rework",
+  "aiTextLikelihood": entier de 0 a 100 (probabilite que le texte soit genere par IA),
+  "aiTextSummary": "explication courte en francais",
+  "projectAiUsage": "yes" | "partial" | "no" (le projet utilise-t-il l'IA ?),
+  "projectAiSummary": "explication courte en francais",
   "summary": "resume en 2-3 phrases en francais",
   "strengths": ["point 1", "point 2", "point 3"],
   "improvements": ["point 1", "point 2", "point 3"],
@@ -189,27 +227,38 @@ function fallbackResult(locale: SupportedLocale, scores: ReturnType<typeof resol
     return {
       globalScore,
       verdictKey,
+      aiTextLikelihood: 35,
+      aiTextSummary: "No reliable signal available; this is a cautious estimate.",
+      projectAiUsage: "partial",
+      projectAiSummary: "AI usage is plausible but not clearly specified in the description.",
       summary: "Your project has a credible base. Keep sharpening the technical proof, the user value, and the clarity of the final pitch.",
       strengths: ["Clear challenge framing", "Visible innovation intent", "Good foundation for a jury pitch"],
       improvements: ["Add measurable impact", "Make execution steps more concrete", "Strengthen technical detail"],
       juryTip: "Show one strong use case with evidence, not many weak promises."
     };
   }
-
   if (locale === "ar") {
     return {
       globalScore,
       verdictKey,
-      summary: "المشروع يتوفر على أساس جيد. لكن العرض النهائي يحتاج إلى مزيد من الوضوح وإثبات تقني وأثر قابل للقياس.",
-      strengths: ["فكرة واضحة نسبيا", "نية ابتكارية ظاهرة", "أساس جيد لعرض أمام اللجنة"],
-      improvements: ["قدم أثرا رقميا قابلا للقياس", "وضح مراحل الإنجاز بواقعية", "ادعم الحل بتفاصيل تقنية أقوى"],
-      juryTip: "ركز على حالة استعمال واحدة قوية ومدعومة بدل وعود كثيرة وغير مثبتة."
+      aiTextLikelihood: 35,
+      aiTextSummary: "?? ???? ????? ??????? ??? ????? ???.",
+      projectAiUsage: "partial",
+      projectAiSummary: "??????? ?????? ????????? ???? ???? ??? ????? ?????.",
+      summary: "??????? ????? ??? ???? ???. ??? ????? ??????? ????? ??? ???? ?? ?????? ?????? ???? ???? ???? ??????.",
+      strengths: ["???? ????? ?????", "??? ???????? ?????", "???? ??? ???? ???? ??????"],
+      improvements: ["??? ???? ????? ????? ??????", "??? ????? ??????? ???????", "???? ???? ??????? ????? ????"],
+      juryTip: "??? ??? ???? ??????? ????? ???? ??????? ??? ???? ????? ???? ?????."
     };
   }
 
   return {
     globalScore,
     verdictKey,
+    aiTextLikelihood: 35,
+    aiTextSummary: "Aucun signal fiable; estimation prudente.",
+    projectAiUsage: "partial",
+    projectAiSummary: "L'usage de l'IA est plausible mais pas clairement mentionne.",
     summary: "Le projet a une base credible. Il faut maintenant renforcer la preuve technique, l'impact mesurable et la clarte du pitch final.",
     strengths: ["Probleme bien identifie", "Intention d'innovation visible", "Base solide pour convaincre un jury"],
     improvements: ["Quantifier l'impact attendu", "Rendre l'execution plus concrete", "Renforcer la profondeur technique"],
@@ -240,18 +289,52 @@ export async function POST(request: Request) {
       );
     }
 
+    let result: EvaluationResult;
+
     try {
       const raw = await requestGroqCompletion(
         [{ role: "user", content: buildPrompt(locale, payload, scores) }],
         { temperature: 0.55, maxTokens: 750 }
       );
 
-      return Response.json(normalizeResult(extractGroqJson(raw)));
+      result = normalizeResult(extractGroqJson(raw));
     } catch {
-      return Response.json(fallbackResult(locale, scores));
+      result = fallbackResult(locale, scores);
     }
+
+    // Save evaluation to database
+    try {
+      const workspace = await getApplicantWorkspace(session.user.email);
+      if (workspace.application?.id) {
+        await saveApplicantProjectEvaluation({
+          applicationId: workspace.application.id,
+          globalScore: result.globalScore,
+          verdictKey: result.verdictKey,
+          aiTextLikelihood: result.aiTextLikelihood,
+          aiTextSummary: result.aiTextSummary,
+          projectAiUsage: result.projectAiUsage,
+          projectAiSummary: result.projectAiSummary,
+          summary: result.summary,
+          strengths: result.strengths,
+          improvements: result.improvements,
+          juryTip: result.juryTip,
+          selfScores: scores
+        });
+      }
+    } catch (dbError) {
+      console.error("Failed to save evaluation to database:", dbError);
+      // Continue anyway - the evaluation is still generated even if DB save fails
+    }
+
+    return Response.json(result);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Could not evaluate project";
     return Response.json({ error: { code: "evaluation_failed", message } }, { status: 500 });
   }
 }
+
+
+
+
+
+

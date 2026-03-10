@@ -11,9 +11,12 @@ import type {
   ApplicantChatState,
   ApplicantContactRequestRecord,
   ApplicantContactRequestSaveInput,
+  ApplicantEvaluationVerdictKey,
   ApplicantFileStorage,
   ApplicantMessageRole,
   ApplicantParticipationType,
+  ApplicantProjectEvaluationRecord,
+  ApplicantProjectEvaluationSaveInput,
   ApplicantQuizAttemptRecord,
   ApplicantQuizAttemptSaveInput,
   ApplicantQuizBranch,
@@ -101,6 +104,23 @@ type DatabaseContactRow = {
   updated_at: string | Date;
 };
 
+type DatabaseEvaluationRow = {
+  id: number | string;
+  application_id: number | string;
+  global_score: number | string | null;
+  verdict_key: string | null;
+  ai_detection: unknown;
+  summary: string | null;
+  strengths: unknown;
+  improvements: unknown;
+  jury_tip: string | null;
+  self_scores: unknown;
+  pdf_path: string | null;
+  pdf_extracted_text: string | null;
+  created_at: string | Date;
+  updated_at: string | Date;
+};
+
 type EnsureApplicationOptions = {
   accountEmail: string;
   accountName?: string | null;
@@ -157,6 +177,18 @@ function toNumber(value: number | string | null | undefined): number | null {
   }
 
   return null;
+}
+
+function normalizeAiUsage(value: unknown): "yes" | "partial" | "no" {
+  return value === "yes" || value === "partial" || value === "no" ? value : "no";
+}
+
+function normalizeAiLikelihood(value: unknown): number {
+  const parsed = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(parsed)) {
+    return 0;
+  }
+  return Math.max(0, Math.min(100, Math.round(parsed)));
 }
 
 function parseTeamMembers(value: unknown) {
@@ -353,12 +385,48 @@ function mapContactRow(row: DatabaseContactRow): ApplicantContactRequestRecord {
   };
 }
 
+function mapEvaluationRow(row: DatabaseEvaluationRow): ApplicantProjectEvaluationRecord {
+  const strengths = Array.isArray(row.strengths) ? row.strengths.map(text).filter(Boolean) : [];
+  const improvements = Array.isArray(row.improvements) ? row.improvements.map(text).filter(Boolean) : [];
+  const selfScores = row.self_scores && typeof row.self_scores === "object" ? (row.self_scores as Record<string, number>) : {};
+  const aiDetection = row.ai_detection && typeof row.ai_detection === "object" ? (row.ai_detection as Record<string, unknown>) : {};
+  const verdictKey: ApplicantEvaluationVerdictKey =
+    row.verdict_key === "excellent" ||
+    row.verdict_key === "strong" ||
+    row.verdict_key === "solid" ||
+    row.verdict_key === "improve" ||
+    row.verdict_key === "rework"
+      ? row.verdict_key
+      : "solid";
+
+  return {
+    id: Number(row.id),
+    applicationId: Number(row.application_id),
+    globalScore: Math.max(0, Math.min(100, Number(row.global_score) || 0)),
+    verdictKey,
+    aiTextLikelihood: normalizeAiLikelihood(aiDetection.aiTextLikelihood),
+    aiTextSummary: text(typeof aiDetection.aiTextSummary === "string" ? aiDetection.aiTextSummary : ""),
+    projectAiUsage: normalizeAiUsage(aiDetection.projectAiUsage),
+    projectAiSummary: text(typeof aiDetection.projectAiSummary === "string" ? aiDetection.projectAiSummary : ""),
+    summary: text(row.summary),
+    strengths,
+    improvements,
+    juryTip: text(row.jury_tip),
+    selfScores,
+    pdfPath: text(row.pdf_path) || null,
+    pdfExtractedText: text(row.pdf_extracted_text) || null,
+    createdAt: toIsoString(row.created_at) || "",
+    updatedAt: toIsoString(row.updated_at) || ""
+  };
+}
+
 function baseWorkspaceState(): ApplicantWorkspaceState {
   return {
     setup: getApplicantPersistenceSetup(),
     application: null,
     latestQuizAttempt: null,
     latestContactRequest: null,
+    latestProjectEvaluation: null,
     error: null,
     errorCode: null
   };
@@ -429,6 +497,21 @@ async function readLatestContactRequest(
   return row ? mapContactRow(row) : null;
 }
 
+async function readLatestProjectEvaluation(
+  sql: ReturnType<typeof neon>,
+  applicationId: number
+): Promise<ApplicantProjectEvaluationRecord | null> {
+  const [row] = (await sql`
+    SELECT id, application_id, global_score, verdict_key, ai_detection, summary, strengths, improvements, jury_tip, self_scores, pdf_path, pdf_extracted_text, created_at, updated_at
+    FROM application_project_evaluations
+    WHERE application_id = ${applicationId}
+    ORDER BY created_at DESC, id DESC
+    LIMIT 1
+  `) as DatabaseEvaluationRow[];
+
+  return row ? mapEvaluationRow(row) : null;
+}
+
 export async function ensureApplicantApplication(
   options: EnsureApplicationOptions
 ): Promise<ApplicantApplicationRecord> {
@@ -480,6 +563,7 @@ export async function getApplicantWorkspace(
 
   let latestQuizAttempt: ApplicantQuizAttemptRecord | null = null;
   let latestContactRequest: ApplicantContactRequestRecord | null = null;
+  let latestProjectEvaluation: ApplicantProjectEvaluationRecord | null = null;
 
   if (application) {
     try {
@@ -499,6 +583,15 @@ export async function getApplicantWorkspace(
         latestContactRequest = null;
       }
     }
+
+    try {
+      latestProjectEvaluation = await readLatestProjectEvaluation(sql, application.id);
+    } catch (error) {
+      const details = getApplicantErrorDetails(error);
+      if (!isApplicantFeatureRelation(details.relation)) {
+        latestProjectEvaluation = null;
+      }
+    }
   }
 
   return {
@@ -506,6 +599,7 @@ export async function getApplicantWorkspace(
     application,
     latestQuizAttempt,
     latestContactRequest,
+    latestProjectEvaluation,
     error: null,
     errorCode: null
   };
@@ -850,4 +944,50 @@ export async function saveApplicantContactRequest(
   `) as DatabaseContactRow[];
 
   return mapContactRow(row);
+}
+
+export async function saveApplicantProjectEvaluation(
+  input: ApplicantProjectEvaluationSaveInput
+): Promise<ApplicantProjectEvaluationRecord> {
+  const sql = getSql();
+  if (!sql) {
+    throw new Error("Applicant persistence is not configured");
+  }
+
+  const [row] = (await sql`
+    INSERT INTO application_project_evaluations (
+      application_id,
+      global_score,
+      verdict_key,
+      ai_detection,
+      summary,
+      strengths,
+      improvements,
+      jury_tip,
+      self_scores,
+      pdf_path,
+      pdf_extracted_text
+    )
+    VALUES (
+      ${input.applicationId},
+      ${input.globalScore},
+      ${input.verdictKey},
+      ${JSON.stringify({
+        aiTextLikelihood: input.aiTextLikelihood,
+        aiTextSummary: input.aiTextSummary,
+        projectAiUsage: input.projectAiUsage,
+        projectAiSummary: input.projectAiSummary
+      })}::jsonb,
+      ${input.summary.trim()},
+      ${JSON.stringify(input.strengths)}::jsonb,
+      ${JSON.stringify(input.improvements)}::jsonb,
+      ${input.juryTip.trim()},
+      ${JSON.stringify(input.selfScores)}::jsonb,
+      ${nullableText(text(input.pdfPath ?? ""))},
+      ${nullableText(text(input.pdfExtractedText ?? ""))}
+    )
+    RETURNING id, application_id, global_score, verdict_key, ai_detection, summary, strengths, improvements, jury_tip, self_scores, pdf_path, pdf_extracted_text, created_at, updated_at
+  `) as DatabaseEvaluationRow[];
+
+  return mapEvaluationRow(row);
 }

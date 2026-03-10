@@ -6,6 +6,7 @@ export type ApplicantMessageRole = "applicant" | "admin" | "system";
 export type ApplicantWorkspaceErrorCode = "database_error" | "schema_missing";
 export type ApplicantAiMessageRole = "user" | "assistant" | "system";
 export type ApplicantQuizBranch = "GESI" | "MECA" | "MECATRONIQUE" | "GI";
+export type ApplicantEvaluationVerdictKey = "excellent" | "strong" | "solid" | "improve" | "rework";
 
 export interface ApplicantTeamMember {
   name: string;
@@ -195,11 +196,49 @@ export interface ApplicantContactRequestSaveInput {
   sheetSyncMessage: string;
 }
 
+export interface ApplicantProjectEvaluationRecord {
+  id: number;
+  applicationId: number;
+  globalScore: number;
+  verdictKey: ApplicantEvaluationVerdictKey;
+  aiTextLikelihood: number;
+  aiTextSummary: string;
+  projectAiUsage: "yes" | "partial" | "no";
+  projectAiSummary: string;
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  juryTip: string;
+  selfScores: Record<string, number>;
+  pdfPath: string | null;
+  pdfExtractedText: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApplicantProjectEvaluationSaveInput {
+  applicationId: number;
+  globalScore: number;
+  verdictKey: ApplicantEvaluationVerdictKey;
+  aiTextLikelihood: number;
+  aiTextSummary: string;
+  projectAiUsage: "yes" | "partial" | "no";
+  projectAiSummary: string;
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  juryTip: string;
+  selfScores: Record<string, number>;
+  pdfPath?: string | null;
+  pdfExtractedText?: string | null;
+}
+
 export interface ApplicantWorkspaceState {
   setup: ApplicantPersistenceSetup;
   application: ApplicantApplicationRecord | null;
   latestQuizAttempt: ApplicantQuizAttemptRecord | null;
   latestContactRequest: ApplicantContactRequestRecord | null;
+  latestProjectEvaluation: ApplicantProjectEvaluationRecord | null;
   error: string | null;
   errorCode: ApplicantWorkspaceErrorCode | null;
 }

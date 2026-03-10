@@ -6,12 +6,16 @@ export type GroqChatMessage = {
   content: string;
 };
 
-function getGroqApiKey(): string {
-  return process.env.GROQ_API_KEY?.trim() ?? "";
+function getGroqApiKeys(): { primary: string; fallback: string } {
+  return {
+    primary: process.env.GROQ_API_KEY?.trim() ?? "",
+    fallback: process.env.GROQ_API_KEY_FALLBACK?.trim() ?? ""
+  };
 }
 
 export function hasGroqApiKey(): boolean {
-  return Boolean(getGroqApiKey());
+  const keys = getGroqApiKeys();
+  return Boolean(keys.primary || keys.fallback);
 }
 
 export async function requestGroqCompletion(
@@ -21,35 +25,73 @@ export async function requestGroqCompletion(
     maxTokens?: number;
   }
 ): Promise<string> {
-  const apiKey = getGroqApiKey();
-  if (!apiKey) {
-    throw new Error("GROQ_API_KEY is missing");
+  const keys = getGroqApiKeys();
+  if (!keys.primary && !keys.fallback) {
+    throw new Error("No Groq API keys configured (GROQ_API_KEY and GROQ_API_KEY_FALLBACK missing)");
   }
 
-  const upstream = await fetch(GROQ_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model: GROQ_MODEL,
-      temperature: options?.temperature ?? 0.7,
-      max_tokens: options?.maxTokens ?? 900,
-      messages
-    })
-  });
+  const keysToTry = [keys.primary, keys.fallback].filter(Boolean);
+  let lastError: Error | null = null;
 
-  if (!upstream.ok) {
-    const errorBody = await upstream.text().catch(() => "");
-    throw new Error(`Groq request failed (${upstream.status}): ${errorBody.slice(0, 240)}`);
+  for (const apiKey of keysToTry) {
+    try {
+      const upstream = await fetch(GROQ_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: GROQ_MODEL,
+          temperature: options?.temperature ?? 0.7,
+          max_tokens: options?.maxTokens ?? 900,
+          messages
+        })
+      });
+
+      if (upstream.ok) {
+        const completion = (await upstream.json()) as {
+          choices?: Array<{ message?: { content?: string } }>;
+        };
+
+        if (completion.choices?.[0]?.message?.content) {
+          return completion.choices[0].message.content;
+        }
+
+        throw new Error("No content in Groq response");
+      }
+
+      // Check if it's a rate limit or quota error
+      const errorBody = await upstream.text().catch(() => "");
+      const isRateLimitError =
+        upstream.status === 429 || // Rate limited
+        upstream.status === 429 || // Too many requests
+        errorBody.toLowerCase().includes("quota") ||
+        errorBody.toLowerCase().includes("limit");
+
+      lastError = new Error(
+        `Groq request failed (${upstream.status}): ${errorBody.slice(0, 240)}`
+      );
+
+      // Only try fallback on rate limit/quota errors or server errors (5xx)
+      if (!isRateLimitError && upstream.status < 500) {
+        throw lastError;
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      // Continue to next key if available
+      if (keysToTry.indexOf(apiKey) < keysToTry.length - 1) {
+        continue;
+      }
+      throw lastError;
+    }
   }
 
-  const completion = (await upstream.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
-  };
+  if (lastError) {
+    throw lastError;
+  }
 
-  return completion.choices?.[0]?.message?.content?.trim() ?? "";
+  throw new Error("Groq request failed with all available API keys");
 }
 
 export function extractGroqJson(raw: string): unknown {
