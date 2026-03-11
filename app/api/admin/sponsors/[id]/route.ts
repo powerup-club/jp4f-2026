@@ -11,7 +11,7 @@ function isValidStatus(value: string): value is (typeof STATUS_VALUES)[number] {
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth().catch(() => null);
   if (!session?.user?.email) {
@@ -22,7 +22,7 @@ export async function PATCH(
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { id } = params;
+  const { id } = await params;
   const numericId = Number(id);
   if (!Number.isFinite(numericId)) {
     return Response.json({ error: "Invalid id" }, { status: 400 });

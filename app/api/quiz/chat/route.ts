@@ -1,3 +1,5 @@
+import { hasGroqApiKey, requestGroqCompletion } from "@/lib/groq";
+
 type QuizLocale = "fr" | "en" | "ar";
 type QuizBranch = "GESI" | "MECA" | "MECATRONIQUE" | "GI";
 type ChatRole = "user" | "assistant";
@@ -21,9 +23,6 @@ interface QuizResult {
   tagline: string;
   why: string;
 }
-
-const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = "llama-3.3-70b-versatile";
 
 const BRANCH_CONTEXT = `
 Filiere GESI:
@@ -181,43 +180,22 @@ export async function POST(request: Request) {
     const lang: QuizLocale = isQuizLocale(body.lang) ? body.lang : "fr";
     const messages = sanitizeMessages(body.messages);
 
-    if (messages.length === 0) {
-      return Response.json({ error: "No messages provided" }, { status: 400 });
-    }
+  if (messages.length === 0) {
+    return Response.json({ error: "No messages provided" }, { status: 400 });
+  }
 
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) {
-      return Response.json({ error: "GROQ_API_KEY is missing" }, { status: 500 });
-    }
+  if (!hasGroqApiKey()) {
+    return Response.json({ error: "AI API key is missing" }, { status: 500 });
+  }
 
-    const upstream = await fetch(GROQ_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        temperature: 0.72,
-        max_tokens: 700,
-        messages: [{ role: "system", content: SYSTEM_PROMPTS[lang] }, ...messages]
-      })
-    });
+  const raw = await requestGroqCompletion(
+    [{ role: "system", content: SYSTEM_PROMPTS[lang] }, ...messages],
+    { temperature: 0.72, maxTokens: 700 }
+  );
+  const parsed = normalizeResponse(extractJson(raw));
 
-    if (!upstream.ok) {
-      const errorBody = await upstream.text().catch(() => "");
-      return Response.json({ error: `AI request failed (${upstream.status})`, details: errorBody.slice(0, 200) }, { status: 502 });
-    }
-
-    const completion = (await upstream.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-
-    const raw = completion.choices?.[0]?.message?.content ?? "";
-    const parsed = normalizeResponse(extractJson(raw));
-
-    return Response.json(parsed);
-  } catch (error) {
+  return Response.json(parsed);
+} catch (error) {
     const message = error instanceof Error ? error.message : "AI unavailable";
     return Response.json({ error: message }, { status: 500 });
   }

@@ -1,21 +1,57 @@
 const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
+const GEMINI_OPENAI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 
 export type GroqChatMessage = {
   role: "system" | "user" | "assistant";
   content: string;
 };
 
-function getGroqApiKeys(): { primary: string; fallback: string } {
-  return {
-    primary: process.env.GROQ_API_KEY?.trim() ?? "",
-    fallback: process.env.GROQ_API_KEY_FALLBACK?.trim() ?? ""
-  };
+type AiProvider = { type: "groq" | "gemini"; key: string };
+
+function isLikelyGoogleApiKey(value: string): boolean {
+  return value.startsWith("AIza");
+}
+
+function getGeminiModel(): string {
+  return (
+    process.env.GEMINI_MODEL?.trim() ||
+    process.env.GOOGLE_AI_MODEL?.trim() ||
+    DEFAULT_GEMINI_MODEL
+  );
+}
+
+function getAiProviders(): AiProvider[] {
+  const groqKey = process.env.GROQ_API_KEY?.trim() ?? "";
+  const fallbackKey = process.env.GROQ_API_KEY_FALLBACK?.trim() ?? "";
+  const geminiKey =
+    process.env.GEMINI_API_KEY?.trim() ||
+    process.env.GOOGLE_API_KEY?.trim() ||
+    "";
+
+  const providers: AiProvider[] = [];
+
+  if (groqKey) {
+    providers.push({ type: "groq", key: groqKey });
+  }
+
+  const inferredGeminiKey =
+    geminiKey || (fallbackKey && isLikelyGoogleApiKey(fallbackKey) ? fallbackKey : "");
+
+  if (inferredGeminiKey) {
+    providers.push({ type: "gemini", key: inferredGeminiKey });
+  }
+
+  if (fallbackKey && !inferredGeminiKey && fallbackKey !== groqKey) {
+    providers.push({ type: "groq", key: fallbackKey });
+  }
+
+  return providers;
 }
 
 export function hasGroqApiKey(): boolean {
-  const keys = getGroqApiKeys();
-  return Boolean(keys.primary || keys.fallback);
+  return getAiProviders().length > 0;
 }
 
 export async function requestGroqCompletion(
@@ -25,65 +61,25 @@ export async function requestGroqCompletion(
     maxTokens?: number;
   }
 ): Promise<string> {
-  const keys = getGroqApiKeys();
-  if (!keys.primary && !keys.fallback) {
-    throw new Error("No Groq API keys configured (GROQ_API_KEY and GROQ_API_KEY_FALLBACK missing)");
+  const providers = getAiProviders();
+  if (!providers.length) {
+    throw new Error("No AI API keys configured (GROQ_API_KEY/GROQ_API_KEY_FALLBACK or GEMINI_API_KEY missing)");
   }
 
-  const keysToTry = [keys.primary, keys.fallback].filter(Boolean);
+  const temperature = options?.temperature ?? 0.7;
+  const maxTokens = options?.maxTokens ?? 900;
   let lastError: Error | null = null;
 
-  for (const apiKey of keysToTry) {
+  for (const provider of providers) {
     try {
-      const upstream = await fetch(GROQ_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: GROQ_MODEL,
-          temperature: options?.temperature ?? 0.7,
-          max_tokens: options?.maxTokens ?? 900,
-          messages
-        })
-      });
-
-      if (upstream.ok) {
-        const completion = (await upstream.json()) as {
-          choices?: Array<{ message?: { content?: string } }>;
-        };
-
-        if (completion.choices?.[0]?.message?.content) {
-          return completion.choices[0].message.content;
-        }
-
-        throw new Error("No content in Groq response");
+      if (provider.type === "groq") {
+        return await requestGroq(messages, temperature, maxTokens, provider.key);
       }
 
-      // Check if it's a rate limit or quota error
-      const errorBody = await upstream.text().catch(() => "");
-      const isRateLimitError =
-        upstream.status === 429 || // Rate limited
-        upstream.status === 429 || // Too many requests
-        errorBody.toLowerCase().includes("quota") ||
-        errorBody.toLowerCase().includes("limit");
-
-      lastError = new Error(
-        `Groq request failed (${upstream.status}): ${errorBody.slice(0, 240)}`
-      );
-
-      // Only try fallback on rate limit/quota errors or server errors (5xx)
-      if (!isRateLimitError && upstream.status < 500) {
-        throw lastError;
-      }
+      return await requestGemini(messages, temperature, maxTokens, provider.key);
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
-      // Continue to next key if available
-      if (keysToTry.indexOf(apiKey) < keysToTry.length - 1) {
-        continue;
-      }
-      throw lastError;
+      continue;
     }
   }
 
@@ -91,7 +87,79 @@ export async function requestGroqCompletion(
     throw lastError;
   }
 
-  throw new Error("Groq request failed with all available API keys");
+  throw new Error("AI request failed with all available API keys");
+}
+
+async function requestGroq(
+  messages: GroqChatMessage[],
+  temperature: number,
+  maxTokens: number,
+  apiKey: string
+): Promise<string> {
+  const upstream = await fetch(GROQ_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      temperature,
+      max_tokens: maxTokens,
+      messages
+    })
+  });
+
+  if (upstream.ok) {
+    const completion = (await upstream.json()) as {
+      choices?: Array<{ message?: { content?: string } }>;
+    };
+
+    if (completion.choices?.[0]?.message?.content) {
+      return completion.choices[0].message.content;
+    }
+
+    throw new Error("No content in Groq response");
+  }
+
+  const errorBody = await upstream.text().catch(() => "");
+  throw new Error(`Groq request failed (${upstream.status}): ${errorBody.slice(0, 240)}`);
+}
+
+async function requestGemini(
+  messages: GroqChatMessage[],
+  temperature: number,
+  maxTokens: number,
+  apiKey: string
+): Promise<string> {
+  const upstream = await fetch(GEMINI_OPENAI_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: getGeminiModel(),
+      temperature,
+      max_tokens: maxTokens,
+      messages
+    })
+  });
+
+  if (upstream.ok) {
+    const completion = (await upstream.json()) as {
+      choices?: Array<{ message?: { content?: string } }>;
+    };
+
+    if (completion.choices?.[0]?.message?.content) {
+      return completion.choices[0].message.content;
+    }
+
+    throw new Error("No content in Gemini response");
+  }
+
+  const errorBody = await upstream.text().catch(() => "");
+  throw new Error(`Gemini request failed (${upstream.status}): ${errorBody.slice(0, 240)}`);
 }
 
 export function extractGroqJson(raw: string): unknown {

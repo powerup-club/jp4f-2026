@@ -146,7 +146,7 @@ export async function POST(request: Request) {
   if (!hasGroqApiKey()) {
     return Response.json(
       {
-        error: { code: "ai_unavailable", message: "GROQ_API_KEY is missing" },
+        error: { code: "ai_unavailable", message: "AI API key is missing" },
         setup
       },
       { status: 503 }
