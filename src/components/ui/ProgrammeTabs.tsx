@@ -38,9 +38,10 @@ export function ProgrammeTabs({ day1Label, day2Label, day1, day2 }: ProgrammeTab
 
   return (
     <div className="space-y-10">
-      {days.map((day) => (
-        <DayTimeline key={day.key} {...day} />
-      ))}
+      {days.map((day) => {
+        const { key, ...rest } = day;
+        return <DayTimeline key={key} {...rest} />;
+      })}
     </div>
   );
 }
