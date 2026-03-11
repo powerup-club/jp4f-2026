@@ -19,13 +19,13 @@ const body = Rajdhani({
 export const metadata: Metadata = {
   metadataBase: getMetadataBase(),
   title: EVENT_TITLE,
-  description: "Journées Pédagogiques des 4 Filières à l'ENSA Fès.",
+  description: "JournÃ©es PÃ©dagogiques des 4 FiliÃ¨res Ã  l'ENSA FÃ¨s.",
   authors: [{ name: SITE_AUTHOR }],
   creator: SITE_AUTHOR,
   publisher: SITE_PUBLISHER,
   openGraph: {
     title: EVENT_TITLE,
-    description: "Journées Pédagogiques des 4 Filières à l'ENSA Fès.",
+    description: "JournÃ©es PÃ©dagogiques des 4 FiliÃ¨res Ã  l'ENSA FÃ¨s.",
     type: "website",
     siteName: EVENT_TITLE,
     images: [
