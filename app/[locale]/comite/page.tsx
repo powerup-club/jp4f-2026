@@ -8,7 +8,7 @@ import { getValidatedLocale } from "@/lib/locale-page";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.comite.title, content.comite.subtitle);
+  return buildPageMetadata(locale, content.comite.title, content.comite.subtitle, `/${locale}/comite`);
 }
 
 export default async function ComitePage({ params }: { params: Promise<{ locale: string }> }) {

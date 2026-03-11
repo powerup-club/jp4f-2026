@@ -9,7 +9,7 @@ import { getValidatedLocale } from "@/lib/locale-page";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.programme.title, content.programme.subtitle);
+  return buildPageMetadata(locale, content.programme.title, content.programme.subtitle, `/${locale}/programme`);
 }
 
 export default async function ProgrammePage({ params }: { params: Promise<{ locale: string }> }) {

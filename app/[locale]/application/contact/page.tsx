@@ -57,7 +57,7 @@ function dateLabel(value: string | null, locale: SiteLocale) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const copy = COPY[locale];
-  return buildPageMetadata(locale, copy.title, copy.subtitle);
+  return buildPageMetadata(locale, copy.title, copy.subtitle, `/${locale}/application/contact`);
 }
 
 export default async function ApplicantContactPage({ params }: { params: Promise<{ locale: string }> }) {

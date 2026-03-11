@@ -15,7 +15,7 @@ const colorMap = {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.filieres.title, content.filieres.subtitle);
+  return buildPageMetadata(locale, content.filieres.title, content.filieres.subtitle, `/${locale}/filieres`);
 }
 
 export default async function FilieresPage({ params }: { params: Promise<{ locale: string }> }) {

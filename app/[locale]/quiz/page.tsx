@@ -27,7 +27,7 @@ const QUIZ_PAGE_COPY: Record<SiteLocale, { tag: string; title: string; subtitle:
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const copy = QUIZ_PAGE_COPY[locale];
-  return buildPageMetadata(locale, copy.title, copy.subtitle);
+  return buildPageMetadata(locale, copy.title, copy.subtitle, `/${locale}/quiz`);
 }
 
 export default async function QuizPage({ params }: { params: Promise<{ locale: string }> }) {

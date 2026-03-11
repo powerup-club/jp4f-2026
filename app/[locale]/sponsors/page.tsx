@@ -210,7 +210,7 @@ function LogoMarquee({
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.sponsors.hero.title, content.sponsors.hero.subtitle);
+  return buildPageMetadata(locale, content.sponsors.hero.title, content.sponsors.hero.subtitle, `/${locale}/sponsors`);
 }
 
 function buildTierAnchor(locale: SiteLocale, tier: string) {

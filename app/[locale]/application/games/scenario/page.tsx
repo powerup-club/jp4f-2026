@@ -26,7 +26,7 @@ const COPY: Record<SiteLocale, { badge: string; title: string; subtitle: string 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const copy = COPY[locale];
-  return buildPageMetadata(locale, copy.title, copy.subtitle);
+  return buildPageMetadata(locale, copy.title, copy.subtitle, `/${locale}/application/games/scenario`);
 }
 
 export default async function ApplicantGamesScenarioPage({ params }: { params: Promise<{ locale: string }> }) {

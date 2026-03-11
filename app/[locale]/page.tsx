@@ -38,7 +38,7 @@ function quizHomeCopy(locale: SiteLocale) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.home.subtitle, content.meta.description);
+  return buildPageMetadata(locale, content.home.subtitle, content.meta.description, `/${locale}`);
 }
 
 export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {

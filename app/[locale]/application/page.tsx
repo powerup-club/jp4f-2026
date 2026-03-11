@@ -201,7 +201,7 @@ function canEditApplication(application: ApplicantApplicationRecord | null) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const copy = COPY[locale];
-  return buildPageMetadata(locale, copy.title, copy.subtitle);
+  return buildPageMetadata(locale, copy.title, copy.subtitle, `/${locale}/application`);
 }
 
 export default async function ApplicantWorkspacePage({

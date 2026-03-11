@@ -1,0 +1,21 @@
+# Autoriser Google AI
+User-agent: Google-Extended
+Allow: /
+
+# Autoriser OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# Autoriser Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Autoriser Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+# Autoriser Meta AI
+User-agent: FacebookBot
+Allow: /
+
+Sitemap: https://jp4f-2026.vercel.app/sitemap.xml

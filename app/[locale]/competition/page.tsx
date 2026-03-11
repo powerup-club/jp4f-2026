@@ -93,7 +93,7 @@ function labelsByLocale(locale: SiteLocale) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.competition.title, content.competition.subtitle);
+  return buildPageMetadata(locale, content.competition.title, content.competition.subtitle, `/${locale}/competition`);
 }
 
 export default async function CompetitionPage({ params }: { params: Promise<{ locale: string }> }) {

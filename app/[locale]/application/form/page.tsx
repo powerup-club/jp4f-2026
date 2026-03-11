@@ -42,7 +42,7 @@ const COPY: Record<
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const copy = COPY[locale];
-  return buildPageMetadata(locale, copy.title, copy.subtitle);
+  return buildPageMetadata(locale, copy.title, copy.subtitle, `/${locale}/application/form`);
 }
 
 export default async function ApplicantFormPage({ params }: { params: Promise<{ locale: string }> }) {

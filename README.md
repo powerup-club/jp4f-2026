@@ -37,7 +37,7 @@ It now includes:
 - `/[locale]/programme`
 - `/[locale]/filieres`
 - `/[locale]/competition`
-- `/[locale]/competition/register`
+- `/[locale]/competition/register` (redirects to `/{locale}/application`)
 - `/[locale]/intervenants`
 - `/[locale]/clubs`
 - `/[locale]/sponsors`
@@ -47,7 +47,8 @@ It now includes:
 
 ### Registration flow
 
-- `/[locale]/competition/register`
+- `/[locale]/application/form` (primary application form route)
+- `/[locale]/competition/register` redirects to `/[locale]/application`
 - Google login is required before the user can access the form
 - authenticated submissions still go to Google Apps Script / Google Sheets
 - successful submissions also sync an applicant record into Neon
@@ -66,6 +67,17 @@ It now includes:
 - `/auth/login`
 - `/[locale]/application`
 - `/[locale]/application/chat`
+- `/[locale]/application/form`
+- `/[locale]/application/rules`
+- `/[locale]/application/quiz`
+- `/[locale]/application/contact`
+- `/[locale]/application/evaluate`
+- `/[locale]/application/orientation`
+- `/[locale]/application/games`
+- `/[locale]/application/games/quiz`
+- `/[locale]/application/games/pitch`
+- `/[locale]/application/games/match`
+- `/[locale]/application/games/scenario`
 
 Current applicant portal behavior:
 
@@ -86,6 +98,20 @@ Current limitation:
 - public pages remain locale-prefixed
 - `/admin`, `/auth/login`, and `/api/*` stay outside locale redirects
 - routing behavior is implemented through `proxy.ts`
+
+## AI / SEO Discovery
+
+- `public/robots.txt` allows AI crawlers (Google-Extended, GPTBot, PerplexityBot, ClaudeBot, FacebookBot) and declares the sitemap.
+- `public/sitemap.xml` lists the public pages in FR/EN/AR for faster discovery.
+- `app/[locale]/head.tsx` injects JSON-LD for `Organization` + `Event`.
+- `src/lib/metadata.ts` builds per-page metadata (OpenGraph, Twitter card, canonical URL, author/publisher).
+- `app/layout.tsx` defines global metadata defaults and OG image.
+
+When changing domains:
+- update `NEXT_PUBLIC_SITE_URL`
+- update `public/robots.txt` sitemap URL
+- update `public/sitemap.xml` URLs
+- review `src/config/site.ts` (`EVENT_*`, `SITE_*`, `OG_IMAGE`)
 
 ## Content Model
 
@@ -159,6 +185,8 @@ This feature is now fully implemented in the candidate portal:
   - Auth.js Google authentication endpoint
 - `/api/admin/data`
   - protected admin-only read endpoint for quiz and registration data
+- `/api/admin/evaluations`
+  - admin-only read endpoint for AI project evaluations
 - `/api/admin/sponsors`
   - protected admin-only sponsor applications endpoint
 - `/api/admin/sponsors/[id]`
@@ -167,11 +195,23 @@ This feature is now fully implemented in the candidate portal:
   - authenticated applicant record read/update endpoint for Neon-backed draft data
 - `/api/application/chat`
   - authenticated applicant chat read/write endpoint for Neon-backed messages
+- `/api/application/contact`
+  - authenticated contact form endpoint (Neon + optional Google Sheets)
 - `/api/application/evaluate`
   - AI-powered project evaluation endpoint
   - accepts project details and self-scores
   - returns AI jury feedback with verdict, summary, strengths, improvements, and tips
   - saves evaluation results to Neon for persistence
+- `/api/application/games/leaderboard`
+  - leaderboard data for applicant games
+- `/api/application/games/pitch`
+  - pitch game endpoint
+- `/api/application/games/scenario`
+  - scenario game endpoint
+- `/api/application/quiz`
+  - authenticated applicant quiz endpoint (Neon + optional Google Sheets)
+- `/api/application/score-project`
+  - internal project scoring endpoint used by evaluation flows
 - `/api/sponsors/apply`
   - public sponsor application endpoint
 
@@ -214,6 +254,7 @@ GROQ_API_KEY_FALLBACK=gsk_your_fallback_key_here
 GOOGLE_SCRIPT_URL_QUIZ=https://script.google.com/macros/s/YOUR_QUIZ_SCRIPT_ID/exec
 GOOGLE_SCRIPT_URL_REGISTER=https://script.google.com/macros/s/YOUR_REGISTER_SCRIPT_ID/exec
 GOOGLE_SCRIPT_URL_SPONSORS=https://script.google.com/macros/s/YOUR_SPONSORS_SCRIPT_ID/exec
+GOOGLE_SCRIPT_URL_CONTACT_RESPONSIBLE=https://script.google.com/macros/s/YOUR_CONTACT_SCRIPT_ID/exec
 
 # Google auth
 GOOGLE_CLIENT_ID=your-google-oauth-client-id
@@ -351,6 +392,8 @@ npm run build
   - Google OAuth redirect URI
   - authorized JavaScript origin
   - `NEXT_PUBLIC_SITE_URL`
+  - `public/robots.txt`
+  - `public/sitemap.xml`
 
 ## Candidate Portal Roadmap
 

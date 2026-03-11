@@ -8,7 +8,7 @@ import { getValidatedLocale } from "@/lib/locale-page";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const locale = await getValidatedLocale(params);
   const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.intervenants.title, content.intervenants.subtitle);
+  return buildPageMetadata(locale, content.intervenants.title, content.intervenants.subtitle, `/${locale}/intervenants`);
 }
 
 export default async function IntervenantsPage({ params }: { params: Promise<{ locale: string }> }) {
