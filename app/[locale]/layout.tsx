@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { PortalFooter } from "@/components/layout/PortalFooter";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { BackgroundCanvas } from "@/components/ui/BackgroundCanvas";
 import { getSiteContent } from "@/content";
@@ -45,7 +45,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <BackgroundCanvas />
       <Header locale={locale} nav={content.navigation} siteName={content.meta.siteName} />
       <main className="relative z-10 pb-28 pt-24 lg:pb-8">{children}</main>
-      <Footer locale={locale} content={content.footer} />
+      <PortalFooter locale={locale} content={content.footer} />
       <MobileNav locale={locale} items={content.mobileNavigation} />
     </div>
   );

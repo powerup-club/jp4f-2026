@@ -24,8 +24,9 @@ import type {
 } from "@/admin/types";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminEvaluationsPanel } from "@/components/admin/AdminEvaluationsPanel";
+import { AdminSponsorsPanel } from "@/components/admin/AdminSponsorsPanel";
 
-type AdminTab = "overview" | "registrations" | "quiz" | "evaluations";
+type AdminTab = "overview" | "registrations" | "quiz" | "evaluations" | "sponsors";
 type DatasetState<T> = {
   rows: T[];
   total: number;
@@ -267,7 +268,8 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
                 ["overview", "Vue globale"],
                 ["registrations", "Inscriptions"],
                 ["quiz", "Quiz"],
-                ["evaluations", "Évaluations"]
+                ["evaluations", "Évaluations"],
+                ["sponsors", "Sponsors"]
               ] as const).map(([value, label]) => (
                 <button
                   key={value}
@@ -529,6 +531,12 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
             {tab === "evaluations" ? (
               <section className="mt-8">
                 <AdminEvaluationsPanel locale="fr" />
+              </section>
+            ) : null}
+
+            {tab === "sponsors" ? (
+              <section className="mt-8">
+                <AdminSponsorsPanel />
               </section>
             ) : null}
           </>

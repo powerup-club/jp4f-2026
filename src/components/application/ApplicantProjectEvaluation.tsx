@@ -355,111 +355,113 @@ export function ApplicantProjectEvaluation({
   // If evaluation already exists and user cannot change it, show read-only view
   if (hasExistingEvaluation && result) {
     return (
-      <div className="space-y-6" dir={locale === "ar" ? "rtl" : "ltr"}>
-        <article className="glass-card p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.yourProject}</p>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-3xl font-semibold uppercase text-ink">{projectTitle}</h2>
-            <span className="rounded-full border border-edge/60 bg-panel/70 px-3 py-1 text-xs uppercase tracking-[0.16em] text-ink/60">
-              {projectDomain}
-            </span>
+      <div className="space-y-6 overflow-x-hidden" dir={locale === "ar" ? "rtl" : "ltr"}>
+      <article className="glass-card p-4 sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.yourProject}</p>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <h2 className="break-words font-display text-xl font-semibold uppercase text-ink sm:text-3xl">{projectTitle}</h2>
+          <span className="rounded-full border border-edge/60 bg-panel/70 px-3 py-1 text-xs uppercase tracking-[0.16em] text-ink/60">
+            {projectDomain}
+          </span>
+        </div>
+        <p className="mt-3 break-words text-[13px] text-ink/72 sm:text-base">{projectDesc}</p>
+      </article>
+
+      <article className="glass-card border border-emerald-500/25 bg-emerald-500/10 p-4 sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">Evaluation Locked</p>
+        <p className="mt-2 text-sm text-ink/72">
+          Your project has been evaluated by the AI jury. This evaluation cannot be modified.
+        </p>
+      </article>
+
+      <article className="glass-card p-4 sm:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.verdictTitle}</p>
+            <h3 className="mt-2 break-words font-display text-2xl font-semibold uppercase text-ink sm:text-4xl">
+              {copy.verdicts[result.verdictKey]}
+            </h3>
           </div>
-          <p className="mt-3 text-sm text-ink/72 sm:text-base">{projectDesc}</p>
-        </article>
+          <div className="w-full rounded-3xl border border-edge/60 bg-panel/70 px-4 py-3 text-center sm:w-auto sm:px-6 sm:py-4">
+            <p className="font-display text-3xl font-semibold uppercase text-accent sm:text-5xl">{result.globalScore}</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-ink/42">/100</p>
+          </div>
+        </div>
 
-        <article className="glass-card border border-emerald-500/25 bg-emerald-500/10 p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">Evaluation Locked</p>
-          <p className="mt-2 text-sm text-ink/72">
-            Your project has been evaluated by the AI jury. This evaluation cannot be modified.
-          </p>
-        </article>
+        <p className="mt-4 break-words text-[13px] leading-6 text-ink/76 sm:mt-5 sm:text-base sm:leading-7">
+          {result.summary}
+        </p>
 
-        <article className="glass-card p-6 sm:p-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-3xl border border-emerald-500/25 bg-emerald-500/10 p-5">
+            <p className="font-display text-xl font-semibold uppercase text-emerald-600 sm:text-3xl">{copy.strengthsTitle}</p>
+            <div className="mt-4 space-y-3">
+              {result.strengths.map((item) => (
+                <p key={item} className="break-words border-l-2 border-emerald-500/60 pl-3 text-[13px] text-ink/76 sm:text-sm">
+                  {item}
+                </p>
+                ))}
+              </div>
+            </div>
+
+          <div className="rounded-3xl border border-accent/25 bg-accent/10 p-5">
+            <p className="font-display text-xl font-semibold uppercase text-accent sm:text-3xl">{copy.improvementsTitle}</p>
+            <div className="mt-4 space-y-3">
+              {result.improvements.map((item) => (
+                <p key={item} className="break-words border-l-2 border-accent/60 pl-3 text-[13px] text-ink/76 sm:text-sm">
+                  {item}
+                </p>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        <div className="mt-4 rounded-3xl border border-sky-500/25 bg-sky-500/10 p-5">
+          <p className="font-display text-xl font-semibold uppercase text-sky-700 sm:text-3xl">{copy.aiDetectionTitle}</p>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.verdictTitle}</p>
-              <h3 className="mt-2 font-display text-4xl font-semibold uppercase text-ink">
-                {copy.verdicts[result.verdictKey]}
-              </h3>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
+                {copy.aiTextLikelihoodLabel}
+              </p>
+              <p className="mt-2 font-display text-2xl font-semibold uppercase text-sky-700 sm:text-4xl">
+                {result.aiTextLikelihood}%
+              </p>
+              <p className="mt-2 break-words text-[13px] text-ink/76 sm:text-sm">{result.aiTextSummary}</p>
             </div>
-            <div className="rounded-3xl border border-edge/60 bg-panel/70 px-6 py-4 text-center">
-              <p className="font-display text-5xl font-semibold uppercase text-accent">{result.globalScore}</p>
-              <p className="text-xs uppercase tracking-[0.18em] text-ink/42">/100</p>
-            </div>
-          </div>
-
-          <p className="mt-5 text-sm leading-7 text-ink/76 sm:text-base">{result.summary}</p>
-
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-3xl border border-emerald-500/25 bg-emerald-500/10 p-5">
-              <p className="font-display text-3xl font-semibold uppercase text-emerald-600">{copy.strengthsTitle}</p>
-              <div className="mt-4 space-y-3">
-                {result.strengths.map((item) => (
-                  <p key={item} className="border-l-2 border-emerald-500/60 pl-3 text-sm text-ink/76">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-accent/25 bg-accent/10 p-5">
-              <p className="font-display text-3xl font-semibold uppercase text-accent">{copy.improvementsTitle}</p>
-              <div className="mt-4 space-y-3">
-                {result.improvements.map((item) => (
-                  <p key={item} className="border-l-2 border-accent/60 pl-3 text-sm text-ink/76">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 rounded-3xl border border-sky-500/25 bg-sky-500/10 p-5">
-            <p className="font-display text-3xl font-semibold uppercase text-sky-700">{copy.aiDetectionTitle}</p>
-            <div className="mt-4 grid gap-4 lg:grid-cols-2">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
-                  {copy.aiTextLikelihoodLabel}
-                </p>
-                <p className="mt-2 font-display text-4xl font-semibold uppercase text-sky-700">
-                  {result.aiTextLikelihood}%
-                </p>
-                <p className="mt-2 text-sm text-ink/76">{result.aiTextSummary}</p>
-              </div>
-              <div>
+            <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
                   {copy.projectAiUsageLabel}
                 </p>
-                <p className="mt-2 text-base font-semibold text-ink">{aiUsageLabel(result.projectAiUsage)}</p>
-                <p className="mt-2 text-sm text-ink/76">{result.projectAiSummary}</p>
+                <p className="mt-2 text-sm font-semibold text-ink sm:text-base">{aiUsageLabel(result.projectAiUsage)}</p>
+                <p className="mt-2 break-words text-[13px] text-ink/76 sm:text-sm">{result.projectAiSummary}</p>
               </div>
             </div>
-          </div>
+        </div>
 
-          <div className="mt-4 rounded-3xl border border-violet/30 bg-violet/10 p-5">
-            <p className="font-display text-3xl font-semibold uppercase text-violet">{copy.tipTitle}</p>
-            <p className="mt-3 text-sm text-ink/76 sm:text-base">{result.juryTip}</p>
-          </div>
-        </article>
+        <div className="mt-4 rounded-3xl border border-violet/30 bg-violet/10 p-5">
+          <p className="font-display text-xl font-semibold uppercase text-violet sm:text-3xl">{copy.tipTitle}</p>
+          <p className="mt-3 break-words text-[13px] text-ink/76 sm:text-base">{result.juryTip}</p>
+        </div>
+      </article>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6" dir={locale === "ar" ? "rtl" : "ltr"}>
-      <article className="glass-card p-6">
+    <div className="space-y-6 overflow-x-hidden" dir={locale === "ar" ? "rtl" : "ltr"}>
+      <article className="glass-card p-4 sm:p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.yourProject}</p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
-          <h2 className="font-display text-3xl font-semibold uppercase text-ink">{projectTitle}</h2>
+          <h2 className="break-words font-display text-xl font-semibold uppercase text-ink sm:text-3xl">{projectTitle}</h2>
           <span className="rounded-full border border-edge/60 bg-panel/70 px-3 py-1 text-xs uppercase tracking-[0.16em] text-ink/60">
             {projectDomain}
           </span>
         </div>
-        <p className="mt-3 text-sm text-ink/72 sm:text-base">{projectDesc}</p>
+        <p className="mt-3 break-words text-[13px] text-ink/72 sm:text-base">{projectDesc}</p>
       </article>
 
       <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <article className="glass-card p-6">
+        <article className="glass-card p-4 sm:p-6">
           <div className="space-y-4">
             {copy.criteria.map((criterion) => {
               const value = scores[criterion.key];
@@ -469,14 +471,14 @@ export function ApplicantProjectEvaluation({
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3">
                       <span
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-2xl text-xs font-semibold uppercase tracking-[0.14em]"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-2xl text-[10px] font-semibold uppercase tracking-[0.14em] sm:h-11 sm:w-11 sm:text-xs"
                         style={{ backgroundColor: `${COLORS[criterion.key]}18`, color: COLORS[criterion.key] }}
                       >
                         {criterion.icon}
                       </span>
-                      <div>
-                        <p className="font-display text-2xl uppercase text-ink">{criterion.label}</p>
-                        <p className="text-sm text-ink/62">{criterion.hint}</p>
+                      <div className="min-w-0">
+                        <p className="break-words font-display text-lg uppercase text-ink sm:text-2xl">{criterion.label}</p>
+                        <p className="break-words text-[12px] text-ink/62 sm:text-sm">{criterion.hint}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -484,7 +486,7 @@ export function ApplicantProjectEvaluation({
                         IA
                       </span>
                       <span
-                        className="rounded-full border px-3 py-1 text-sm font-semibold"
+                        className="rounded-full border px-3 py-1 text-xs font-semibold sm:text-sm"
                         style={{ borderColor: `${COLORS[criterion.key]}40`, color: COLORS[criterion.key] }}
                       >
                         {scoresGenerated ? `${value}/5` : "--/5"}
@@ -497,13 +499,13 @@ export function ApplicantProjectEvaluation({
           </div>
         </article>
 
-        <article className="glass-card p-6">
+        <article className="glass-card p-4 sm:p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.radar}</p>
-          <div className="mt-4 h-72 w-full">
+          <div className="mt-4 h-52 w-full sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={radarData}>
                 <PolarGrid stroke="rgba(120,120,120,.22)" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: "currentColor", fontSize: 11 }} className="text-ink/55" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: "currentColor", fontSize: 10 }} className="text-ink/55" />
                 <Radar dataKey="value" stroke="#f97316" fill="#f97316" fillOpacity={0.18} strokeWidth={2} />
               </RadarChart>
             </ResponsiveContainer>
@@ -511,7 +513,7 @@ export function ApplicantProjectEvaluation({
 
           <div className="rounded-2xl border border-edge/50 bg-panel/65 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45">{copy.selfScore}</p>
-            <p className="mt-2 font-display text-5xl font-semibold uppercase text-accent">
+            <p className="mt-2 font-display text-3xl font-semibold uppercase text-accent sm:text-5xl">
               {averageScore ?? "--"}
             </p>
             <p className="text-sm text-ink/62">/100</p>
@@ -524,7 +526,7 @@ export function ApplicantProjectEvaluation({
                 type="button"
                 onClick={() => void generateAIScores()}
                 disabled={scoresLoading}
-                className="mt-4 w-full rounded-full border border-transparent bg-accent px-6 py-4 font-display text-lg uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2 disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-4 w-full rounded-full border border-transparent bg-accent px-6 py-3 font-display text-sm uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2 disabled:cursor-not-allowed disabled:opacity-60 sm:py-4 sm:text-lg"
               >
                 {scoresLoading ? copy.loading : copy.generateScoresCta}
               </button>
@@ -539,7 +541,7 @@ export function ApplicantProjectEvaluation({
             type="button"
             onClick={() => void evaluateProject()}
             disabled={!scoresGenerated || loading}
-            className="mt-4 w-full rounded-full border border-transparent bg-accent px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-4 w-full rounded-full border border-transparent bg-accent px-6 py-3 font-display text-sm uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2 disabled:cursor-not-allowed disabled:opacity-60 sm:py-4 sm:text-xl"
           >
             {scoresLoading ? copy.loading : copy.cta}
           </button>
@@ -547,28 +549,30 @@ export function ApplicantProjectEvaluation({
       </div>
 
       {result ? (
-        <article className="glass-card p-6 sm:p-8">
+        <article className="glass-card p-4 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/45">{copy.verdictTitle}</p>
-              <h3 className="mt-2 font-display text-4xl font-semibold uppercase text-ink">
+              <h3 className="mt-2 font-display text-3xl font-semibold uppercase text-ink sm:text-4xl">
                 {copy.verdicts[result.verdictKey]}
               </h3>
             </div>
-            <div className="rounded-3xl border border-edge/60 bg-panel/70 px-6 py-4 text-center">
-              <p className="font-display text-5xl font-semibold uppercase text-accent">{result.globalScore}</p>
+            <div className="w-full rounded-3xl border border-edge/60 bg-panel/70 px-4 py-3 text-center sm:w-auto sm:px-6 sm:py-4">
+              <p className="font-display text-4xl font-semibold uppercase text-accent sm:text-5xl">{result.globalScore}</p>
               <p className="text-xs uppercase tracking-[0.18em] text-ink/42">/100</p>
             </div>
           </div>
 
-          <p className="mt-5 text-sm leading-7 text-ink/76 sm:text-base">{result.summary}</p>
+          <p className="mt-4 break-words text-[13px] leading-6 text-ink/76 sm:mt-5 sm:text-base sm:leading-7">
+            {result.summary}
+          </p>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <div className="rounded-3xl border border-emerald-500/25 bg-emerald-500/10 p-5">
-              <p className="font-display text-3xl font-semibold uppercase text-emerald-600">{copy.strengthsTitle}</p>
+              <p className="font-display text-xl font-semibold uppercase text-emerald-600 sm:text-3xl">{copy.strengthsTitle}</p>
               <div className="mt-4 space-y-3">
                 {result.strengths.map((item) => (
-                  <p key={item} className="border-l-2 border-emerald-500/60 pl-3 text-sm text-ink/76">
+                  <p key={item} className="break-words border-l-2 border-emerald-500/60 pl-3 text-[13px] text-ink/76 sm:text-sm">
                     {item}
                   </p>
                 ))}
@@ -576,10 +580,10 @@ export function ApplicantProjectEvaluation({
             </div>
 
             <div className="rounded-3xl border border-accent/25 bg-accent/10 p-5">
-              <p className="font-display text-3xl font-semibold uppercase text-accent">{copy.improvementsTitle}</p>
+              <p className="font-display text-xl font-semibold uppercase text-accent sm:text-3xl">{copy.improvementsTitle}</p>
               <div className="mt-4 space-y-3">
                 {result.improvements.map((item) => (
-                  <p key={item} className="border-l-2 border-accent/60 pl-3 text-sm text-ink/76">
+                  <p key={item} className="break-words border-l-2 border-accent/60 pl-3 text-[13px] text-ink/76 sm:text-sm">
                     {item}
                   </p>
                 ))}
@@ -588,30 +592,30 @@ export function ApplicantProjectEvaluation({
           </div>
 
           <div className="mt-4 rounded-3xl border border-sky-500/25 bg-sky-500/10 p-5">
-            <p className="font-display text-3xl font-semibold uppercase text-sky-700">{copy.aiDetectionTitle}</p>
+            <p className="font-display text-xl font-semibold uppercase text-sky-700 sm:text-3xl">{copy.aiDetectionTitle}</p>
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
                   {copy.aiTextLikelihoodLabel}
                 </p>
-                <p className="mt-2 font-display text-4xl font-semibold uppercase text-sky-700">
+                <p className="mt-2 font-display text-2xl font-semibold uppercase text-sky-700 sm:text-4xl">
                   {result.aiTextLikelihood}%
                 </p>
-                <p className="mt-2 text-sm text-ink/76">{result.aiTextSummary}</p>
+                <p className="mt-2 break-words text-[13px] text-ink/76 sm:text-sm">{result.aiTextSummary}</p>
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
                   {copy.projectAiUsageLabel}
                 </p>
-                <p className="mt-2 text-base font-semibold text-ink">{aiUsageLabel(result.projectAiUsage)}</p>
-                <p className="mt-2 text-sm text-ink/76">{result.projectAiSummary}</p>
+                <p className="mt-2 text-sm font-semibold text-ink sm:text-base">{aiUsageLabel(result.projectAiUsage)}</p>
+                <p className="mt-2 break-words text-[13px] text-ink/76 sm:text-sm">{result.projectAiSummary}</p>
               </div>
             </div>
           </div>
 
           <div className="mt-4 rounded-3xl border border-violet/30 bg-violet/10 p-5">
-            <p className="font-display text-3xl font-semibold uppercase text-violet">{copy.tipTitle}</p>
-            <p className="mt-3 text-sm text-ink/76 sm:text-base">{result.juryTip}</p>
+            <p className="font-display text-xl font-semibold uppercase text-violet sm:text-3xl">{copy.tipTitle}</p>
+            <p className="mt-3 break-words text-[13px] text-ink/76 sm:text-base">{result.juryTip}</p>
           </div>
         </article>
       ) : null}

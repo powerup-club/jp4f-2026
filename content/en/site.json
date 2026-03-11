@@ -31,6 +31,10 @@
       "label": "Clubs"
     },
     {
+      "href": "/sponsors",
+      "label": "Sponsors"
+    },
+    {
       "href": "/comite",
       "label": "Committee"
     }
@@ -60,6 +64,11 @@
       "href": "/clubs",
       "label": "Clubs",
       "shortLabel": "Clubs"
+    },
+    {
+      "href": "/sponsors",
+      "label": "Sponsors",
+      "shortLabel": "Spon"
     }
   ],
   "footer": {
@@ -602,5 +611,167 @@
         "track": "GMecha"
       }
     ]
+  },
+  "sponsors": {
+    "hero": {
+      "title": "Our Sponsors & Partners",
+      "subtitle": "Support JP4F 2026 and connect with ENSA Fes talent and the industrial ecosystem.",
+      "ctaBecome": "Become a Sponsor",
+      "ctaDownload": "Download the Dossier"
+    },
+    "goals": {
+      "title": "Event Goals",
+      "items": [
+        {
+          "title": "Connect students with industry",
+          "description": "Create meaningful bridges between ENSA Fes students and partner companies."
+        },
+        {
+          "title": "Promote innovation",
+          "description": "Highlight ambitious student projects and entrepreneurial initiatives."
+        },
+        {
+          "title": "Build a strong network",
+          "description": "Strengthen collaborations between schools, companies, and innovation hubs."
+        },
+        {
+          "title": "Showcase student projects",
+          "description": "Give teams a stage to present their work and stand out."
+        }
+      ]
+    },
+    "current": {
+      "title": "JP4F 2026 Sponsors",
+      "goldLabel": "Gold Partners",
+      "silverLabel": "Silver Partners",
+      "bronzeLabel": "Bronze Partners",
+      "emptyLabel": "Coming soon"
+    },
+      "previous": {
+        "title": "Partners from Previous Editions",
+        "emptyLabel": "Coming soon",
+        "sections": [
+          {
+            "key": "jesi",
+            "title": "JESI",
+            "description": "Long-standing partners who supported earlier editions."
+          },
+          {
+            "key": "campus-indus",
+            "title": "Campus Indus",
+            "description": "Organizations that backed our industrial initiatives."
+          },
+          {
+            "key": "innovtech",
+            "title": "Innov'Tech",
+            "description": "Sponsors engaged in innovation and technology."
+          }
+        ]
+      },
+      "missingSiteLabel": "Website coming soon",
+      "organizers": {
+        "title": "Organizers & Academic Partners",
+        "subtitle": "Clubs and institutions powering the JP4F experience.",
+      "schoolTitle": "ENSA Fes",
+      "schoolDescription": "National School of Applied Sciences of Fes, a hub for engineering innovation.",
+      "schoolLinkLabel": "Official website",
+      "departmentTitle": "Industrial Engineering Department",
+      "departmentDescription": "A department focused on industrial performance and digital transformation.",
+      "departmentLinkLabel": "Discover the department"
+    },
+    "tiers": {
+      "title": "Sponsorship Tiers",
+      "cta": "Choose this tier",
+      "gold": {
+        "name": "Gold",
+        "price": "On request",
+        "benefits": [
+          "Top placement logo visibility",
+          "Premium booth at the event",
+          "Official mentions during plenaries",
+          "Social media exposure",
+          "Partnership certificate"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "price": "On request",
+        "benefits": [
+          "Logo on JP4F materials",
+          "Company booth",
+          "Mentions during the event",
+          "Digital visibility",
+          "Partner certificate"
+        ]
+      },
+      "bronze": {
+        "name": "Bronze",
+        "price": "On request",
+        "benefits": [
+          "Logo on JP4F website",
+          "Mention in the program",
+          "Social media visibility",
+          "Networking access",
+          "Partner badge"
+        ]
+      }
+    },
+    "process": {
+      "title": "How to Become a Partner",
+      "steps": [
+        {
+          "title": "Download the dossier",
+          "description": "Review the sponsorship offering and visibility options."
+        },
+        {
+          "title": "Fill out the form",
+          "description": "Submit your application in a few minutes."
+        },
+        {
+          "title": "Schedule a meeting",
+          "description": "Align on your partnership goals with our team."
+        },
+        {
+          "title": "Finalize the partnership",
+          "description": "Confirm and activate your benefits for JP4F 2026."
+        }
+      ]
+    },
+    "form": {
+      "title": "Sponsorship Application Form",
+      "companyLabel": "Company name",
+      "contactLabel": "Contact full name",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone number",
+      "tierLabel": "Sponsorship tier",
+      "tierOptions": [
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Other"
+      ],
+      "dateLabel": "Preferred meeting date",
+      "timeLabel": "Preferred meeting time",
+      "messageLabel": "Message / Additional info",
+      "consentLabel": "I have read the sponsorship dossier",
+      "submitLabel": "Submit my application",
+      "success": "Thank you! We will contact you within 48h to confirm your slot.",
+      "error": "Something went wrong. Please try again."
+    },
+    "resources": {
+      "title": "Resources",
+      "items": [
+        {
+          "title": "Sponsorship Dossier 2026",
+          "description": "Download the full sponsorship presentation.",
+          "button": "Download"
+        },
+        {
+          "title": "Event Presentation",
+          "description": "An overview of JP4F 2026 goals, formats, and audiences.",
+          "button": "Download"
+        }
+      ]
+    }
   }
 }

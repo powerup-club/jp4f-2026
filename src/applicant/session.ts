@@ -5,6 +5,7 @@ import type { SiteLocale } from "@/config/locales";
 export interface ApplicantSessionUser {
   email: string;
   name: string;
+  image?: string;
 }
 
 export async function requireApplicantSession(
@@ -20,6 +21,7 @@ export async function requireApplicantSession(
 
   return {
     email: session.user.email.toLowerCase(),
-    name: session.user.name?.trim() ?? ""
+    name: session.user.name?.trim() ?? "",
+    image: session.user.image ?? undefined
   };
 }

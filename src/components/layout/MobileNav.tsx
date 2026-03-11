@@ -14,6 +14,11 @@ interface MobileNavProps {
 export function MobileNav({ locale, items }: MobileNavProps) {
   const pathname = usePathname();
   const navItems = withPortalNavItem(locale, items);
+  const isPortal = pathname?.includes("/application");
+
+  if (isPortal) {
+    return null;
+  }
 
   return (
     <nav className="fixed inset-x-3 bottom-3 z-40 rounded-3xl border border-edge/80 bg-panel/95 p-2 shadow-card backdrop-blur lg:hidden">

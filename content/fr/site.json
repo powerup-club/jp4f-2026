@@ -31,6 +31,10 @@
       "label": "Clubs"
     },
     {
+      "href": "/sponsors",
+      "label": "Sponsors"
+    },
+    {
       "href": "/comite",
       "label": "Comité"
     }
@@ -60,6 +64,11 @@
       "href": "/clubs",
       "label": "Clubs",
       "shortLabel": "Clubs"
+    },
+    {
+      "href": "/sponsors",
+      "label": "Sponsors",
+      "shortLabel": "Spons"
     }
   ],
   "footer": {
@@ -602,5 +611,167 @@
         "track": "GMéca"
       }
     ]
+  },
+  "sponsors": {
+    "hero": {
+      "title": "Nos Sponsors & Partenaires",
+      "subtitle": "Soutenez JP4F 2026 et connectez-vous aux talents de l'ENSA Fes et a l'ecosysteme industriel.",
+      "ctaBecome": "Devenir Sponsor",
+      "ctaDownload": "Telecharger le Dossier"
+    },
+    "goals": {
+      "title": "Objectifs de l'evenement",
+      "items": [
+        {
+          "title": "Connecter etudiants et industrie",
+          "description": "Faciliter les rencontres entre les talents de l'ENSA Fes et les entreprises partenaires."
+        },
+        {
+          "title": "Promouvoir l'innovation",
+          "description": "Valoriser les projets et initiatives a fort impact academique et industriel."
+        },
+        {
+          "title": "Construire un reseau",
+          "description": "Tisser des liens durables entre ecoles, entreprises et ecosystemes d'innovation."
+        },
+        {
+          "title": "Mettre en lumiere les projets",
+          "description": "Offrir une scene aux projets et aux equipes etudiantes pour se demarquer."
+        }
+      ]
+    },
+    "current": {
+      "title": "Sponsors JP4F 2026",
+      "goldLabel": "Partenaires Gold",
+      "silverLabel": "Partenaires Silver",
+      "bronzeLabel": "Partenaires Bronze",
+      "emptyLabel": "A venir"
+    },
+      "previous": {
+        "title": "Nos Partenaires des Editions Precedentes",
+        "emptyLabel": "A venir",
+        "sections": [
+          {
+            "key": "jesi",
+            "title": "JESI",
+            "description": "Partenaires historiques ayant accompagne les editions precedentes."
+          },
+          {
+            "key": "campus-indus",
+            "title": "Campus Indus",
+            "description": "Entreprises et institutions qui ont soutenu nos initiatives industrielles."
+          },
+          {
+            "key": "innovtech",
+            "title": "Innov'Tech",
+            "description": "Sponsors engages dans l'innovation et la technologie."
+          }
+        ]
+      },
+      "missingSiteLabel": "Site web a venir",
+      "organizers": {
+        "title": "Organisateurs & Partenaires Academiques",
+        "subtitle": "Clubs et institution qui portent l'experience JP4F.",
+      "schoolTitle": "ENSA Fes",
+      "schoolDescription": "Ecole Nationale des Sciences Appliquees de Fes, au coeur de l'innovation ingenierie.",
+      "schoolLinkLabel": "Site officiel",
+      "departmentTitle": "Departement Genie Industriel",
+      "departmentDescription": "Un departement engage dans la performance industrielle et la transformation digitale.",
+      "departmentLinkLabel": "Decouvrir le departement"
+    },
+    "tiers": {
+      "title": "Niveaux de Partenariat",
+      "cta": "Choisir ce niveau",
+      "gold": {
+        "name": "Gold",
+        "price": "Sur demande",
+        "benefits": [
+          "Logo en tete de communication",
+          "Stand premium lors de l'evenement",
+          "Mention officielle lors des plenieres",
+          "Visibilite reseaux sociaux",
+          "Attestation de partenariat"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "price": "Sur demande",
+        "benefits": [
+          "Logo sur les supports JP4F",
+          "Stand entreprise",
+          "Mention durant l'evenement",
+          "Visibilite digitale",
+          "Certificat partenaire"
+        ]
+      },
+      "bronze": {
+        "name": "Bronze",
+        "price": "Sur demande",
+        "benefits": [
+          "Logo sur le site JP4F",
+          "Mention dans le programme",
+          "Visibilite reseaux sociaux",
+          "Acces networking",
+          "Badge partenaire"
+        ]
+      }
+    },
+    "process": {
+      "title": "Comment Devenir Partenaire ?",
+      "steps": [
+        {
+          "title": "Telecharger le dossier",
+          "description": "Decouvrez notre offre sponsoring et les opportunites de visibilite."
+        },
+        {
+          "title": "Remplir le formulaire",
+          "description": "Soumettez votre candidature en quelques minutes."
+        },
+        {
+          "title": "Planifier une reunion",
+          "description": "Echangeons sur vos besoins et vos objectifs de partenariat."
+        },
+        {
+          "title": "Finaliser le partenariat",
+          "description": "Signature et activation des benefices lors de JP4F 2026."
+        }
+      ]
+    },
+    "form": {
+      "title": "Formulaire de Partenariat",
+      "companyLabel": "Nom de l'entreprise",
+      "contactLabel": "Nom complet du contact",
+      "emailLabel": "Email",
+      "phoneLabel": "Telephone",
+      "tierLabel": "Niveau de partenariat",
+      "tierOptions": [
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Autre"
+      ],
+      "dateLabel": "Date de reunion souhaitee",
+      "timeLabel": "Heure de reunion souhaitee",
+      "messageLabel": "Message / Informations complementaires",
+      "consentLabel": "J'ai lu le dossier de sponsoring",
+      "submitLabel": "Envoyer ma candidature",
+      "success": "Merci ! Nous vous contacterons dans les 48h pour confirmer votre creneau.",
+      "error": "Une erreur est survenue. Merci de reessayer."
+    },
+    "resources": {
+      "title": "Ressources",
+      "items": [
+        {
+          "title": "Dossier de Sponsoring 2026",
+          "description": "Telechargez la presentation complete de l'offre sponsoring.",
+          "button": "Telecharger"
+        },
+        {
+          "title": "Presentation de l'evenement",
+          "description": "Un apercu des objectifs, formats et audiences JP4F 2026.",
+          "button": "Telecharger"
+        }
+      ]
+    }
   }
 }

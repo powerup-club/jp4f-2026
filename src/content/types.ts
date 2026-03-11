@@ -164,6 +164,73 @@ export interface CommitteeContent {
   members: CommitteeMember[];
 }
 
+export interface SponsorsContent {
+  hero: {
+    title: string;
+    subtitle: string;
+    ctaBecome: string;
+    ctaDownload: string;
+  };
+  goals: {
+    title: string;
+    items: Array<{ title: string; description: string }>;
+  };
+    current: {
+      title: string;
+      goldLabel: string;
+      silverLabel: string;
+      bronzeLabel: string;
+      emptyLabel: string;
+    };
+    previous: {
+      title: string;
+      emptyLabel: string;
+      sections: Array<{ key: string; title: string; description: string }>;
+    };
+    missingSiteLabel: string;
+    organizers: {
+      title: string;
+      subtitle: string;
+      schoolTitle: string;
+      schoolDescription: string;
+    schoolLinkLabel: string;
+    departmentTitle: string;
+    departmentDescription: string;
+    departmentLinkLabel: string;
+  };
+  tiers: {
+    title: string;
+    cta: string;
+    gold: { name: string; price: string; benefits: string[] };
+    silver: { name: string; price: string; benefits: string[] };
+    bronze: { name: string; price: string; benefits: string[] };
+  };
+  process: {
+    title: string;
+    steps: Array<{ title: string; description: string }>;
+  };
+  form: {
+    title: string;
+    companyLabel: string;
+    contactLabel: string;
+    emailLabel: string;
+    phoneLabel: string;
+    tierLabel: string;
+    tierOptions: string[];
+    dateLabel: string;
+    timeLabel: string;
+    messageLabel: string;
+    consentLabel: string;
+    submitLabel: string;
+    success: string;
+    error: string;
+  };
+  resources: {
+    title: string;
+    items: Array<{ title: string; description: string; button: string }>;
+  };
+}
+
 export interface FooterContent {
   about: string;
   quickLinks: FooterLink[];
@@ -193,4 +260,5 @@ export interface SiteContent {
   clubsPage: ClubsContent;
   comite: CommitteeContent;
   comiteScientifique: CommitteeContent;
+  sponsors: SponsorsContent;
 }

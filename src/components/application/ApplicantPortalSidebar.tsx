@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import type { SiteLocale } from "@/config/locales";
 import { localizeHref } from "@/lib/routing";
@@ -194,8 +195,50 @@ export function ApplicantPortalSidebar({
   const pathname = usePathname() ?? localizeHref(locale, "/application");
   const copy = COPY[locale];
 
+  const navItems = (
+    <nav className="team-scroll mt-6 max-h-[calc(100vh-15rem)] space-y-2 overflow-y-auto pr-1" aria-label="Applicant portal navigation">
+      {copy.nav.map((item) => {
+        const href = localizeHref(locale, item.href);
+        const active = isItemActive(pathname, href);
+
+        return (
+          <Link
+            key={item.href}
+            href={href}
+            className={`flex items-center gap-3 rounded-2xl border px-4 py-4 text-base font-semibold uppercase tracking-[0.12em] transition lg:py-3 lg:text-sm ${
+              active
+                ? "border-accent bg-accent/15 text-accent shadow-[0_10px_30px_rgba(249,115,22,0.15)]"
+                : "border-edge/80 bg-panel/90 text-ink/70 hover:border-accent hover:text-accent"
+            }`}
+            aria-current={active ? "page" : undefined}
+          >
+            <Icon kind={item.icon} />
+            <span>{item.label}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+
+  const signOutButton = (
+    <button
+      type="button"
+      onClick={() => void signOut({ redirectTo: "/auth/login" })}
+      className="mt-6 w-full rounded-full border border-edge/80 bg-panel/95 px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-rose transition hover:border-rose hover:text-rose"
+    >
+      {copy.signOut}
+    </button>
+  );
+
+  const utilities = (
+    <div className="mt-5 flex flex-wrap items-center gap-3">
+      <ThemeToggle locale={locale} />
+      <LocaleSwitcher locale={locale} />
+    </div>
+  );
+
   return (
-    <aside className="glass-card h-fit p-5 lg:sticky lg:top-28">
+    <aside className="glass-card hidden h-fit border border-edge/80 bg-panel/95 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.08)] lg:block lg:sticky lg:top-28">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="badge-line">{copy.badge}</p>
@@ -207,36 +250,9 @@ export function ApplicantPortalSidebar({
         <ThemeToggle locale={locale} />
       </div>
 
-      <nav className="team-scroll mt-6 max-h-[calc(100vh-15rem)] space-y-2 overflow-y-auto pr-1" aria-label="Applicant portal navigation">
-        {copy.nav.map((item) => {
-          const href = localizeHref(locale, item.href);
-          const active = isItemActive(pathname, href);
-
-          return (
-            <Link
-              key={item.href}
-              href={href}
-              className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] transition ${
-                active
-                  ? "border-accent bg-accent/10 text-accent"
-                  : "border-edge/70 bg-panel/75 text-ink/70 hover:border-accent hover:text-accent"
-              }`}
-              aria-current={active ? "page" : undefined}
-            >
-              <Icon kind={item.icon} />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
-
-      <button
-        type="button"
-        onClick={() => void signOut({ redirectTo: "/auth/login" })}
-        className="mt-6 w-full rounded-full border border-edge/80 bg-panel/90 px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-rose transition hover:border-rose hover:text-rose"
-      >
-        {copy.signOut}
-      </button>
+      {navItems}
+      {utilities}
+      {signOutButton}
     </aside>
   );
 }

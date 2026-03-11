@@ -40,6 +40,7 @@ It now includes:
 - `/[locale]/competition/register`
 - `/[locale]/intervenants`
 - `/[locale]/clubs`
+- `/[locale]/sponsors`
 - `/[locale]/comite`
 - `/[locale]/comite-scientifique`
 - `/[locale]/quiz`
@@ -72,6 +73,7 @@ Current applicant portal behavior:
 - applicant workspace reads the user's record from Neon
 - applicant chat persists messages in Neon
 - final application submission syncs the latest submitted snapshot into Neon
+- mobile portal uses a fixed top bar + bottom tab bar (no hamburger on mobile)
 
 Current limitation:
 
@@ -157,6 +159,10 @@ This feature is now fully implemented in the candidate portal:
   - Auth.js Google authentication endpoint
 - `/api/admin/data`
   - protected admin-only read endpoint for quiz and registration data
+- `/api/admin/sponsors`
+  - protected admin-only sponsor applications endpoint
+- `/api/admin/sponsors/[id]`
+  - updates sponsor application status
 - `/api/application`
   - authenticated applicant record read/update endpoint for Neon-backed draft data
 - `/api/application/chat`
@@ -166,6 +172,8 @@ This feature is now fully implemented in the candidate portal:
   - accepts project details and self-scores
   - returns AI jury feedback with verdict, summary, strengths, improvements, and tips
   - saves evaluation results to Neon for persistence
+- `/api/sponsors/apply`
+  - public sponsor application endpoint
 
 ## Authentication
 
@@ -205,6 +213,7 @@ GROQ_API_KEY_FALLBACK=gsk_your_fallback_key_here
 # Registration / quiz save targets
 GOOGLE_SCRIPT_URL_QUIZ=https://script.google.com/macros/s/YOUR_QUIZ_SCRIPT_ID/exec
 GOOGLE_SCRIPT_URL_REGISTER=https://script.google.com/macros/s/YOUR_REGISTER_SCRIPT_ID/exec
+GOOGLE_SCRIPT_URL_SPONSORS=https://script.google.com/macros/s/YOUR_SPONSORS_SCRIPT_ID/exec
 
 # Google auth
 GOOGLE_CLIENT_ID=your-google-oauth-client-id
@@ -239,6 +248,7 @@ Run these SQL migrations in your Neon project in order:
 - `db/neon/001_applicant_portal.sql`
 - `db/neon/002_application_portal_features.sql`
 - `db/neon/005_project_evaluations.sql`
+- `db/neon/008_sponsor_applications.sql`
 
 This creates:
 
@@ -248,6 +258,7 @@ This creates:
 - `application_quiz_attempts`
 - `application_contact_requests`
 - `application_project_evaluations`
+- `sponsor_applications`
 
 ### What Neon currently stores
 

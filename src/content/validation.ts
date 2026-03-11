@@ -33,5 +33,12 @@ export function validateSiteContent(data: SiteContent): SiteContent {
   assert(data.clubsPage.clubs.length > 0, "clubsPage.clubs must not be empty");
   assert(data.comite.members.length > 0, "comite.members must not be empty");
   assert(data.comiteScientifique.members.length > 0, "comiteScientifique.members must not be empty");
+  assert(!!data.sponsors.hero.title, "sponsors.hero.title is required");
+  assert(data.sponsors.goals.items.length > 0, "sponsors.goals.items must not be empty");
+  assert(data.sponsors.tiers.gold.benefits.length > 0, "sponsors.tiers.gold.benefits must not be empty");
+  assert(data.sponsors.process.steps.length > 0, "sponsors.process.steps must not be empty");
+  assert(data.sponsors.form.tierOptions.length > 0, "sponsors.form.tierOptions must not be empty");
+  assert(data.sponsors.resources.items.length > 0, "sponsors.resources.items must not be empty");
+  assert(!!data.sponsors.missingSiteLabel, "sponsors.missingSiteLabel is required");
   return data;
 }
