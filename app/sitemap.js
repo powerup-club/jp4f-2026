@@ -3,33 +3,18 @@ import { SITE_LOCALES } from "@/config/locales";
 const BASE_URL = "https://jp4f.vercel.app";
 const CHANGE_FREQUENCY = "weekly";
 
-const STATIC_ROUTES = ["/", "/admin", "/admin/login", "/auth/login"];
+const STATIC_ROUTES = [];
 
 const LOCALE_ROUTES = [
   "",
   "/programme",
   "/filieres",
   "/competition",
-  "/competition/register",
   "/intervenants",
   "/clubs",
   "/sponsors",
   "/comite",
-  "/comite-scientifique",
-  "/quiz",
-  "/application",
-  "/application/form",
-  "/application/rules",
-  "/application/quiz",
-  "/application/contact",
-  "/application/evaluate",
-  "/application/orientation",
-  "/application/chat",
-  "/application/games",
-  "/application/games/quiz",
-  "/application/games/pitch",
-  "/application/games/match",
-  "/application/games/scenario"
+  "/comite-scientifique"
 ];
 
 function buildUrl(path) {
