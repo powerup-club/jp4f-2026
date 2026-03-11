@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { SponsorsContent } from "@/content/types";
 
@@ -18,7 +18,7 @@ function normalizeTier(value: string | null, options: string[]) {
   return match ?? options[0];
 }
 
-export function SponsorsForm({ copy }: SponsorsFormProps) {
+function SponsorsFormInner({ copy }: SponsorsFormProps) {
   const searchParams = useSearchParams();
   const tierFromQuery = normalizeTier(searchParams.get("tier"), copy.tierOptions);
   const [formState, setFormState] = useState({
@@ -224,5 +224,13 @@ export function SponsorsForm({ copy }: SponsorsFormProps) {
         {status === "loading" ? copy.submitLabel : copy.submitLabel}
       </button>
     </form>
+  );
+}
+
+export function SponsorsForm({ copy }: SponsorsFormProps) {
+  return (
+    <Suspense fallback={<div className="text-sm text-ink/60">Loading...</div>}>
+      <SponsorsFormInner copy={copy} />
+    </Suspense>
   );
 }
