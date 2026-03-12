@@ -62,12 +62,19 @@ const MTZ_PHOTOS = [
 ];
 
 const IEC_PHOTOS = [
-  "/images/clubs/IEC/member-01.jpg",
-  "/images/clubs/IEC/member-02.jpg",
-  "/images/clubs/IEC/member-03.jpg",
-  "/images/clubs/IEC/member-04.jpg",
-  "/images/clubs/IEC/member-05.jpg",
-  "/images/clubs/IEC/member-06.jpg",
+  "/images/clubs/IEC/2D566E49A139 - Chaimae El Otmani.jpeg",
+  "/images/clubs/IEC/20250908_191524 - MAHA ELGHZIZAL.jpg",
+  "/images/clubs/IEC/20251027_160408 - Zineb OUADDAD.jpg",
+  "/images/clubs/IEC/IMG_2143 - khadija elmesbahi.jpeg",
+  "/images/clubs/IEC/IMG_2883 - IKRAM OUCHANE.jpeg",
+  "/images/clubs/IEC/IMG_3779 - Fatima Zahrae Alhayti.jpeg",
+  "/images/clubs/IEC/IMG_5239 - Ikram Mabsoute.jpeg",
+  "/images/clubs/IEC/IMG_8511 - Ghaita Jaouane.jpeg",
+  "/images/clubs/IEC/IMG-20250525-WA0027 - Khawla Chahboune.jpg",
+  "/images/clubs/IEC/IMG-20260215-WA0219 - Reda Fechtali.jpg",
+  "/images/clubs/IEC/IMG-20260305-WA0021 - IKRAM ERRAHMOUNI.jpg",
+  "/images/clubs/IEC/IMG-20260310-WA0110 - Khalladi daoud.jpg",
+  "/images/clubs/IEC/yassine.jpeg",
 ];
 
 const POWERUP_MEMBERS: MemberSeed[] = [
@@ -284,16 +291,127 @@ const TRENZ_MEMBERS: MemberSeed[] = [
   },
 ];
 
+const IEC_MEMBERS: MemberSeed[] = [
+  {
+    name: "Zineb Ouaddad",
+    role: "Chef Média",
+    email: "",
+    instagram: "https://www.instagram.com/zinebouaddad004?igsh=MXE2MDZ4cm50YzJ5NQ==",
+    linkedin:
+      "https://www.linkedin.com/in/zineb-ouaddad-909265333?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    photo: "/images/clubs/IEC/20251027_160408 - Zineb OUADDAD.jpg",
+  },
+  {
+    name: "Chaimae El Otmani",
+    role: "Chef de projet",
+    email: "",
+    instagram: "https://www.instagram.com/chaimaeelotmani04?igsh=dXdxeGpiaTA0M3Y3&utm_source=qr",
+    linkedin:
+      "https://www.linkedin.com/in/chaimae-el-otmani-84b262333?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/2D566E49A139 - Chaimae El Otmani.jpeg",
+  },
+  {
+    name: "Ikram Ouchane",
+    role: "Média",
+    email: "",
+    instagram: "https://www.instagram.com/ikrvmmmmmmm?igsh=MXUzeTFsY21ubG83bQ%3D%3D&utm_source=qr",
+    linkedin:
+      "https://www.linkedin.com/in/ikram-ouchane-0a524a301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/IMG_2883 - IKRAM OUCHANE.jpeg",
+  },
+  {
+    name: "Khadija El-Mesbahi",
+    role: "Sponsoring",
+    email: "",
+    instagram: "https://www.instagram.com/mesbhk?igsh=MTEwbWVmN2JtNnI1Yw%3D%3D&utm_source=qr",
+    linkedin:
+      "https://www.linkedin.com/in/khadija-el-mesbahi-6a10aa363?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/IMG_2143 - khadija elmesbahi.jpeg",
+  },
+  {
+    name: "Reda Fechtali",
+    role: "Sous chef de formation",
+    email: "",
+    instagram: "https://www.instagram.com/its_me.redaa?igsh=MWRmeTg4bzZmMTRoaQ==",
+    linkedin:
+      "https://www.linkedin.com/in/reda-fechtali-0b9278369?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    photo: "/images/clubs/IEC/IMG-20260215-WA0219 - Reda Fechtali.jpg",
+  },
+  {
+    name: "Khaoula Chahboune",
+    role: "Chef de formation",
+    email: "",
+    instagram: "https://www.instagram.com/khaoula.chahboune?igsh=MW9xNnQ2cHY3cGZ4Mw==",
+    linkedin: "https://www.linkedin.com/in/khaoula-chahboune-822421331",
+    photo: "/images/clubs/IEC/IMG-20250525-WA0027 - Khawla Chahboune.jpg",
+  },
+  {
+    name: "Fatima Zahrae Alhayti",
+    role: "Responsable des affaires internes",
+    email: "",
+    instagram: "https://www.instagram.com/fatima_zahrae_alhayti?igsh=MTU2djN4ZnE3OW1uaw%3D%3D&utm_source=qr",
+    linkedin:
+      "https://www.linkedin.com/in/fatima-zahrae-al-hayti-322558296?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/IMG_3779 - Fatima Zahrae Alhayti.jpeg",
+  },
+  {
+    name: "Ikram Er-Rahmouni",
+    role: "Vice-présidente IEC 4.0",
+    email: "",
+    instagram: "https://www.instagram.com/ikramer_rahmouni?igsh=MWNrbTN3ZGQzNm1vYw==",
+    linkedin:
+      "https://www.linkedin.com/in/ikram-er-rahmouni-75344332a?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    photo: "/images/clubs/IEC/IMG-20260305-WA0021 - IKRAM ERRAHMOUNI.jpg",
+  },
+  {
+    name: "Ghaita Jaouane",
+    role: "External manager",
+    email: "",
+    instagram: "https://www.instagram.com/ghita_jaouane?igsh=dXV5N2pqYjF1OGZl",
+    linkedin:
+      "https://www.linkedin.com/in/ghita-jaouane-9ba918298?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/IMG_8511 - Ghaita Jaouane.jpeg",
+  },
+  {
+    name: "Ikram Mabsoute",
+    role: "Secrétaire générale",
+    email: "",
+    instagram: "https://www.instagram.com/i_k_r_a_m_e_2?igsh=OHR3ZXZobzU4Yjc0&utm_source=qr",
+    linkedin:
+      "https://www.linkedin.com/in/ikram-mabsoute-01baba318?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    photo: "/images/clubs/IEC/IMG_5239 - Ikram Mabsoute.jpeg",
+  },
+  {
+    name: "Maha El-Ghzizal",
+    role: "Présidente",
+    email: "",
+    instagram: "https://www.instagram.com/maha__el__?igsh=MW83OGp1a3g5eW5vcg==",
+    linkedin:
+      "https://www.linkedin.com/in/maha-el-ghzizal-187265333?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    photo: "/images/clubs/IEC/20250908_191524 - MAHA ELGHZIZAL.jpg",
+  },
+  {
+    name: "Daoued Khalladi",
+    role: "Trésorier",
+    email: "",
+    instagram: "https://www.instagram.com/daoud_khalladi?igsh=MWw2bnRpeDYxNDdrMQ==",
+    linkedin:
+      "https://www.linkedin.com/in/daoued-khalladi-699913358?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    photo: "/images/clubs/IEC/IMG-20260310-WA0110 - Khalladi daoud.jpg",
+  },
+  {
+    name: "Yassine Koummich",
+    role: "Designer",
+    email: "",
+    instagram: "https://www.instagram.com/deagotheflows?igsh=bmpxdXRuZ21udnBx",
+    linkedin:
+      "https://www.linkedin.com/in/yassine-koummich-89b450388?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    photo: "/images/clubs/IEC/yassine.jpeg",
+  },
+];
+
 const TEAM_SEEDS: Record<string, Array<{ name: string; role: string }>> = {
   trenz: TRENZ_MEMBERS.map((member) => ({ name: member.name, role: member.role })),
-  iec: [
-    { name: "MAHA EL GHZIZAL", role: "Présidente" },
-    { name: "YASSINE BENALI", role: "Ops & Lean" },
-    { name: "SOUKAINA KHALDI", role: "Data Industry" },
-    { name: "IMANE EL IDRISSI", role: "Supply Chain" },
-    { name: "ANAS LAHLOU", role: "Qualité" },
-    { name: "LINA AZIZI", role: "Campus Lead" },
-  ],
 };
 
 const ACCENT_BY_CLUB: Record<string, string> = {
@@ -353,6 +471,18 @@ function buildMembers(club: Club): MemberProfile[] {
       linkedin: normalizeLinkedin(member.linkedin, member.name),
       photo: member.photo ?? MTZ_PHOTOS[i % MTZ_PHOTOS.length],
       fallbackPhoto: MTZ_PHOTOS[i % MTZ_PHOTOS.length],
+    }));
+  }
+  if (club.id === "iec") {
+    return IEC_MEMBERS.map((member, i) => ({
+      id: `${club.id}-member-${i + 1}`,
+      name: member.name,
+      role: member.role,
+      email: member.email.trim(),
+      instagram: normalizeInstagram(member.instagram, member.name),
+      linkedin: normalizeLinkedin(member.linkedin, member.name),
+      photo: member.photo ?? IEC_PHOTOS[i % IEC_PHOTOS.length],
+      fallbackPhoto: IEC_PHOTOS[i % IEC_PHOTOS.length],
     }));
   }
   const seeds = TEAM_SEEDS[club.id] ?? TEAM_SEEDS.trenz;

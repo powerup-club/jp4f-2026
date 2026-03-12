@@ -4,9 +4,9 @@ import { PageIntro } from "@/components/sections/PageIntro";
 import { Reveal } from "@/components/ui/Reveal";
 import { getSiteContent } from "@/content";
 import type { CompetitionTimelineItem, SiteLocale } from "@/content/types";
-import { buildPageMetadata } from "@/lib/metadata";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { localizeHref } from "@/lib/routing";
+import { SEO_KEYWORDS } from "@/lib/seo";
 
 const COMP_ACCENT = "#fbb724";
 
@@ -90,11 +90,32 @@ function labelsByLocale(locale: SiteLocale) {
   };
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const locale = await getValidatedLocale(params);
-  const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.competition.title, content.competition.subtitle, `/${locale}/competition`);
-}
+export const metadata: Metadata = {
+  title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+  description:
+    "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc.",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  openGraph: {
+    title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+    description:
+      "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc.",
+    url: "https://jp4f.vercel.app/[locale]/competition",
+    siteName: "JP4F 2026",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+    description:
+      "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc."
+  },
+  alternates: {
+    canonical: "https://jp4f.vercel.app/[locale]/competition"
+  }
+};
 
 export default async function CompetitionPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await getValidatedLocale(params);

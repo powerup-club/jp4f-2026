@@ -56,6 +56,8 @@ export interface CommitteeMember {
   role: string;
   club: string;
   track?: string;
+  email?: string;
+  links?: FooterLink[];
 }
 
 export interface StatItem {

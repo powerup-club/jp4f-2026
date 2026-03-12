@@ -2,14 +2,35 @@
 import { PageIntro } from "@/components/sections/PageIntro";
 import { Reveal } from "@/components/ui/Reveal";
 import { getSiteContent } from "@/content";
-import { buildPageMetadata } from "@/lib/metadata";
 import { getValidatedLocale } from "@/lib/locale-page";
+import { SEO_KEYWORDS } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const locale = await getValidatedLocale(params);
-  const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.intervenants.title, content.intervenants.subtitle, `/${locale}/intervenants`);
-}
+export const metadata: Metadata = {
+  title: "Intervenants JP4F 2026 | Conférences ENSA Fès",
+  description:
+    "Rencontrez les intervenants JP4F 2026: conférence ENSA Fès 2026, experts industrie 4.0 Maroc, forum étudiant ENSA Fès et masterclass ingénieur Maroc à Fès.",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  openGraph: {
+    title: "Intervenants JP4F 2026 | Conférences ENSA Fès",
+    description:
+      "Rencontrez les intervenants JP4F 2026: conférence ENSA Fès 2026, experts industrie 4.0 Maroc, forum étudiant ENSA Fès et masterclass ingénieur Maroc à Fès.",
+    url: "https://jp4f.vercel.app/[locale]/intervenants",
+    siteName: "JP4F 2026",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Intervenants JP4F 2026 | Conférences ENSA Fès",
+    description:
+      "Rencontrez les intervenants JP4F 2026: conférence ENSA Fès 2026, experts industrie 4.0 Maroc, forum étudiant ENSA Fès et masterclass ingénieur Maroc à Fès."
+  },
+  alternates: {
+    canonical: "https://jp4f.vercel.app/[locale]/intervenants"
+  }
+};
 
 export default async function IntervenantsPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await getValidatedLocale(params);

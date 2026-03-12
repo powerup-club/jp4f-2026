@@ -4,9 +4,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { SiteLocale } from "@/config/locales";
 import { getSiteContent } from "@/content";
-import { buildPageMetadata } from "@/lib/metadata";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { localizeHref } from "@/lib/routing";
+import { SEO_KEYWORDS } from "@/lib/seo";
 import { SponsorsForm } from "@/components/sections/SponsorsForm";
 
 type LogoLink = {
@@ -207,11 +207,32 @@ function LogoMarquee({
   );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const locale = await getValidatedLocale(params);
-  const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.sponsors.hero.title, content.sponsors.hero.subtitle, `/${locale}/sponsors`);
-}
+export const metadata: Metadata = {
+  title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+  description:
+    "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  openGraph: {
+    title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+    description:
+      "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
+    url: "https://jp4f.vercel.app/[locale]/sponsors",
+    siteName: "JP4F 2026",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+    description:
+      "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc."
+  },
+  alternates: {
+    canonical: "https://jp4f.vercel.app/[locale]/sponsors"
+  }
+};
 
 function buildTierAnchor(locale: SiteLocale, tier: string) {
   return `${localizeHref(locale, "/sponsors")}?tier=${encodeURIComponent(tier)}#sponsor-form`;

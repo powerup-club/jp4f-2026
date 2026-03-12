@@ -7,8 +7,8 @@ import { ClubsPreview } from "@/components/sections/ClubsPreview";
 import { ChallengePanel } from "@/components/sections/ChallengePanel";
 import { Reveal } from "@/components/ui/Reveal";
 import { OrientationQuiz } from "@/components/quiz/OrientationQuiz";
-import { buildPageMetadata } from "@/lib/metadata";
 import { getValidatedLocale } from "@/lib/locale-page";
+import { SEO_KEYWORDS } from "@/lib/seo";
 import type { SiteLocale } from "@/content/types";
 
 function quizHomeCopy(locale: SiteLocale) {
@@ -35,11 +35,32 @@ function quizHomeCopy(locale: SiteLocale) {
   };
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const locale = await getValidatedLocale(params);
-  const content = getSiteContent(locale);
-  return buildPageMetadata(locale, content.home.subtitle, content.meta.description, `/${locale}`);
-}
+export const metadata: Metadata = {
+  title: "JP4F 2026 ENSA Fès | Journée industrielle JESI",
+  description:
+    "Journée pédagogique ENSA Fès et journée industrielle Fès JESI: événement étudiant ingénieur Fès, salon étudiant ingénieur Fès, JP4F 2026 et comment s'inscrire.",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  openGraph: {
+    title: "JP4F 2026 ENSA Fès | Journée industrielle JESI",
+    description:
+      "Journée pédagogique ENSA Fès et journée industrielle Fès JESI: événement étudiant ingénieur Fès, salon étudiant ingénieur Fès, JP4F 2026 et comment s'inscrire.",
+    url: "https://jp4f.vercel.app/[locale]",
+    siteName: "JP4F 2026",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JP4F 2026 ENSA Fès | Journée industrielle JESI",
+    description:
+      "Journée pédagogique ENSA Fès et journée industrielle Fès JESI: événement étudiant ingénieur Fès, salon étudiant ingénieur Fès, JP4F 2026 et comment s'inscrire."
+  },
+  alternates: {
+    canonical: "https://jp4f.vercel.app/[locale]"
+  }
+};
 
 export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await getValidatedLocale(params);

@@ -539,45 +539,295 @@
     ]
   },
   "comite": {
-    "tag": "// organisation",
-    "title": "Comité d'organisation",
-    "subtitle": "Une équipe inter-clubs responsable de l'exécution de JP4F.",
+    "tag": "// comit? scientifique",
+    "title": "Comit? scientifique",
+    "subtitle": "Enseignants-chercheurs de l'ENSA F?s et de l'USMBA.",
     "members": [
       {
-        "name": "Houssaine Nouary",
-        "role": "Président",
-        "club": "Power Up",
-        "track": "Coordination générale"
+        "name": "Hicham HIHI",
+        "role": "Chef de département et coordinateur de la filière GESI",
+        "club": "ENSA Fès / USMBA",
+        "email": "hicham.hihi@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Hicham-Hihi"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=3U36F-AAAAAJ"
+          }
+        ]
       },
       {
-        "name": "Amina Boustiti",
-        "role": "Vice-présidente",
-        "club": "Mechatronics Trendz",
-        "track": "Partenariats"
+        "name": "Mhamed SAYYOURI",
+        "role": "Coordinateur de la filière génie mécatronique",
+        "club": "ENSA Fès / USMBA",
+        "email": "mhamed.sayyouri@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Mhamed-Sayyouri"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=1_gLncUAAAAJ"
+          },
+          {
+            "label": "Academia",
+            "href": "https://usmba.academia.edu/MhamedSAYYOURI"
+          }
+        ]
       },
       {
-        "name": "Maha El Ghzizal",
-        "role": "Responsable logistique",
-        "club": "IEC 4.0",
-        "track": "Site et opérations"
+        "name": "Jamila EL HAINI",
+        "role": "Coordinatrice de la filière génie mécanique",
+        "club": "ENSA Fès / USMBA",
+        "email": "jamila.elhaini@usmba.ac.ma"
       },
       {
-        "name": "Sara El Idrissi",
-        "role": "Responsable communication",
-        "club": "Power Up",
-        "track": "Médias et branding"
+        "name": "Souad ELKHATTABI",
+        "role": "Coordinatrice de la filière génie industriel",
+        "club": "ENSA Fès / USMBA",
+        "email": "souad.elkhattabi@usmba.ac.ma"
       },
       {
-        "name": "Yassine Benali",
-        "role": "Responsable challenge",
-        "club": "Mechatronics Trendz",
-        "track": "Innov'Dom Challenge -Connecter à l'Avenir -"
+        "name": "Abdellhadi AZRAR",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "abdellhadi.azrar@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/A-Abdellhadi"
+          }
+        ]
       },
       {
-        "name": "Salma Ait Lahcen",
-        "role": "Responsable programme",
-        "club": "IEC 4.0",
-        "track": "Intervenants et sessions"
+        "name": "Yassine CHAIBI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "chaibi.yassine@usmba.ac.ma"
+      },
+      {
+        "name": "Zakaria CHALH",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "zakaria.chalh@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/zakaria-chalh-50792981/"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Chalh-Zakaria"
+          }
+        ]
+      },
+      {
+        "name": "Youssef EL AFOU",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "youssef.elafou@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Youssef-El-Afou"
+          }
+        ]
+      },
+      {
+        "name": "Youness EL HAMMAMI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "youness.elhammami@usmba.ac.ma"
+      },
+      {
+        "name": "Hind EL HASSANI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "hind.elhassani@usmba.ac.ma"
+      },
+      {
+        "name": "Youness FARHANE",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "youness.farhane@usmba.ac.ma"
+      },
+      {
+        "name": "Fatima-Ezzahra FEKAK",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "fatima-ezzahra.fekak@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/fatima-ezzahra-fekak-650ba313b/"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/scientific-contributions/2124019405_Fatima-Ezzahra_Fekak"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=2wjOqyIAAAAJ"
+          }
+        ]
+      },
+      {
+        "name": "Ghizlane KHAISSIDI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "ghizlane.khaissidi@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/ghizlane-khaissidi-039aab175/"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Khaissidi-Ghizlane"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=AK8s3SwAAAAJ"
+          },
+          {
+            "label": "Academia",
+            "href": "https://ensaf.academia.edu/ghizlanekhaissidi"
+          }
+        ]
+      },
+      {
+        "name": "Loubna LAAOUINA",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "loubna.laaouina@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Loubna-Laaouina"
+          }
+        ]
+      },
+      {
+        "name": "Khadija LAHRECH",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "khadija.lahrech@usmba.ac.ma"
+      },
+      {
+        "name": "Soufiane MONTASSIR",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "soufiane.montassir@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/soufiane-montassir/"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Soufiane-Montassir"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=6-ocwcwAAAAJ"
+          }
+        ]
+      },
+      {
+        "name": "Saad MOTAHHIR",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "saad.motahhir@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/saad-motahhir-phd-a5412390/"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Saad-Motahhir"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=G9AuvGgAAAAJ"
+          },
+          {
+            "label": "ORCID",
+            "href": "https://orcid.org/0000-0002-6846-8908"
+          },
+          {
+            "label": "Site",
+            "href": "https://sites.google.com/usmba.ac.ma/motahhir/home"
+          }
+        ]
+      },
+      {
+        "name": "Hassane MOUSTABCHIR",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "hassane.moustabchir@usmba.ac.ma",
+        "links": [
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Hassane-Moustabchir"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=hoP0-DYAAAAJ"
+          },
+          {
+            "label": "Sciprofiles",
+            "href": "https://sciprofiles.com/profile/2147811"
+          }
+        ]
+      },
+      {
+        "name": "Mohamed OUAHI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "mohamed.ouahi@usmba.ac.ma"
+      },
+      {
+        "name": "Salma OUHAIBI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "salma.ouhaibi@usmba.ac.ma"
+      },
+      {
+        "name": "Abdelmjid SAKA",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "abdelmjid.saka@usmba.ac.ma"
+      },
+      {
+        "name": "Mohamed SALHI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "mohamed.salhi@usmba.ac.ma"
+      },
+      {
+        "name": "Mohamed Amine TAHIRI",
+        "role": "Professeur",
+        "club": "ENSA Fes / USMBA",
+        "email": "mohamedamine.tahiri@usmba.ac.ma",
+        "links": [
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/mohamed-amine-tahiri-1b43a5246"
+          },
+          {
+            "label": "ResearchGate",
+            "href": "https://www.researchgate.net/profile/Tahiri-Mohamed-Amine"
+          },
+          {
+            "label": "Google Scholar",
+            "href": "https://scholar.google.com/citations?user=bT9iabwAAAAJ"
+          }
+        ]
       }
     ]
   },
@@ -647,31 +897,31 @@
       "bronzeLabel": "Partenaires Bronze",
       "emptyLabel": "A venir"
     },
-      "previous": {
-        "title": "Nos Partenaires des Editions Precedentes",
-        "emptyLabel": "A venir",
-        "sections": [
-          {
-            "key": "jesi",
-            "title": "JESI",
-            "description": "Partenaires historiques ayant accompagne les editions precedentes."
-          },
-          {
-            "key": "campus-indus",
-            "title": "Campus Indus",
-            "description": "Entreprises et institutions qui ont soutenu nos initiatives industrielles."
-          },
-          {
-            "key": "innovtech",
-            "title": "Innov'Tech",
-            "description": "Sponsors engages dans l'innovation et la technologie."
-          }
-        ]
-      },
-      "missingSiteLabel": "Site web a venir",
-      "organizers": {
-        "title": "Organisateurs & Partenaires Academiques",
-        "subtitle": "Clubs et institution qui portent l'experience JP4F.",
+    "previous": {
+      "title": "Nos Partenaires des Editions Precedentes",
+      "emptyLabel": "A venir",
+      "sections": [
+        {
+          "key": "jesi",
+          "title": "JESI",
+          "description": "Partenaires historiques ayant accompagne les editions precedentes."
+        },
+        {
+          "key": "campus-indus",
+          "title": "Campus Indus",
+          "description": "Entreprises et institutions qui ont soutenu nos initiatives industrielles."
+        },
+        {
+          "key": "innovtech",
+          "title": "Innov'Tech",
+          "description": "Sponsors engages dans l'innovation et la technologie."
+        }
+      ]
+    },
+    "missingSiteLabel": "Site web a venir",
+    "organizers": {
+      "title": "Organisateurs & Partenaires Academiques",
+      "subtitle": "Clubs et institution qui portent l'experience JP4F.",
       "schoolTitle": "ENSA Fes",
       "schoolDescription": "Ecole Nationale des Sciences Appliquees de Fes, au coeur de l'innovation ingenierie.",
       "schoolLinkLabel": "Site officiel",

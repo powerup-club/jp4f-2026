@@ -1,11 +1,62 @@
-"use client";
 
-import { useMemo, useState } from "react";
+"use client";
+// --- MECATRONIQUE DATASETS ---
+const MECATRONIQUE_MARKET = [
+  { year: 2015, market: 11, robots: 250000, source: "IFR" },
+  { year: 2018, market: 16.5, robots: 422000, source: "IFR" },
+  { year: 2020, market: null, robots: 384000, source: "IFR" },
+  { year: 2022, market: 14.86, robots: 553000, source: "Mordor Intelligence + IFR" },
+  { year: 2024, market: 47.8, robots: 600000, source: "GM Insights" },
+  { year: 2030, market: 205.5, robots: 1000000, source: "GlobalData" }
+];
+const MECATRONIQUE_INDUSTRIAL = [
+  { year: 2015, value: 11 },
+  { year: 2018, value: 16.5 },
+  { year: 2022, value: 14.86 },
+  { year: 2024, value: 17.78 },
+  { year: 2030, value: 36.7 },
+  { year: 2034, value: 60.14 }
+];
+const MECATRONIQUE_VE = [
+  { year: 2020, penetration: 2 },
+  { year: 2024, penetration: 10 },
+  { year: 2025, penetration: 20 },
+  { year: 2026, penetration: 27 }
+];
+const MECATRONIQUE_SALARIES = [
+  { profile: "Débutant grande école d'État", salary: 10000 },
+  { profile: "Confirmé 3-5 ans", salary: 17500 },
+  { profile: "Senior multinationale", salary: 25000 }
+];
+// ...existing code...
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 import type { ApplicantQuizBranch } from "@/applicant/types";
 import type { SiteLocale } from "@/config/locales";
 
 type BranchKey = ApplicantQuizBranch;
 type OrientationSection = "modules" | "careers" | "companies" | "projects";
+
+type ChartItem = {
+  label: string;
+  value: string;
+  weight?: number;
+  note?: string;
+};
 
 type BranchContent = {
   shortLabel: string;
@@ -13,12 +64,28 @@ type BranchContent = {
   tagline: string;
   description: string;
   focusAreas: string[];
-  highlights: { value: string; label: string }[];
+  highlights: ChartItem[];
+  chart?: ChartItem[];
   modules: string[];
   careers: string[];
   companies: string[];
   projects: string[];
   color: string;
+};
+
+type GiKpi = {
+  label: string;
+  value2024: number;
+  value2030: number;
+  unit?: string;
+  prefix2024?: string;
+  prefix2030?: string;
+  suffix2024?: string;
+  suffix2030?: string;
+  decimals?: number;
+  source: string;
+  note: string;
+  accent: string;
 };
 
 const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
@@ -35,6 +102,15 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         { value: "52%", label: "objectif ENR dans le mix electrique (2030)" },
         { value: "319 Mds DH", label: "projets hydrogene vert approuves (2025)" },
         { value: "75 000+", label: "emplois energie crees au Maroc" }
+      ],
+      chart: [
+        { label: "Salaire junior Maroc", value: "10 000 - 15 000 DH/mois", weight: 62 },
+        { label: "Investissement H2 vert Maroc", value: "319 Mds DH (2025)", weight: 92 },
+        { label: "Capacite ENR installee", value: "5 466 MW (2024)", weight: 78 },
+        { label: "Objectif mix ENR 2030", value: "52%", weight: 52 },
+        { label: "Part demande mondiale H2 visee", value: "4% d'ici 2030", weight: 38 },
+        { label: "Emplois secteur energie", value: "75 000+", weight: 70 },
+        { label: "Formations specialisees au Maroc", value: "Tres rares -> avantage concurrentiel", weight: 66 }
       ],
       modules: [
         "Thermodynamique appliquee",
@@ -57,7 +133,7 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
     },
     MECA: {
       shortLabel: "MECA",
-      fullName: "Genie mecanique et systemes automatises",
+      fullName: "Genie mecanique",
       tagline: "Conception, simulation, materiaux et fabrication avancee.",
       description:
         "Le genie mecanique d'aujourd'hui combine physique, simulation numerique et fabrication avancee pour servir l'automobile, l'aeronautique et l'industrie 4.0.",
@@ -69,7 +145,6 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         "Jumeaux numeriques"
       ],
       highlights: [
-        { value: "92,7 Mds DH", label: "export automobile S1 2024" },
         { value: "26,4 Mds DH", label: "export aeronautique 2024" },
         { value: "200+", label: "acteurs auto au Maroc" },
         { value: "24 000+", label: "emplois aeronautiques" }
@@ -143,7 +218,7 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
     },
     GI: {
       shortLabel: "GI",
-      fullName: "Genie industriel et industrie 4.0",
+      fullName: "Genie industriel",
       tagline: "Production, supply chain, data et performance.",
       description:
         "Le genie industriel organise les flux, optimise la qualite et pilote la performance. C'est la discipline de l'excellence operationnelle et de la transformation digitale.",
@@ -199,6 +274,15 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         { value: "319 Bn MAD", label: "green hydrogen projects approved (2025)" },
         { value: "75,000+", label: "energy jobs created in Morocco" }
       ],
+      chart: [
+        { label: "Junior salary in Morocco", value: "10,000-15,000 MAD/month", weight: 62 },
+        { label: "Green H2 investment (Morocco)", value: "319 Bn MAD (2025)", weight: 92 },
+        { label: "Installed renewable capacity", value: "5,466 MW (2024)", weight: 78 },
+        { label: "Renewables mix target 2030", value: "52%", weight: 52 },
+        { label: "Global H2 demand share target", value: "4% by 2030", weight: 38 },
+        { label: "Energy sector jobs", value: "75,000+", weight: 70 },
+        { label: "Specialized training in Morocco", value: "Very rare -> competitive edge", weight: 66 }
+      ],
       modules: ["Renewable energy", "Power electronics", "Embedded systems", "Applied AI", "Advanced control"],
       careers: ["Energy engineer", "Smart-grid engineer", "Intelligent systems engineer", "Energy-transition consultant"],
       companies: ["MASEN", "ONEE", "Schneider Electric", "Leoni", "Yazaki"],
@@ -213,7 +297,6 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         "MECA fits profiles who enjoy designing mechanisms, validating structures, and turning concepts into robust physical systems.",
       focusAreas: ["Design & innovation", "Numerical simulation", "Materials & processes", "Production & maintenance", "Digital twins"],
       highlights: [
-        { value: "92.7 Bn MAD", label: "automotive exports (S1 2024)" },
         { value: "26.4 Bn MAD", label: "aeronautics exports (2024)" },
         { value: "200+", label: "automotive actors in Morocco" },
         { value: "24,000+", label: "aeronautics jobs" }
@@ -277,6 +360,15 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         { value: "319 ????? ????", label: "?????? ?????????? ?????? ???????? (2025)" },
         { value: "75 000+", label: "????? ?????? ?? ??????" }
       ],
+      chart: [
+        { label: "Junior salary in Morocco", value: "10,000-15,000 MAD/month", weight: 62 },
+        { label: "Green H2 investment (Morocco)", value: "319 Bn MAD (2025)", weight: 92 },
+        { label: "Installed renewable capacity", value: "5,466 MW (2024)", weight: 78 },
+        { label: "Renewables mix target 2030", value: "52%", weight: 52 },
+        { label: "Global H2 demand share target", value: "4% by 2030", weight: 38 },
+        { label: "Energy sector jobs", value: "75,000+", weight: 70 },
+        { label: "Specialized training in Morocco", value: "Very rare -> competitive edge", weight: 66 }
+      ],
       modules: ["الطاقات المتجددة", "إلكترونيات القدرة", "الأنظمة المضمنة", "الذكاء الاصطناعي التطبيقي", "التحكم المتقدم"],
       careers: ["مهندس طاقة", "مهندس smart grid", "مهندس أنظمة ذكية", "مستشار انتقال طاقي"],
       companies: ["MASEN", "ONEE", "Schneider Electric", "Leoni", "Yazaki"],
@@ -291,7 +383,6 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         "هذا المسلك يناسب من يحب تصميم الآليات والتحقق من البنيات وتحويل الأفكار إلى أنظمة مادية قوية.",
       focusAreas: ["??????? ?????????", "???????? ???????", "?????? ?????????", "??????? ????????", "?????? ??????"],
       highlights: [
-        { value: "92.7 ????? ????", label: "?????? ???????? (????? ????? 2024)" },
         { value: "26.4 ????? ????", label: "?????? ??????? (2024)" },
         { value: "200+", label: "?????? ?? ????? ???????? ???????" },
         { value: "24 000+", label: "????? ???????" }
@@ -350,6 +441,321 @@ const GUIDE_PDFS: Record<BranchKey, string> = {
   GI: "/Documents/filieres/GI_ENSA_Fes_Guide_Orientation.pdf"
 };
 
+const GESI_RENEWABLES_CURVE = [
+  { year: "2000", capacity: 1221, mix: 24 },
+  { year: "2010", capacity: 1400, mix: 28 },
+  { year: "2015", capacity: 2767, mix: 30 },
+  { year: "2017", capacity: 2530, mix: 30 },
+  { year: "2018", capacity: 3270, mix: 35 },
+  { year: "2021", capacity: 4067, mix: 37.1 },
+  { year: "2022", capacity: 4154, mix: 37.6 },
+  { year: "2023", capacity: 4618, mix: 40.4 },
+  { year: "2024", capacity: 5466, mix: 45.3 },
+  { year: "2030", capacity: 20000, mix: 52 }
+];
+
+const GESI_WIND_CURVE = [
+  { year: "2000", capacity: 50 },
+  { year: "2021", capacity: 1466 },
+  { year: "2025", capacity: 2451 }
+];
+
+const MECA_SALARIES = [
+  { profile: "Débutant\ngrande école", salary: "11 500-13 000 DH", min: 11500, max: 13000 },
+  { profile: "Débutant\nENSA/EMI", salary: "7 500-8 500 DH", min: 7500, max: 8500 },
+  { profile: "Confirmé\n(3-5 ans)", salary: "15 000-22 000 DH", min: 15000, max: 22000 },
+  { profile: "Senior\nGrandes multinationales", salary: "20 000-30 000 DH", min: 20000, max: 30000 }
+];
+
+const MECA_AUTOMOTIVE = [
+  { year: "2010", production: 100000, exports: 20, emplois: 50000 },
+  { year: "2014", production: 300000, exports: 40, emplois: 90000 },
+  { year: "2019", production: 560000, exports: 80, emplois: 140000 },
+  { year: "2020", production: 500000, exports: 72, emplois: 130000 },
+  { year: "2022", production: 620000, exports: 100, emplois: 160000 },
+  { year: "2023", production: 700000, exports: 141.76, emplois: 170000 },
+  { year: "2024", production: 700000, exports: 92.7, emplois: 180000 }
+];
+
+const MECA_AERONAUTIQUE = [
+  { year: "2004", enterprises: 10, emplois: 3000, exports: 0.7, integration: 5 },
+  { year: "2014", enterprises: 80, emplois: 8000, exports: 8, integration: 17 },
+  { year: "2019", enterprises: 140, emplois: 16700, exports: 15, integration: 35 },
+  { year: "2020", enterprises: 140, emplois: 15000, exports: 12.4, integration: 38 },
+  { year: "2023", enterprises: 142, emplois: 23000, exports: 21.8, integration: 42 },
+  { year: "2024", enterprises: 150, emplois: 26000, exports: 26.4, integration: 42 }
+];
+
+const GI_DIGITAL_FACTORIES = [
+  {
+    year: "2019",
+    value: 10,
+    dataType: "Officielle",
+    source: "PAI 1.0 — Programme Acceleration Industrielle — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Point de depart: seulement 1 usine sur 10 etait digitalisee en 2019."
+  },
+  {
+    year: "2021",
+    value: 30,
+    dataType: "Officielle — declaration ministerielle",
+    source: "Declaration M. Moulay Hafid Elalamy a la Global Industry 4.0 Conference 2021",
+    interpretation: "Triplement en 2 ans (+20 pts). La digitalisation accelere sous l'effet du PAI."
+  },
+  {
+    year: "2022",
+    value: 36,
+    dataType: "Estimee (interpolation lineaire CAGR)",
+    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+    interpretation: "Progression reguliere confirmee par les entreprises (Barometre Industrie 2023)."
+  },
+  {
+    year: "2023",
+    value: 42,
+    dataType: "Estimee (interpolation lineaire CAGR)",
+    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+    interpretation: "Acceleration confirmee par l'augmentation des investissements industriels (+103% en 2023)."
+  },
+  {
+    year: "2024",
+    value: 48,
+    dataType: "Estimee (interpolation lineaire CAGR)",
+    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+    interpretation: "Presque 1 usine sur 2 digitalisee: point de bascule vers la majorite."
+  },
+  {
+    year: "2030",
+    value: 100,
+    dataType: "Objectif national officiel",
+    source: "PAI 2.0 — Programme Acceleration Industrielle 2021-2030 — Ministere Industrie",
+    interpretation: "100% = toutes les usines integrent au moins une brique Industrie 4.0."
+  }
+];
+
+const GI_TALENTS_PER_YEAR = [
+  {
+    year: "2019",
+    value: 10000,
+    dataType: "Estimee (CAGR)",
+    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
+    interpretation: "Base de reference avant le Plan National de Formation Numerique."
+  },
+  {
+    year: "2020",
+    value: 11500,
+    dataType: "Estimee (CAGR)",
+    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
+    interpretation: "Legere progression malgre Covid: le numerique resiste."
+  },
+  {
+    year: "2021",
+    value: 12800,
+    dataType: "Estimee (CAGR)",
+    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
+    interpretation: "Acceleration post-Covid: besoin national en competences digitales."
+  },
+  {
+    year: "2022",
+    value: 14000,
+    dataType: "Officielle",
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma) — publiee 09/2024",
+    interpretation: "Chiffre de reference officiel."
+  },
+  {
+    year: "2023",
+    value: 18000,
+    dataType: "Estimee (CAGR)",
+    source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
+    interpretation: "Mise en oeuvre: ecoles et universites augmentent leurs capacites."
+  },
+  {
+    year: "2024",
+    value: 24000,
+    dataType: "Estimee (CAGR)",
+    source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
+    interpretation: "+71% vs 2022: bootcamps et formations courtes accelerent."
+  },
+  {
+    year: "2030",
+    value: 100000,
+    dataType: "Objectif national officiel",
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Objectif x7 vs 2022: penurie de profils qualifies = avantage salarial."
+  }
+];
+
+const GI_INDUSTRIAL_REVENUE = [
+  {
+    year: "2019",
+    revenue: 480,
+    investments: 22,
+    source: "Barometre Industrie Nationale 2022 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Niveau pre-Covid: croissance stable mais moderee."
+  },
+  {
+    year: "2020",
+    revenue: 430,
+    investments: 18,
+    source: "Barometre Industrie Nationale 2022 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Choc Covid: -10% CA et -18% investissements."
+  },
+  {
+    year: "2021",
+    revenue: 560,
+    investments: 25,
+    source: "Barometre Industrie Nationale 2022 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Rebond post-Covid: +30% CA."
+  },
+  {
+    year: "2022",
+    revenue: 801,
+    investments: 34,
+    source: "Barometre Industrie Nationale 2023 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Record historique: +43% vs 2021."
+  },
+  {
+    year: "2023",
+    revenue: 822,
+    investments: 69,
+    source: "Barometre Industrie Nationale 2024 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "Consolidation et doublement des investissements."
+  },
+  {
+    year: "2024",
+    revenue: 898,
+    investments: 90,
+    source: "Barometre Industrie Nationale 2025 — Ministere Industrie et Commerce (mcinet.gov.ma)",
+    interpretation: "+9% CA et +30% investissements: l'industrie 4.0 tire la croissance."
+  }
+];
+
+const GI_DIGITAL_EXPORTS = [
+  {
+    year: "2019",
+    exports: 8,
+    jobs: 90000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Base de reference: debut de l'offshoring numerique."
+  },
+  {
+    year: "2020",
+    exports: 9.5,
+    jobs: 95000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Resilience Covid: le numerique progresse."
+  },
+  {
+    year: "2021",
+    exports: 12,
+    jobs: 105000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Acceleration post-Covid et demande offshore mondiale."
+  },
+  {
+    year: "2022",
+    exports: 15,
+    jobs: 120000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "+25%: le Maroc devient destination majeure pour les ESN."
+  },
+  {
+    year: "2023",
+    exports: 17.9,
+    jobs: 130000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Chiffre officiel de reference: 130 000 emplois directs."
+  },
+  {
+    year: "2030",
+    exports: 40,
+    jobs: 270000,
+    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
+    interpretation: "Objectif x2.2 exports et x2.1 emplois."
+  }
+];
+
+const GI_KPIS: GiKpi[] = [
+  {
+    label: "Usines digitalisees",
+    value2024: 48,
+    value2030: 100,
+    unit: "%",
+    prefix2024: "~",
+    source: "PAI 2.0 — Ministere Industrie (mcinet.gov.ma)",
+    note: "52% des usines restent a digitaliser = marche emploi a creer d'ici 2030.",
+    accent: "#38bdf8"
+  },
+  {
+    label: "Talents numeriques formes/an",
+    value2024: 24000,
+    value2030: 100000,
+    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+    note: "Penurie structurelle garantie = salaires eleves et emploi assure.",
+    accent: "#4ade80"
+  },
+  {
+    label: "CA industriel",
+    value2024: 898,
+    value2030: 1500,
+    unit: "Mds DH",
+    suffix2030: "+",
+    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+    note: "Marche en forte croissance = plus d'entreprises = plus de postes.",
+    accent: "#fb923c"
+  },
+  {
+    label: "Investissements industriels",
+    value2024: 90,
+    value2030: 150,
+    unit: "Mds DH",
+    suffix2030: "+",
+    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+    note: "+30% en un an = besoin en ingenieurs urgent.",
+    accent: "#fb923c"
+  },
+  {
+    label: "Export numerique",
+    value2024: 17.9,
+    value2030: 40,
+    unit: "Mds DH",
+    decimals: 1,
+    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+    note: "Le Maroc devient hub numerique africain = opportunites locales et internationales.",
+    accent: "#c084fc"
+  },
+  {
+    label: "Emplois numeriques",
+    value2024: 130000,
+    value2030: 270000,
+    unit: "emplois",
+    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+    note: "x2 emplois en 6 ans = une generation doit se former maintenant.",
+    accent: "#c084fc"
+  },
+  {
+    label: "Emplois industriels total",
+    value2024: 1038133,
+    value2030: 1300000,
+    unit: "emplois",
+    suffix2030: "+",
+    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+    note: "Le million depasse en 2024: 1er employeur prive du pays.",
+    accent: "#38bdf8"
+  },
+  {
+    label: "Marche Industrie 4.0 Maroc",
+    value2024: 1.5,
+    value2030: 4.0,
+    unit: "Mds USD",
+    decimals: 1,
+    source: "Estimation — Mordor Intelligence + PAI 2.0",
+    note: "CAGR +23%: le marche local quadruple d'ici 2030.",
+    accent: "#4ade80"
+  }
+];
+
+const GESI_SOURCE_URL =
+  "https://www.natural-net.fr/blog-agence-web/2025/01/08/intelligence-artificielle-et-seo-les-nouvelles-strategies-pour-optimiser-son-referencement.html";
+
 const UI_COPY: Record<
   SiteLocale,
   {
@@ -361,6 +767,34 @@ const UI_COPY: Record<
     downloadTitle: string;
     downloadBody: string;
     downloadCta: string;
+    energyCurveTitle: string;
+    energyCurveSubtitle: string;
+    energyLegendCapacity: string;
+    energyLegendMix: string;
+    windCurveTitle: string;
+    windCurveSubtitle: string;
+    windLegendCapacity: string;
+    giSectionTitle: string;
+    giSectionSubtitle: string;
+    giDataset1Title: string;
+    giDataset2Title: string;
+    giDataset3Title: string;
+    giDataset4Title: string;
+    giKpiTitle: string;
+    giKpiSubtitle: string;
+    giLegendFactories: string;
+    giLegendTalents: string;
+    giLegendRevenue: string;
+    giLegendInvestments: string;
+    giLegendExports: string;
+    giLegendJobs: string;
+    sourceLabel: string;
+    mecaSalariesTitle: string;
+    mecaSalariesSubtitle: string;
+    mecaAutomotiveTitle: string;
+    mecaAutomotiveSubtitle: string;
+    mecaAeronauticTitle: string;
+    mecaAeronauticSubtitle: string;
     sections: Record<OrientationSection, string>;
   }
 > = {
@@ -374,6 +808,36 @@ const UI_COPY: Record<
     downloadBody:
       "Pour faciliter ta recherche, nous avons prepare un guide PDF pour chaque filiere. Choisis celui qui t'interesse, mais rappelle-toi: ta decision doit venir de toi, pas des recommandations des autres, car toi seul construis ton futur.",
     downloadCta: "Telecharger le guide",
+    energyCurveTitle: "La courbe qui convainc - Capacite ENR Maroc",
+    energyCurveSubtitle:
+      "La puissance installee renouvelable a triple depuis 2000, de 1 221 MW a 4 067 MW en 2021, tiree par l'eolien et le solaire. Valeurs ~ pour 2000/2010/2015/2017/2018.",
+    energyLegendCapacity: "Capacite ENR (MW)",
+    energyLegendMix: "Part dans le mix (%)",
+    windCurveTitle: "L'eolien - la courbe la plus spectaculaire",
+    windCurveSubtitle:
+      "De 50 MW en 2000 a 1 466 MW en 2021, puis 2 451 MW en juin 2025. Production < 100 GWh -> > 5 000 GWh.",
+    windLegendCapacity: "Capacite eolienne (MW)",
+    giSectionTitle: "Industrie 4.0 - Radar Maroc",
+    giSectionSubtitle: "Tableau de bord des signaux cles de la transformation industrielle.",
+    giDataset1Title: "Usines digitalisees au Maroc (%)",
+    giDataset2Title: "Talents numeriques formes par an",
+    giDataset3Title: "CA industriel & investissements (Mds DH)",
+    giDataset4Title: "Export numerique (Mds DH)",
+    giKpiTitle: "KPIs cles 2024 -> 2030",
+    giKpiSubtitle: "Lecture rapide des ecarts a combler et des opportunites.",
+    giLegendFactories: "Usines digitalisees (%)",
+    giLegendTalents: "Talents formes / an",
+    giLegendRevenue: "CA industriel",
+    giLegendInvestments: "Investissements",
+    giLegendExports: "Export numerique",
+    giLegendJobs: "Emplois numeriques",
+    sourceLabel: "Source",
+    mecaSalariesTitle: "Salaires ingenieur mecanique Maroc",
+    mecaSalariesSubtitle: "Comparaison des salaires pour differents profils d'ingenieurs mecaniciens. Les salaires varient selon l'experience et l'origine de formation.",
+    mecaAutomotiveTitle: "Secteur Automobile — La locomotive mecanique du Maroc",
+    mecaAutomotiveSubtitle: "Evolution remarquable du secteur: production doublée en 15 ans, exports multipliés par 7. L'automobile tire la fabrication marocaine et genere plus de 180 000 emplois directs.",
+    mecaAeronauticTitle: "Secteur Aeronautique — La filière mecanique de pointe",
+    mecaAeronauticSubtitle: "Ascension fulgurante: 150 entreprises implantées, 26 000 emplois directs (doublement prévu d'ici 2030). Le Maroc est devenu la 5ème nation mondiale en dynamisme aéronautique.",
     sections: {
       modules: "Modules phares",
       careers: "Debouches",
@@ -391,6 +855,36 @@ const UI_COPY: Record<
     downloadBody:
       "To support your research, we prepared a PDF guide for each track. Pick the one that interests you, but remember: the choice should be yours, not driven by other people's recommendations.",
     downloadCta: "Download guide",
+    energyCurveTitle: "The convincing curve - Morocco renewable capacity",
+    energyCurveSubtitle:
+      "Installed renewables tripled since 2000, from 1,221 MW to 4,067 MW in 2021, driven by wind and solar. Approx values for 2000/2010/2015/2017/2018.",
+    energyLegendCapacity: "Renewable capacity (MW)",
+    energyLegendMix: "Share in mix (%)",
+    windCurveTitle: "Wind - the most dramatic curve",
+    windCurveSubtitle:
+      "From 50 MW in 2000 to 1,466 MW in 2021, then 2,451 MW in June 2025. Output < 100 GWh -> > 5,000 GWh.",
+    windLegendCapacity: "Wind capacity (MW)",
+    giSectionTitle: "Industry 4.0 - Morocco Radar",
+    giSectionSubtitle: "Dashboard of key signals for industrial transformation.",
+    giDataset1Title: "Digitalized factories in Morocco (%)",
+    giDataset2Title: "Digital talents trained per year",
+    giDataset3Title: "Industrial revenue & investments (Bn MAD)",
+    giDataset4Title: "Digital exports (Bn MAD)",
+    giKpiTitle: "Key KPIs 2024 -> 2030",
+    giKpiSubtitle: "Quick read of gaps to close and opportunities.",
+    giLegendFactories: "Digitalized factories (%)",
+    giLegendTalents: "Talents trained / year",
+    giLegendRevenue: "Industrial revenue",
+    giLegendInvestments: "Industrial investments",
+    giLegendExports: "Digital exports",
+    giLegendJobs: "Digital jobs",
+    sourceLabel: "Source",
+    mecaSalariesTitle: "Mechanical engineer salaries in Morocco",
+    mecaSalariesSubtitle: "Salary comparison for different profiles of mechanical engineers. Salaries vary by experience and educational background.",
+    mecaAutomotiveTitle: "Automotive Sector - Morocco's mechanical engine",
+    mecaAutomotiveSubtitle: "Remarkable growth: production doubled in 15 years, exports multiplied by 7. Automotive drives Moroccan manufacturing and generates over 180,000 direct jobs.",
+    mecaAeronauticTitle: "Aeronautic Sector - Advanced mechanical expertise",
+    mecaAeronauticSubtitle: "Rapid rise: 150 companies established, 26,000 direct jobs (expected to double by 2030). Morocco has become the world's 5th most dynamic aerospace nation.",
     sections: {
       modules: "Core modules",
       careers: "Career paths",
@@ -408,6 +902,36 @@ const UI_COPY: Record<
     downloadBody:
       "لتسهيل مرحلة البحث، أعددنا دليلاً بصيغة PDF لكل مسلك. اختر ما يناسبك، وتذكّر أن القرار يجب أن يكون نابعاً منك وليس توصيات الآخرين، لأنك وحدك من يصنع مستقبلك.",
     downloadCta: "تحميل الدليل",
+    energyCurveTitle: "The convincing curve - Morocco renewable capacity",
+    energyCurveSubtitle:
+      "Installed renewables tripled since 2000, from 1,221 MW to 4,067 MW in 2021, driven by wind and solar. Approx values for 2000/2010/2015/2017/2018.",
+    energyLegendCapacity: "Renewable capacity (MW)",
+    energyLegendMix: "Share in mix (%)",
+    windCurveTitle: "Wind - the most dramatic curve",
+    windCurveSubtitle:
+      "From 50 MW in 2000 to 1,466 MW in 2021, then 2,451 MW in June 2025. Output < 100 GWh -> > 5,000 GWh.",
+    windLegendCapacity: "Wind capacity (MW)",
+    giSectionTitle: "Industry 4.0 - Morocco Radar",
+    giSectionSubtitle: "Dashboard of key signals for industrial transformation.",
+    giDataset1Title: "Digitalized factories in Morocco (%)",
+    giDataset2Title: "Digital talents trained per year",
+    giDataset3Title: "Industrial revenue & investments (Bn MAD)",
+    giDataset4Title: "Digital exports (Bn MAD)",
+    giKpiTitle: "Key KPIs 2024 -> 2030",
+    giKpiSubtitle: "Quick read of gaps to close and opportunities.",
+    giLegendFactories: "Digitalized factories (%)",
+    giLegendTalents: "Talents trained / year",
+    giLegendRevenue: "Industrial revenue",
+    giLegendInvestments: "Industrial investments",
+    giLegendExports: "Digital exports",
+    giLegendJobs: "Digital jobs",
+    sourceLabel: "Source",
+    mecaSalariesTitle: "رواتب مهندس ميكانيكي في المغرب",
+    mecaSalariesSubtitle: "مقارنة الرواتب لملامح مختلفة من مهندسي الميكانيكا. تتفاوت الرواتب حسب الخبرة والخلفية التعليمية.",
+    mecaAutomotiveTitle: "القطاع السيارات - محرك المغرب الميكانيكي",
+    mecaAutomotiveSubtitle: "نمو ملحوظ: تضاعفت الإنتاجية في 15 سنة، الصادرات تضاعفت 7 مرات. يولد قطاع السيارات أكثر من 180 الف منصب عمل مباشرة.",
+    mecaAeronauticTitle: "القطاع الطيراني - الخبرة الميكانيكية المتقدمة",
+    mecaAeronauticSubtitle: "ارتفاع سريع: 150 شركة منخرطة، 26 الف منصب عمل مباشر (من المتوقع أن يتضاعف بحلول 2030). أصبح المغرب الدولة الخامسة الأكثر ديناميكية في الفضاء الجوي.",
     sections: {
       modules: "الوحدات الأساسية",
       careers: "الفرص",
@@ -415,6 +939,85 @@ const UI_COPY: Record<
       projects: "مشاريع نموذجية"
     }
   }
+};
+
+const LOCALE_MAP: Record<SiteLocale, string> = {
+  fr: "fr-FR",
+  en: "en-US",
+  ar: "ar-MA"
+};
+
+const formatNumber = (value: number, locale: SiteLocale, decimals = 0) =>
+  new Intl.NumberFormat(LOCALE_MAP[locale], {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  }).format(value);
+
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+const useInView = (ref: { current: HTMLElement | null }, threshold = 0.2) => {
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    if (isInView) return;
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isInView, ref, threshold]);
+
+  return isInView;
+};
+
+const AnimatedNumber = ({
+  value,
+  locale,
+  decimals = 0,
+  isActive,
+  duration = 1200
+}: {
+  value: number;
+  locale: SiteLocale;
+  decimals?: number;
+  isActive: boolean;
+  duration?: number;
+}) => {
+  const [displayValue, setDisplayValue] = useState(isActive ? value : 0);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!isActive || hasAnimated.current) return;
+    hasAnimated.current = true;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = easeOutCubic(progress);
+      setDisplayValue(value * eased);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }, [duration, isActive, value]);
+
+  return <span>{formatNumber(displayValue, locale, decimals)}</span>;
 };
 
 export function ApplicantOrientationExplorer({
@@ -432,7 +1035,16 @@ export function ApplicantOrientationExplorer({
   const content = DATA[locale];
   const [selectedBranch, setSelectedBranch] = useState<BranchKey>(recommendedBranch);
 
-  const branch = content[selectedBranch];
+  const branch = content[selectedBranch] ?? content.GESI;
+  const chartItems = branch.chart ?? branch.highlights;
+  const isGesi = selectedBranch === "GESI";
+  const isMeca = selectedBranch === "MECA";
+  const isGm = selectedBranch === "MECATRONIQUE";
+  const isGi = selectedBranch === "GI";
+
+  const kpiRef = useRef<HTMLDivElement | null>(null);
+  const kpiInView = useInView(kpiRef, 0.2);
+
   const sections = useMemo(
     () => [
       { key: "modules", title: copy.sections.modules, items: branch.modules },
@@ -443,7 +1055,21 @@ export function ApplicantOrientationExplorer({
     [branch, copy.sections]
   );
   const guidePdf = GUIDE_PDFS[selectedBranch];
-  const guideFileName = guidePdf.split("/").pop() ?? "guide-orientation.pdf";
+  const guideFileName = guidePdf?.split("/").pop() ?? "guide-orientation.pdf";
+  const tooltipStyle = {
+    backgroundColor: "rgba(15, 23, 42, 0.92)",
+    border: "1px solid rgba(148, 163, 184, 0.2)",
+    borderRadius: 10
+  };
+  const giCardClass = "glass-card p-5";
+  const giKpiCardClass = "rounded-2xl border border-edge/45 bg-panel/70 p-4";
+  const giTooltipClass = "rounded-xl border border-edge/70 bg-panel/95 p-3 text-ink shadow-card";
+  const giTooltipStyle = (color: string) => ({
+    borderColor: `${color}80`,
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    fontSize: 11
+  });
+
 
   return (
     <div className="space-y-6" dir={locale === "ar" ? "rtl" : "ltr"}>
@@ -525,70 +1151,451 @@ export function ApplicantOrientationExplorer({
           </div>
         </div>
 
-        <div className="mt-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/55">{copy.highlightsTitle}</p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {branch.highlights.map((item) => (
-              <div
-                key={`${item.value}-${item.label}`}
-                className="rounded-2xl border border-edge/50 bg-panel/70 p-4"
-                style={{ borderColor: `${branch.color}25` }}
-              >
-                <p className="font-display text-xl font-semibold text-ink sm:text-2xl" style={{ color: branch.color }}>
-                  {item.value}
-                </p>
-                <p className="mt-1 text-xs text-ink/70">{item.label}</p>
+        <div className="mt-12 space-y-16">
+          {/* 1. Citations & Vision Royale */}
+          <section className="space-y-6">
+            {isGesi && (
+              <>
+                <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Discours Royaux & Stratégie</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">COP22 - Marrakech</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed italic">
+                          "Le Maroc a pris des initiatives concrètes pour assurer, à l'horizon 2030, 52% de sa capacité électrique nationale à partir de sources d'énergie propre."
+                        </p>
+                        <div className="mt-4 text-[11px] text-ink/50 uppercase tracking-widest flex items-center gap-2">
+                          <span className="h-px w-4 bg-ink/20" /> Source: maroc.ma
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/image.png" alt="S.M. le Roi Mohammed VI" className="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/La ministre Leila Benali.jpg" alt="Leila Benali" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Ministère de la Transition Énergétique</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">Leila Benali - Vision 2025</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
+                          "L'intelligence artificielle est devenue le pivot du développement durable and intelligent du Maroc, optimisant la gestion du mix énergétique."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {isGi && (
+              <>
+                <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Vision Industrielle</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">Journée de l’Industrie</p>
+                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
+                          « J'invite le secteur privé à s'investir dans des domaines de pointe and d'avenir, reposant sur l'innovation. »
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/image.png" alt="Vision Royale" className="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/mezzour_ryad.jpg" alt="Ryad Mezzour" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Message Ministériel</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">Ryad Mezzour - 2025</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
+                          « Nous formons des ingénieurs prêts à relever les défis d'une industrie moderne, verte and inclusive. »
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {isGm && (
+              <>
+                <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Innovation Mécatronique</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">La Vision Royale</p>
+                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
+                          « Nous appelons à investir dans les secteurs de pointe pour relever les défis de la souveraineté technologique. »
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/image.png" alt="Vision Technologique" className="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+                  <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
+                    <img src="/images/Le Message de Ghita Mezzour.webp" alt="Ghita Mezzour" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Transition Numérique</p>
+                    <div className="mt-5">
+                      <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                        <p className="font-display text-xl font-bold uppercase text-ink">Ghita Mezzour - 2025</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
+                          « Le génie mécatronique est le moteur de l'innovation de demain. C'est la convergence du physique and du digital. »
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {isMeca && (
+              <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Excellence Mécanique</p>
+                  <div className="mt-5">
+                    <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
+                      <p className="font-display text-xl font-bold uppercase text-ink">Vision Royale</p>
+                      <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
+                        « Le label "Made in Morocco" doit devenir le symbole d'une ingénierie d'excellence and de souveraineté. »
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[350px]">
+                  <img src="/images/image.png" alt="Ingénierie Royale" className="h-full w-full object-cover" />
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+            )}
+          </section>
 
-        {projectTitle ? (
-          <div className="mt-6 rounded-3xl border p-5" style={{ borderColor: `${branch.color}35`, backgroundColor: `${branch.color}10` }}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: branch.color }}>
-              {copy.projectLink}
+          {/* 2. Axes principaux (Modules) */}
+          <section>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/40 mb-6 flex items-center gap-3">
+              <span className="h-px w-8 bg-edge/40" /> {copy.focusTitle}
             </p>
-            <p className="mt-3 break-words text-sm text-ink/76 sm:text-base">
-              <span className="font-semibold text-ink">{projectTitle}</span>
-              {projectDomain ? ` · ${projectDomain}` : ""}
+            <div className="grid gap-6 lg:grid-cols-2">
+              {sections.filter(s => s.key === 'modules').map(section => (
+                <div key={section.key} className="rounded-3xl border border-edge/45 bg-panel/65 p-6" style={{ borderColor: `${branch.color}20` }}>
+                  <ul className="grid gap-3 sm:grid-cols-2">
+                    {section.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm text-ink/75 leading-relaxed">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: branch.color }} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* 3. Chiffres clés (Highlights) */}
+          <section>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/40 mb-6 flex items-center gap-3">
+              <span className="h-px w-8 bg-edge/40" /> Indicateurs & Performance
             </p>
-            <p className="mt-2 text-sm text-ink/68">{branch.tagline}</p>
-          </div>
-        ) : null}
-
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          {sections.map((section) => (
-            <div key={section.key} className="rounded-3xl border border-edge/45 bg-panel/65 p-5">
-              <p className="font-display text-2xl font-semibold uppercase text-ink">{section.title}</p>
-              <ul className="mt-4 space-y-3">
-                {section.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3 break-words text-sm text-ink/78">
-                    <span
-                      className="mt-2 h-2 w-2 shrink-0 rounded-full"
-                      style={{ backgroundColor: branch.color }}
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              {branch.highlights.map((item, idx) => (
+                <div key={idx} className="glass-card p-6 flex flex-col gap-3 group transition-all hover:-translate-y-1" style={{ borderColor: `${branch.color}25` }}>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/30">Statistique {idx + 1}</span>
+                  <span className="font-display text-3xl font-bold transition-colors" style={{ color: branch.color }}>{item.value}</span>
+                  <span className="text-sm font-medium text-ink/80 leading-snug">{item.label}</span>
+                  {item.note && <p className="text-[10px] text-ink/50 italic border-t border-edge/10 pt-3 mt-auto">{item.note}</p>}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </section>
 
-        <div className="mt-6 rounded-3xl border border-edge/45 bg-panel/70 p-5 sm:p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/60">{copy.downloadTitle}</p>
-              <p className="max-w-2xl text-sm text-ink/75">{copy.downloadBody}</p>
+          {/* 4. Graphs and Datasets */}
+          <section className="space-y-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/40 flex items-center gap-3">
+              <span className="h-px w-8 bg-edge/40" /> {isGi ? copy.giSectionTitle : "Données & Perspectives"}
+            </p>
+            
+            {isGesi && (
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">{copy.energyCurveTitle}</p>
+                  <div className="mt-3 h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={GESI_RENEWABLES_CURVE}>
+                        <defs>
+                          <linearGradient id="gesiGreenGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#10b981" stopOpacity={0.6} />
+                            <stop offset="100%" stopColor="#10b981" stopOpacity={0.05} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                        <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <Tooltip contentStyle={tooltipStyle} />
+                        <Area type="monotone" dataKey="capacity" stroke="#10b981" fill="url(#gesiGreenGradient)" strokeWidth={2.5} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">{copy.windCurveTitle}</p>
+                  <div className="mt-3 h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={GESI_WIND_CURVE}>
+                        <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                        <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <Tooltip contentStyle={tooltipStyle} />
+                        <Bar dataKey="capacity" fill="#10b981" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isGi && (
+              <div className="space-y-8">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className={giCardClass}>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                    <p className="mt-2 text-sm font-semibold text-ink">{copy.giDataset1Title}</p>
+                    <div className="mt-3 h-[230px] w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={GI_DIGITAL_FACTORIES}>
+                          <defs>
+                            <linearGradient id="giCyanGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.6} />
+                              <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.05} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid vertical={false} stroke="rgba(148,163,184,.18)" />
+                          <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <Tooltip
+                            content={({ active, payload, label }) => {
+                              if (!active || !payload?.length) return null;
+                              const data = payload[0].payload as (typeof GI_DIGITAL_FACTORIES)[number];
+                              return (
+                                <div style={giTooltipStyle("#38bdf8")} className={giTooltipClass}>
+                                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/60">{label}</p>
+                                  <p className="mt-1 text-base font-semibold text-ink">{data.value}%</p>
+                                  <p className="mt-1 text-[10px] text-ink/70">{data.dataType}</p>
+                                  <p className="mt-1 text-[10px] text-ink/60">{data.source}</p>
+                                </div>
+                              );
+                            }}
+                          />
+                          <Area type="monotone" dataKey="value" stroke="#38bdf8" fill="url(#giCyanGradient)" strokeWidth={2.5} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  <div className={giCardClass}>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
+                    <p className="mt-2 text-sm font-semibold text-ink">{copy.giDataset2Title}</p>
+                    <div className="mt-3 h-[230px] w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={GI_TALENTS_PER_YEAR}>
+                          <defs>
+                            <linearGradient id="giGreenGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#4ade80" stopOpacity={0.9} />
+                              <stop offset="100%" stopColor="#4ade80" stopOpacity={0.1} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid vertical={false} stroke="rgba(148,163,184,.18)" />
+                          <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <Tooltip
+                            content={({ active, payload, label }) => {
+                              if (!active || !payload?.length) return null;
+                              const data = payload[0].payload as (typeof GI_TALENTS_PER_YEAR)[number];
+                              return (
+                                <div style={giTooltipStyle("#4ade80")} className={giTooltipClass}>
+                                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/60">{label}</p>
+                                  <p className="mt-1 text-base font-semibold text-ink">{formatNumber(data.value, locale)} / an</p>
+                                  <p className="mt-1 text-[10px] text-ink/70">{data.dataType}</p>
+                                </div>
+                              );
+                            }}
+                          />
+                          <Bar dataKey="value" fill="url(#giGreenGradient)" radius={[6, 6, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+                <div className="glass-card p-6" ref={kpiRef}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/60">{copy.giKpiTitle}</p>
+                  <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                    {GI_KPIS.slice(0, 4).map((kpi) => (
+                      <div key={kpi.label} className={giKpiCardClass} style={{ borderColor: `${kpi.accent}30` }}>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-ink/60 truncate">{kpi.label}</p>
+                        <div className="mt-3">
+                          <p className="text-[10px] text-ink/40 uppercase">Objectif 2030</p>
+                          <p className="text-2xl font-bold" style={{ color: kpi.accent }}>
+                            {kpi.prefix2030 ?? ""}{formatNumber(kpi.value2030, locale)}{kpi.suffix2030 ?? ""} {kpi.unit}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isMeca && (
+              <div className="space-y-6">
+                <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">{copy.mecaAutomotiveTitle}</p>
+                  <div className="mt-3 h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={MECA_AUTOMOTIVE}>
+                        <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                        <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis yAxisId="left" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis yAxisId="right" orientation="right" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <Tooltip contentStyle={tooltipStyle} />
+                        <Legend />
+                        <Bar yAxisId="left" dataKey="production" name="Production" fill={branch.color} radius={[4, 4, 0, 0]} />
+                        <Bar yAxisId="right" dataKey="emplois" name="Emplois" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Filière de pointe</p>
+                    <p className="mt-2 text-sm font-semibold text-ink">{copy.mecaAeronauticTitle}</p>
+                    <div className="mt-3 h-[230px] w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={MECA_AERONAUTIQUE}>
+                          <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                          <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                          <Tooltip contentStyle={tooltipStyle} />
+                          <Line type="monotone" dataKey="exports" name="Exports (Mds DH)" stroke={branch.color} strokeWidth={3} dot={{r:4}} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Perspectives Salariales</p>
+                    <div className="mt-4 space-y-3">
+                      {MECA_SALARIES.map((s, idx) => (
+                        <div key={idx} className="flex justify-between items-center bg-panel/40 p-3 rounded-xl border border-edge/20">
+                          <span className="text-xs text-ink/70">{s.profile.replace('\n', ' ')}</span>
+                          <span className="text-sm font-bold text-ink" style={{ color: branch.color }}>{s.salary}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isGm && (
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">Marché Mondial Robotique (Mds USD)</p>
+                  <div className="mt-3 h-[230px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={MECATRONIQUE_MARKET}>
+                        <defs>
+                          <linearGradient id="gmVioletGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.6} />
+                            <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.05} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                        <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <Tooltip contentStyle={tooltipStyle} />
+                        <Area type="monotone" dataKey="market" stroke="#8b5cf6" fill="url(#gmVioletGradient)" strokeWidth={2.5} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">Pénétration Véhicules Électriques (%)</p>
+                  <div className="mt-3 h-[230px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={MECATRONIQUE_VE}>
+                        <CartesianGrid vertical={false} stroke="rgba(148,163,184,.15)" />
+                        <XAxis dataKey="year" stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <YAxis stroke="rgba(100,116,139,.8)" fontSize={11} />
+                        <Tooltip contentStyle={tooltipStyle} />
+                        <Line type="stepAfter" dataKey="penetration" stroke="#8b5cf6" strokeWidth={3} dot={{r:5}} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* 5. Careers, Companies, Projects */}
+          <section>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {sections.filter(s => s.key !== 'modules').map(section => (
+                <div key={section.key} className="rounded-3xl border border-edge/45 bg-panel/65 p-6" style={{ borderColor: `${branch.color}20` }}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40 mb-5">{section.title}</p>
+                  <ul className="space-y-4">
+                    {section.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm text-ink/75 leading-relaxed">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: branch.color }} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-            <a
-              href={guidePdf}
-              download={guideFileName}
-              className="inline-flex items-center justify-center rounded-full border border-edge/80 bg-panel/95 px-5 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition hover:border-accent hover:text-accent"
-            >
-              {copy.downloadCta}
-            </a>
-          </div>
+          </section>
+
+          {/* 6. Guide PDF */}
+          <section className="rounded-[2.5rem] border border-edge/45 bg-panel/70 p-8 sm:p-12 text-center relative overflow-hidden" style={{ borderColor: `${branch.color}25` }}>
+            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: branch.color, opacity: 0.3 }} />
+            <div className="relative z-10">
+              <h3 className="font-display text-3xl font-bold uppercase text-ink sm:text-4xl">{copy.downloadTitle}</h3>
+              <p className="mx-auto mt-6 max-w-2xl text-sm sm:text-base leading-relaxed text-ink/60">{copy.downloadBody}</p>
+              <div className="mt-10 flex justify-center">
+                <a
+                  href={guidePdf}
+                  download={guideFileName}
+                  className="group flex items-center gap-4 rounded-full px-10 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl"
+                  style={{ backgroundColor: branch.color }}
+                >
+                  <svg className="h-5 w-5 fill-current transition-transform group-hover:translate-y-1" viewBox="0 0 24 24">
+                    <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-9 4h18v-2H3v2z" />
+                  </svg>
+                  {copy.downloadCta}
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </article>
     </div>
