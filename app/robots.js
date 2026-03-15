@@ -11,8 +11,25 @@ export default function robots() {
         userAgent: "GPTBot",
         allow: "/"
       },
+      
       {
         userAgent: "ClaudeBot",
+        allow: "/"
+      },
+      {
+        userAgent: "Bingbot",
+        allow: "/"
+      },
+      {
+        userAgent: "DuckDuckBot",
+        allow: "/"
+      },
+      {
+        userAgent: "YandexBot",
+        allow: "/"
+      },
+      {
+        userAgent: "Baiduspider",
         allow: "/"
       },
       {
@@ -20,6 +37,7 @@ export default function robots() {
         allow: "/"
       }
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`
-  };
+    sitemap: 'https://innov-indus.vercel.app/sitemap.xml',
+  };  
 }
+
