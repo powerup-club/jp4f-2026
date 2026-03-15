@@ -88,6 +88,14 @@ type GiKpi = {
   accent: string;
 };
 
+type GiSeriesItem = {
+  year: string;
+  value: number;
+  dataType: string;
+  source: string;
+  interpretation: string;
+};
+
 const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
   fr: {
     GESI: {
@@ -275,13 +283,13 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         { value: "75,000+", label: "energy jobs created in Morocco" }
       ],
       chart: [
-        { label: "Junior salary in Morocco", value: "10,000-15,000 MAD/month", weight: 62 },
-        { label: "Green H2 investment (Morocco)", value: "319 Bn MAD (2025)", weight: 92 },
-        { label: "Installed renewable capacity", value: "5,466 MW (2024)", weight: 78 },
-        { label: "Renewables mix target 2030", value: "52%", weight: 52 },
-        { label: "Global H2 demand share target", value: "4% by 2030", weight: 38 },
-        { label: "Energy sector jobs", value: "75,000+", weight: 70 },
-        { label: "Specialized training in Morocco", value: "Very rare -> competitive edge", weight: 66 }
+        { label: "راتب مبتدئ في المغرب", value: "10,000-15,000 MAD/شهر", weight: 62 },
+        { label: "استثمار الهيدروجين الأخضر (المغرب)", value: "319 مليار MAD (2025)", weight: 92 },
+        { label: "القدرة المتجددة المركبة", value: "5,466 MW (2024)", weight: 78 },
+        { label: "هدف حصة الطاقات المتجددة 2030", value: "52%", weight: 52 },
+        { label: "حصة الطلب العالمي على الهيدروجين", value: "4% بحلول 2030", weight: 38 },
+        { label: "وظائف قطاع الطاقة", value: "75,000+", weight: 70 },
+        { label: "تكوينات متخصصة في المغرب", value: "نادرة جدا -> ميزة تنافسية", weight: 66 }
       ],
       modules: ["Renewable energy", "Power electronics", "Embedded systems", "Applied AI", "Advanced control"],
       careers: ["Energy engineer", "Smart-grid engineer", "Intelligent systems engineer", "Energy-transition consultant"],
@@ -353,12 +361,12 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
       tagline: "طاقة ومستشعرات وتحكم وذكاء مطبق.",
       description:
         "هذا المسلك مناسب للطلبة المهتمين بالطاقة والأنظمة المضمنة والأتمتة الذكية والحلول الصناعية المستدامة.",
-      focusAreas: ["??????? ????????", "?????????? ??????", "??????? ???????", "??????? ??????", "?????? ????????? ??????"],
+      focusAreas: ["الطاقات المتجددة", "إلكترونيات القدرة", "الأنظمة المضمنة", "الشبكات الذكية", "الذكاء الاصطناعي وبيانات الطاقة"],
       highlights: [
-        { value: "5 466 MW", label: "???? ??????? ???????? ??????? (2024)" },
-        { value: "52%", label: "??? ??????? ???????? ?? ?????? ????????? (2030)" },
-        { value: "319 ????? ????", label: "?????? ?????????? ?????? ???????? (2025)" },
-        { value: "75 000+", label: "????? ?????? ?? ??????" }
+        { value: "5 466 MW", label: "القدرة المتجددة المركبة (2024)" },
+        { value: "52%", label: "هدف الطاقات المتجددة في مزيج الكهرباء (2030)" },
+        { value: "319 مليار DH", label: "مشاريع الهيدروجين الأخضر المعتمدة (2025)" },
+        { value: "75 000+", label: "وظائف الطاقة المستحدثة في المغرب" }
       ],
       chart: [
         { label: "Junior salary in Morocco", value: "10,000-15,000 MAD/month", weight: 62 },
@@ -370,7 +378,7 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
         { label: "Specialized training in Morocco", value: "Very rare -> competitive edge", weight: 66 }
       ],
       modules: ["الطاقات المتجددة", "إلكترونيات القدرة", "الأنظمة المضمنة", "الذكاء الاصطناعي التطبيقي", "التحكم المتقدم"],
-      careers: ["مهندس طاقة", "مهندس smart grid", "مهندس أنظمة ذكية", "مستشار انتقال طاقي"],
+      careers: ["مهندس طاقة", "مهندس شبكات ذكية", "مهندس أنظمة ذكية", "مستشار الانتقال الطاقي"],
       companies: ["MASEN", "ONEE", "Schneider Electric", "Leoni", "Yazaki"],
       projects: ["مراقبة شمسية عبر IoT", "تحسين طاقي بالذكاء الاصطناعي", "شبكة مصغرة ذكية"],
       color: "#10b981"
@@ -381,11 +389,11 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
       tagline: "تصميم وبنية ومحاكاة وتصنيع.",
       description:
         "هذا المسلك يناسب من يحب تصميم الآليات والتحقق من البنيات وتحويل الأفكار إلى أنظمة مادية قوية.",
-      focusAreas: ["??????? ?????????", "???????? ???????", "?????? ?????????", "??????? ????????", "?????? ??????"],
+      focusAreas: ["التصميم والابتكار", "المحاكاة العددية", "المواد والعمليات", "الإنتاج والصيانة", "التوائم الرقمية"],
       highlights: [
-        { value: "26.4 ????? ????", label: "?????? ??????? (2024)" },
-        { value: "200+", label: "?????? ?? ????? ???????? ???????" },
-        { value: "24 000+", label: "????? ???????" }
+        { value: "26.4 مليار DH", label: "صادرات الطيران (2024)" },
+        { value: "200+", label: "فاعلون في قطاع السيارات بالمغرب" },
+        { value: "24 000+", label: "وظائف الطيران" }
       ],
       modules: ["مقاومة المواد", "العناصر المحدودة", "التصميم بالحاسوب", "المواد", "التصنيع الإضافي"],
       careers: ["مهندس تصميم", "مهندس محاكاة", "مهندس إنتاج", "مسؤول مكتب الدراسات"],
@@ -399,12 +407,12 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
       tagline: "روبوتيك وأتمتة وأنظمة هجينة.",
       description:
         "الميكاترونيك مناسب لمن يحب الجمع بين الميكانيك والإلكترونيات والبرمجيات لبناء أنظمة ذكية ذاتية.",
-      focusAreas: ["????????? ???????", "??????? ???????", "?????? ???????", "?????????? ??????", "?????? ????????? ????????"],
+      focusAreas: ["الروبوتيك والرؤية", "الأنظمة المضمنة", "التحكم المتقدم", "إلكترونيات القدرة", "الذكاء الاصطناعي التطبيقي"],
       highlights: [
-        { value: "205.5 ????? ?????", label: "??? ????????? ?????? ????? 2030" },
-        { value: "110 ????? ?????", label: "??? ??????? ??????? (2024)" },
-        { value: "600 000+", label: "?????? ????? ????? ?? ??????" },
-        { value: "553 052", label: "??????? ?????? ????? (2024)" }
+        { value: "205.5 مليار USD", label: "سوق الروبوتات العالمي بحلول 2030" },
+        { value: "110 مليار USD", label: "سوق الأنظمة المضمنة (2024)" },
+        { value: "600 000+", label: "مركبات منتجة سنويًا في المغرب" },
+        { value: "553 052", label: "روبوتات صناعية مركبة في 2024" }
       ],
       modules: ["الروبوتيك", "الرؤية الحاسوبية", "المتحكمات", "الأتمتة", "الأنظمة الزمنية"],
       careers: ["مهندس روبوتيك", "مهندس أتمتة", "مهندس أنظمة مضمنة", "مطور رؤية صناعية"],
@@ -418,15 +426,15 @@ const DATA: Record<SiteLocale, Record<BranchKey, BranchContent>> = {
       tagline: "تدفقات وجودة وأداء وتحويل للعمليات.",
       description:
         "الهندسة الصناعية تناسب من يحب تحسين الأنظمة وتنظيم العمليات واستعمال المعطيات لرفع الأداء.",
-      focusAreas: ["??? ??????????", "????? ???????", "??????/???? ??????? ?????", "???????", "?????? ?PLM"],
+      focusAreas: ["Lean والتميز التشغيلي", "سلسلة الإمداد واللوجستيك", "بيانات/ذكاء اصطناعي صناعي", "الأتمتة والروبوتيك", "الجودة وPLM"],
       highlights: [
-        { value: "898 ????? ????", label: "??? ????????? ??????? (2024)" },
-        { value: "90 ????? ????", label: "????????? ?????? (2024)" },
-        { value: "42 700", label: "????? ??? ?????? (2024)" },
-        { value: "1.5 ????? ?????", label: "??? ??????? 4.0 ???????" }
+        { value: "898 مليار DH", label: "رقم معاملات الصناعة (2024)" },
+        { value: "90 مليار DH", label: "الاستثمارات الصناعية (2024)" },
+        { value: "42 700", label: "وظائف صناعية مستحدثة (2024)" },
+        { value: "1.5 مليار USD", label: "سوق الصناعة 4.0 في المغرب" }
       ],
-      modules: ["Lean manufacturing", "Supply chain", "الجودة", "بحوث العمليات", "الصناعة 4.0"],
-      careers: ["مهندس جودة", "مدير سلسلة الإمداد", "مستشار lean", "مهندس أداء"],
+      modules: ["التصنيع الرشيق", "سلسلة الإمداد", "الجودة", "بحوث العمليات", "الصناعة 4.0"],
+      careers: ["مهندس جودة", "مدير سلسلة الإمداد", "مستشار التصنيع الرشيق", "مهندس أداء"],
       companies: ["OCP Group", "Marsa Maroc", "Decathlon", "Lear Corporation"],
       projects: ["لوحة قيادة للإنتاج", "تحسين المستودع", "تدبير الجودة في الزمن الحقيقي"],
       color: "#0ea5e9"
@@ -460,12 +468,30 @@ const GESI_WIND_CURVE = [
   { year: "2025", capacity: 2451 }
 ];
 
-const MECA_SALARIES = [
-  { profile: "Débutant\ngrande école", salary: "11 500-13 000 DH", min: 11500, max: 13000 },
-  { profile: "Débutant\nENSA/EMI", salary: "7 500-8 500 DH", min: 7500, max: 8500 },
-  { profile: "Confirmé\n(3-5 ans)", salary: "15 000-22 000 DH", min: 15000, max: 22000 },
-  { profile: "Senior\nGrandes multinationales", salary: "20 000-30 000 DH", min: 20000, max: 30000 }
-];
+const MECA_SALARIES_BY_LOCALE: Record<
+  SiteLocale,
+  { profile: string; salary: string; min: number; max: number }[]
+> = {
+  fr: [
+    { profile: "Débutant\ngrande école", salary: "11 500-13 000 DH", min: 11500, max: 13000 },
+    { profile: "Débutant\nENSA/EMI", salary: "7 500-8 500 DH", min: 7500, max: 8500 },
+    { profile: "Confirmé\n(3-5 ans)", salary: "15 000-22 000 DH", min: 15000, max: 22000 },
+    { profile: "Senior\nGrandes multinationales", salary: "20 000-30 000 DH", min: 20000, max: 30000 }
+  ],
+  en: [
+    { profile: "Entry-level\nTop engineering school", salary: "11,500-13,000 MAD", min: 11500, max: 13000 },
+    { profile: "Entry-level\nENSA/EMI", salary: "7,500-8,500 MAD", min: 7500, max: 8500 },
+    { profile: "Mid-level\n(3-5 years)", salary: "15,000-22,000 MAD", min: 15000, max: 22000 },
+    { profile: "Senior\nLarge multinationals", salary: "20,000-30,000 MAD", min: 20000, max: 30000 }
+  ],
+  ar: [
+    { profile: "مبتدئ\nمدرسة هندسة كبرى", salary: "11 500-13 000 DH", min: 11500, max: 13000 },
+    { profile: "مبتدئ\nENSA/EMI", salary: "7 500-8 500 DH", min: 7500, max: 8500 },
+    { profile: "متوسط\n(3-5 سنوات)", salary: "15 000-22 000 DH", min: 15000, max: 22000 },
+    { profile: "خبير\nشركات متعددة الجنسيات", salary: "20 000-30 000 DH", min: 20000, max: 30000 }
+  ]
+};
+
 
 const MECA_AUTOMOTIVE = [
   { year: "2010", production: 100000, exports: 20, emplois: 50000 },
@@ -486,102 +512,298 @@ const MECA_AERONAUTIQUE = [
   { year: "2024", enterprises: 150, emplois: 26000, exports: 26.4, integration: 42 }
 ];
 
-const GI_DIGITAL_FACTORIES = [
-  {
-    year: "2019",
-    value: 10,
-    dataType: "Officielle",
-    source: "PAI 1.0 — Programme Acceleration Industrielle — Ministere Industrie et Commerce (mcinet.gov.ma)",
-    interpretation: "Point de depart: seulement 1 usine sur 10 etait digitalisee en 2019."
-  },
-  {
-    year: "2021",
-    value: 30,
-    dataType: "Officielle — declaration ministerielle",
-    source: "Declaration M. Moulay Hafid Elalamy a la Global Industry 4.0 Conference 2021",
-    interpretation: "Triplement en 2 ans (+20 pts). La digitalisation accelere sous l'effet du PAI."
-  },
-  {
-    year: "2022",
-    value: 36,
-    dataType: "Estimee (interpolation lineaire CAGR)",
-    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
-    interpretation: "Progression reguliere confirmee par les entreprises (Barometre Industrie 2023)."
-  },
-  {
-    year: "2023",
-    value: 42,
-    dataType: "Estimee (interpolation lineaire CAGR)",
-    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
-    interpretation: "Acceleration confirmee par l'augmentation des investissements industriels (+103% en 2023)."
-  },
-  {
-    year: "2024",
-    value: 48,
-    dataType: "Estimee (interpolation lineaire CAGR)",
-    source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
-    interpretation: "Presque 1 usine sur 2 digitalisee: point de bascule vers la majorite."
-  },
-  {
-    year: "2030",
-    value: 100,
-    dataType: "Objectif national officiel",
-    source: "PAI 2.0 — Programme Acceleration Industrielle 2021-2030 — Ministere Industrie",
-    interpretation: "100% = toutes les usines integrent au moins une brique Industrie 4.0."
-  }
-];
+const GI_DIGITAL_FACTORIES: Record<SiteLocale, GiSeriesItem[]> = {
+  fr: [
+    {
+      year: "2019",
+      value: 10,
+      dataType: "Officielle",
+      source: "PAI 1.0 — Programme Accélération Industrielle — Ministère Industrie et Commerce (mcinet.gov.ma)",
+      interpretation: "Point de départ: seulement 1 usine sur 10 était digitalisée en 2019."
+    },
+    {
+      year: "2021",
+      value: 30,
+      dataType: "Officielle — déclaration ministérielle",
+      source: "Déclaration M. Moulay Hafid Elalamy à la Global Industry 4.0 Conference 2021",
+      interpretation: "Triplement en 2 ans (+20 pts). La digitalisation accelere sous l'effet du PAI."
+    },
+    {
+      year: "2022",
+      value: 36,
+      dataType: "Estimee (interpolation lineaire CAGR)",
+      source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+      interpretation: "Progression reguliere confirmee par les entreprises (Barometre Industrie 2023)."
+    },
+    {
+      year: "2023",
+      value: 42,
+      dataType: "Estimee (interpolation lineaire CAGR)",
+      source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+      interpretation: "Acceleration confirmee par l'augmentation des investissements industriels (+103% en 2023)."
+    },
+    {
+      year: "2024",
+      value: 48,
+      dataType: "Estimee (interpolation lineaire CAGR)",
+      source: "Interpolation entre 30% (2021 officiel) et 100% (2030 objectif PAI 2.0)",
+      interpretation: "Presque 1 usine sur 2 digitalisee: point de bascule vers la majorite."
+    },
+    {
+      year: "2030",
+      value: 100,
+      dataType: "Objectif national officiel",
+      source: "PAI 2.0 ? Programme Acceleration Industrielle 2021-2030 ? Ministere Industrie",
+      interpretation: "100% = toutes les usines integrent au moins une brique Industrie 4.0."
+    }
+  ],
+  en: [
+    {
+      year: "2019",
+      value: 10,
+      dataType: "Official",
+      source: "PAI 1.0 ? Industrial Acceleration Program ? Ministry of Industry and Trade (mcinet.gov.ma)",
+      interpretation: "Starting point: only 1 factory out of 10 was digitized in 2019."
+    },
+    {
+      year: "2021",
+      value: 30,
+      dataType: "Official ? ministerial statement",
+      source: "Statement by Mr. Moulay Hafid Elalamy at the Global Industry 4.0 Conference 2021",
+      interpretation: "Tripled in 2 years (+20 pts). Digitization accelerates under the PAI."
+    },
+    {
+      year: "2022",
+      value: 36,
+      dataType: "Estimated (linear CAGR interpolation)",
+      source: "Interpolation between 30% (official 2021) and 100% (PAI 2.0 target 2030)",
+      interpretation: "Steady progress confirmed by companies (Industry Barometer 2023)."
+    },
+    {
+      year: "2023",
+      value: 42,
+      dataType: "Estimated (linear CAGR interpolation)",
+      source: "Interpolation between 30% (official 2021) and 100% (PAI 2.0 target 2030)",
+      interpretation: "Acceleration confirmed by the increase in industrial investments (+103% in 2023)."
+    },
+    {
+      year: "2024",
+      value: 48,
+      dataType: "Estimated (linear CAGR interpolation)",
+      source: "Interpolation between 30% (official 2021) and 100% (PAI 2.0 target 2030)",
+      interpretation: "Nearly 1 in 2 factories digitized: a tipping point toward majority adoption."
+    },
+    {
+      year: "2030",
+      value: 100,
+      dataType: "Official national target",
+      source: "PAI 2.0 ? Industrial Acceleration Program 2021-2030 ? Ministry of Industry",
+      interpretation: "100% = all factories integrate at least one Industry 4.0 building block."
+    }
+  ],
+  ar: [
+    {
+      year: "2019",
+      value: 10,
+      dataType: "رسمي",
+      source: "PAI 1.0 — برنامج التسريع الصناعي — وزارة الصناعة والتجارة (mcinet.gov.ma)",
+      interpretation: "نقطة البداية: مصنع واحد فقط من أصل 10 كان مُرقمنًا في 2019."
+    },
+    {
+      year: "2021",
+      value: 30,
+      dataType: "رسمي — تصريح وزاري",
+      source: "تصريح السيد مولاي حفيظ العلمي في مؤتمر الصناعة 4.0 العالمي 2021",
+      interpretation: "تضاعف ثلاث مرات خلال سنتين (+20 نقطة). تسارع الرقمنة تحت تأثير PAI."
+    },
+    {
+      year: "2022",
+      value: 36,
+      dataType: "تقديري (استيفاء خطي لمعدل النمو السنوي المركب)",
+      source: "استيفاء بين 30% (رسمي 2021) و100% (هدف PAI 2.0 لعام 2030)",
+      interpretation: "تقدم منتظم تؤكده الشركات (بارومتر الصناعة 2023)."
+    },
+    {
+      year: "2023",
+      value: 42,
+      dataType: "تقديري (استيفاء خطي لمعدل النمو السنوي المركب)",
+      source: "استيفاء بين 30% (رسمي 2021) و100% (هدف PAI 2.0 لعام 2030)",
+      interpretation: "تسارع تؤكده زيادة الاستثمارات الصناعية (+103% في 2023)."
+    },
+    {
+      year: "2024",
+      value: 48,
+      dataType: "تقديري (استيفاء خطي لمعدل النمو السنوي المركب)",
+      source: "استيفاء بين 30% (رسمي 2021) و100% (هدف PAI 2.0 لعام 2030)",
+      interpretation: "تقريبًا مصنع من كل مصنعين مُرقمن: نقطة تحول نحو الغالبية."
+    },
+    {
+      year: "2030",
+      value: 100,
+      dataType: "هدف وطني رسمي",
+      source: "PAI 2.0 — برنامج التسريع الصناعي 2021-2030 — وزارة الصناعة",
+      interpretation: "100% = كل المصانع تدمج على الأقل لبنة واحدة من الصناعة 4.0."
+    }
+  ]
+};
 
-const GI_TALENTS_PER_YEAR = [
-  {
-    year: "2019",
-    value: 10000,
-    dataType: "Estimee (CAGR)",
-    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
-    interpretation: "Base de reference avant le Plan National de Formation Numerique."
-  },
-  {
-    year: "2020",
-    value: 11500,
-    dataType: "Estimee (CAGR)",
-    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
-    interpretation: "Legere progression malgre Covid: le numerique resiste."
-  },
-  {
-    year: "2021",
-    value: 12800,
-    dataType: "Estimee (CAGR)",
-    source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 — mtne.gov.ma)",
-    interpretation: "Acceleration post-Covid: besoin national en competences digitales."
-  },
-  {
-    year: "2022",
-    value: 14000,
-    dataType: "Officielle",
-    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma) — publiee 09/2024",
-    interpretation: "Chiffre de reference officiel."
-  },
-  {
-    year: "2023",
-    value: 18000,
-    dataType: "Estimee (CAGR)",
-    source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
-    interpretation: "Mise en oeuvre: ecoles et universites augmentent leurs capacites."
-  },
-  {
-    year: "2024",
-    value: 24000,
-    dataType: "Estimee (CAGR)",
-    source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
-    interpretation: "+71% vs 2022: bootcamps et formations courtes accelerent."
-  },
-  {
-    year: "2030",
-    value: 100000,
-    dataType: "Objectif national officiel",
-    source: "Strategie Maroc Digital 2030 — Ministere Transition Numerique (mtne.gov.ma)",
-    interpretation: "Objectif x7 vs 2022: penurie de profils qualifies = avantage salarial."
-  }
-];
+
+const GI_TALENTS_PER_YEAR: Record<SiteLocale, GiSeriesItem[]> = {
+  fr: [
+    {
+      year: "2019",
+      value: 10000,
+      dataType: "Estimee (CAGR)",
+      source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 ? mtne.gov.ma)",
+      interpretation: "Base de reference avant le Plan National de Formation Numerique."
+    },
+    {
+      year: "2020",
+      value: 11500,
+      dataType: "Estimee (CAGR)",
+      source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 ? mtne.gov.ma)",
+      interpretation: "Legere progression malgre Covid: le numerique resiste."
+    },
+    {
+      year: "2021",
+      value: 12800,
+      dataType: "Estimee (CAGR)",
+      source: "Extrapolation depuis base 2022 (Strategie Maroc Digital 2030 ? mtne.gov.ma)",
+      interpretation: "Acceleration post-Covid: besoin national en competences digitales."
+    },
+    {
+      year: "2022",
+      value: 14000,
+      dataType: "Officielle",
+      source: "Strategie Maroc Digital 2030 ? Ministere Transition Numerique (mtne.gov.ma) ? publiee 09/2024",
+      interpretation: "Chiffre de reference officiel."
+    },
+    {
+      year: "2023",
+      value: 18000,
+      dataType: "Estimee (CAGR)",
+      source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
+      interpretation: "Mise en oeuvre: ecoles et universites augmentent leurs capacites."
+    },
+    {
+      year: "2024",
+      value: 24000,
+      dataType: "Estimee (CAGR)",
+      source: "Extrapolation vers objectif 2030 (Strategie Maroc Digital 2030)",
+      interpretation: "+71% vs 2022: bootcamps et formations courtes accelerent."
+    },
+    {
+      year: "2030",
+      value: 100000,
+      dataType: "Objectif national officiel",
+      source: "Strategie Maroc Digital 2030 ? Ministere Transition Numerique (mtne.gov.ma)",
+      interpretation: "Objectif x7 vs 2022: penurie de profils qualifies = avantage salarial."
+    }
+  ],
+  en: [
+    {
+      year: "2019",
+      value: 10000,
+      dataType: "Estimated (CAGR)",
+      source: "Extrapolation from 2022 baseline (Morocco Digital 2030 Strategy ? mtne.gov.ma)",
+      interpretation: "Baseline before the National Digital Training Plan."
+    },
+    {
+      year: "2020",
+      value: 11500,
+      dataType: "Estimated (CAGR)",
+      source: "Extrapolation from 2022 baseline (Morocco Digital 2030 Strategy ? mtne.gov.ma)",
+      interpretation: "Slight growth despite Covid: digital holds up."
+    },
+    {
+      year: "2021",
+      value: 12800,
+      dataType: "Estimated (CAGR)",
+      source: "Extrapolation from 2022 baseline (Morocco Digital 2030 Strategy ? mtne.gov.ma)",
+      interpretation: "Post-Covid acceleration: national demand for digital skills."
+    },
+    {
+      year: "2022",
+      value: 14000,
+      dataType: "Official",
+      source: "Morocco Digital 2030 Strategy ? Ministry of Digital Transition (mtne.gov.ma) ? published 09/2024",
+      interpretation: "Official reference figure."
+    },
+    {
+      year: "2023",
+      value: 18000,
+      dataType: "Estimated (CAGR)",
+      source: "Extrapolation toward the 2030 target (Morocco Digital 2030 Strategy)",
+      interpretation: "Rollout: schools and universities increase capacity."
+    },
+    {
+      year: "2024",
+      value: 24000,
+      dataType: "Estimated (CAGR)",
+      source: "Extrapolation toward the 2030 target (Morocco Digital 2030 Strategy)",
+      interpretation: "+71% vs 2022: bootcamps and short programs accelerate."
+    },
+    {
+      year: "2030",
+      value: 100000,
+      dataType: "Official national target",
+      source: "Morocco Digital 2030 Strategy ? Ministry of Digital Transition (mtne.gov.ma)",
+      interpretation: "Target x7 vs 2022: shortage of qualified profiles = salary advantage."
+    }
+  ],
+  ar: [
+    {
+      year: "2019",
+      value: 10000,
+      dataType: "تقديري (معدل النمو السنوي المركب)",
+      source: "استقراء انطلاقًا من خط الأساس لعام 2022 (استراتيجية المغرب الرقمي 2030 — mtne.gov.ma)",
+      interpretation: "خط أساس قبل البرنامج الوطني للتكوين الرقمي."
+    },
+    {
+      year: "2020",
+      value: 11500,
+      dataType: "تقديري (معدل النمو السنوي المركب)",
+      source: "استقراء انطلاقًا من خط الأساس لعام 2022 (استراتيجية المغرب الرقمي 2030 — mtne.gov.ma)",
+      interpretation: "تقدم طفيف رغم كوفيد: الرقمي صامد."
+    },
+    {
+      year: "2021",
+      value: 12800,
+      dataType: "تقديري (معدل النمو السنوي المركب)",
+      source: "استقراء انطلاقًا من خط الأساس لعام 2022 (استراتيجية المغرب الرقمي 2030 — mtne.gov.ma)",
+      interpretation: "تسارع بعد كوفيد: حاجة وطنية للمهارات الرقمية."
+    },
+    {
+      year: "2022",
+      value: 14000,
+      dataType: "رسمي",
+      source: "استراتيجية المغرب الرقمي 2030 — وزارة الانتقال الرقمي (mtne.gov.ma) — نُشرت 09/2024",
+      interpretation: "رقم مرجعي رسمي."
+    },
+    {
+      year: "2023",
+      value: 18000,
+      dataType: "تقديري (معدل النمو السنوي المركب)",
+      source: "استقراء نحو هدف 2030 (استراتيجية المغرب الرقمي 2030)",
+      interpretation: "التنفيذ: المدارس والجامعات ترفع قدراتها."
+    },
+    {
+      year: "2024",
+      value: 24000,
+      dataType: "تقديري (معدل النمو السنوي المركب)",
+      source: "استقراء نحو هدف 2030 (استراتيجية المغرب الرقمي 2030)",
+      interpretation: "+71% مقارنة بـ2022: المعسكرات التدريبية والبرامج القصيرة تتسارع."
+    },
+    {
+      year: "2030",
+      value: 100000,
+      dataType: "هدف وطني رسمي",
+      source: "استراتيجية المغرب الرقمي 2030 — وزارة الانتقال الرقمي (mtne.gov.ma)",
+      interpretation: "هدف ×7 مقارنة بـ2022: ندرة الكفاءات المؤهلة = ميزة على مستوى الأجور."
+    }
+  ]
+};
+
 
 const GI_INDUSTRIAL_REVENUE = [
   {
@@ -673,85 +895,246 @@ const GI_DIGITAL_EXPORTS = [
   }
 ];
 
-const GI_KPIS: GiKpi[] = [
-  {
-    label: "Usines digitalisees",
-    value2024: 48,
-    value2030: 100,
-    unit: "%",
-    prefix2024: "~",
-    source: "PAI 2.0 — Ministere Industrie (mcinet.gov.ma)",
-    note: "52% des usines restent a digitaliser = marche emploi a creer d'ici 2030.",
-    accent: "#38bdf8"
-  },
-  {
-    label: "Talents numeriques formes/an",
-    value2024: 24000,
-    value2030: 100000,
-    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
-    note: "Penurie structurelle garantie = salaires eleves et emploi assure.",
-    accent: "#4ade80"
-  },
-  {
-    label: "CA industriel",
-    value2024: 898,
-    value2030: 1500,
-    unit: "Mds DH",
-    suffix2030: "+",
-    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
-    note: "Marche en forte croissance = plus d'entreprises = plus de postes.",
-    accent: "#fb923c"
-  },
-  {
-    label: "Investissements industriels",
-    value2024: 90,
-    value2030: 150,
-    unit: "Mds DH",
-    suffix2030: "+",
-    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
-    note: "+30% en un an = besoin en ingenieurs urgent.",
-    accent: "#fb923c"
-  },
-  {
-    label: "Export numerique",
-    value2024: 17.9,
-    value2030: 40,
-    unit: "Mds DH",
-    decimals: 1,
-    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
-    note: "Le Maroc devient hub numerique africain = opportunites locales et internationales.",
-    accent: "#c084fc"
-  },
-  {
-    label: "Emplois numeriques",
-    value2024: 130000,
-    value2030: 270000,
-    unit: "emplois",
-    source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
-    note: "x2 emplois en 6 ans = une generation doit se former maintenant.",
-    accent: "#c084fc"
-  },
-  {
-    label: "Emplois industriels total",
-    value2024: 1038133,
-    value2030: 1300000,
-    unit: "emplois",
-    suffix2030: "+",
-    source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
-    note: "Le million depasse en 2024: 1er employeur prive du pays.",
-    accent: "#38bdf8"
-  },
-  {
-    label: "Marche Industrie 4.0 Maroc",
-    value2024: 1.5,
-    value2030: 4.0,
-    unit: "Mds USD",
-    decimals: 1,
-    source: "Estimation — Mordor Intelligence + PAI 2.0",
-    note: "CAGR +23%: le marche local quadruple d'ici 2030.",
-    accent: "#4ade80"
-  }
-];
+const GI_KPIS: Record<SiteLocale, GiKpi[]> = {
+  fr: [
+    {
+      label: "Usines digitalisees",
+      value2024: 48,
+      value2030: 100,
+      unit: "%",
+      prefix2024: "~",
+      source: "PAI 2.0 ? Ministere Industrie (mcinet.gov.ma)",
+      note: "52% des usines restent a digitaliser = marche emploi a creer d'ici 2030.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "Talents numeriques formes/an",
+      value2024: 24000,
+      value2030: 100000,
+      source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+      note: "Penurie structurelle garantie = salaires eleves et emploi assure.",
+      accent: "#4ade80"
+    },
+    {
+      label: "CA industriel",
+      value2024: 898,
+      value2030: 1500,
+      unit: "Mds DH",
+      suffix2030: "+",
+      source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+      note: "Marche en forte croissance = plus d'entreprises = plus de postes.",
+      accent: "#fb923c"
+    },
+    {
+      label: "Investissements industriels",
+      value2024: 90,
+      value2030: 150,
+      unit: "Mds DH",
+      suffix2030: "+",
+      source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+      note: "+30% en un an = besoin en ingenieurs urgent.",
+      accent: "#fb923c"
+    },
+    {
+      label: "Export numerique",
+      value2024: 17.9,
+      value2030: 40,
+      unit: "Mds DH",
+      decimals: 1,
+      source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+      note: "Le Maroc devient hub numerique africain = opportunites locales et internationales.",
+      accent: "#c084fc"
+    },
+    {
+      label: "Emplois numeriques",
+      value2024: 130000,
+      value2030: 270000,
+      unit: "emplois",
+      source: "Strategie Maroc Digital 2030 (mtne.gov.ma)",
+      note: "x2 emplois en 6 ans = une generation doit se former maintenant.",
+      accent: "#c084fc"
+    },
+    {
+      label: "Emplois industriels total",
+      value2024: 1038133,
+      value2030: 1300000,
+      unit: "emplois",
+      suffix2030: "+",
+      source: "Barometre Industrie Nationale 2025 (mcinet.gov.ma)",
+      note: "Le million depasse en 2024: 1er employeur prive du pays.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "Marche Industrie 4.0 Maroc",
+      value2024: 1.5,
+      value2030: 4.0,
+      unit: "Mds USD",
+      decimals: 1,
+      source: "Estimation ? Mordor Intelligence + PAI 2.0",
+      note: "CAGR +23%: le marche local quadruple d'ici 2030.",
+      accent: "#4ade80"
+    }
+  ],
+  en: [
+    {
+      label: "Digitized factories",
+      value2024: 48,
+      value2030: 100,
+      unit: "%",
+      prefix2024: "~",
+      source: "PAI 2.0 ? Ministry of Industry (mcinet.gov.ma)",
+      note: "52% of factories still need digitization = job market to build by 2030.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "Digital talents trained/year",
+      value2024: 24000,
+      value2030: 100000,
+      source: "Morocco Digital 2030 Strategy (mtne.gov.ma)",
+      note: "Structural shortage guaranteed = high salaries and secure jobs.",
+      accent: "#4ade80"
+    },
+    {
+      label: "Industrial revenue",
+      value2024: 898,
+      value2030: 1500,
+      unit: "Bn MAD",
+      suffix2030: "+",
+      source: "National Industry Barometer 2025 (mcinet.gov.ma)",
+      note: "Fast-growing market = more companies = more positions.",
+      accent: "#fb923c"
+    },
+    {
+      label: "Industrial investments",
+      value2024: 90,
+      value2030: 150,
+      unit: "Bn MAD",
+      suffix2030: "+",
+      source: "National Industry Barometer 2025 (mcinet.gov.ma)",
+      note: "+30% in one year = urgent need for engineers.",
+      accent: "#fb923c"
+    },
+    {
+      label: "Digital exports",
+      value2024: 17.9,
+      value2030: 40,
+      unit: "Bn MAD",
+      decimals: 1,
+      source: "Morocco Digital 2030 Strategy (mtne.gov.ma)",
+      note: "Morocco becomes an African digital hub = local and international opportunities.",
+      accent: "#c084fc"
+    },
+    {
+      label: "Digital jobs",
+      value2024: 130000,
+      value2030: 270000,
+      unit: "jobs",
+      source: "Morocco Digital 2030 Strategy (mtne.gov.ma)",
+      note: "x2 jobs in 6 years = a generation must train now.",
+      accent: "#c084fc"
+    },
+    {
+      label: "Total industrial jobs",
+      value2024: 1038133,
+      value2030: 1300000,
+      unit: "jobs",
+      suffix2030: "+",
+      source: "National Industry Barometer 2025 (mcinet.gov.ma)",
+      note: "One million surpassed in 2024: largest private employer in the country.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "Morocco Industry 4.0 market",
+      value2024: 1.5,
+      value2030: 4.0,
+      unit: "Bn USD",
+      decimals: 1,
+      source: "Estimate ? Mordor Intelligence + PAI 2.0",
+      note: "CAGR +23%: local market quadruples by 2030.",
+      accent: "#4ade80"
+    }
+  ],
+  ar: [
+    {
+      label: "مصانع مُرقمنة",
+      value2024: 48,
+      value2030: 100,
+      unit: "%",
+      prefix2024: "~",
+      source: "PAI 2.0 — وزارة الصناعة (mcinet.gov.ma)",
+      note: "ما زال 52% من المصانع بحاجة إلى الرقمنة = سوق وظائف كبير حتى 2030.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "مواهب رقمية مُكوَّنة/سنة",
+      value2024: 24000,
+      value2030: 100000,
+      source: "استراتيجية المغرب الرقمي 2030 (mtne.gov.ma)",
+      note: "ندرة هيكلية مؤكدة = أجور مرتفعة ووظائف مضمونة.",
+      accent: "#4ade80"
+    },
+    {
+      label: "رقم معاملات الصناعة",
+      value2024: 898,
+      value2030: 1500,
+      unit: "مليار DH",
+      suffix2030: "+",
+      source: "بارومتر الصناعة الوطنية 2025 (mcinet.gov.ma)",
+      note: "سوق في نمو قوي = شركات أكثر = وظائف أكثر.",
+      accent: "#fb923c"
+    },
+    {
+      label: "الاستثمارات الصناعية",
+      value2024: 90,
+      value2030: 150,
+      unit: "مليار DH",
+      suffix2030: "+",
+      source: "بارومتر الصناعة الوطنية 2025 (mcinet.gov.ma)",
+      note: "+30% في سنة واحدة = حاجة ملحّة للمهندسين.",
+      accent: "#fb923c"
+    },
+    {
+      label: "الصادرات الرقمية",
+      value2024: 17.9,
+      value2030: 40,
+      unit: "مليار DH",
+      decimals: 1,
+      source: "استراتيجية المغرب الرقمي 2030 (mtne.gov.ma)",
+      note: "المغرب يصبح مركزًا رقميًا إفريقيًا = فرص محلية ودولية.",
+      accent: "#c084fc"
+    },
+    {
+      label: "وظائف رقمية",
+      value2024: 130000,
+      value2030: 270000,
+      unit: "وظائف",
+      source: "استراتيجية المغرب الرقمي 2030 (mtne.gov.ma)",
+      note: "مضاعفة الوظائف خلال 6 سنوات = جيل يحتاج إلى التكوين الآن.",
+      accent: "#c084fc"
+    },
+    {
+      label: "إجمالي الوظائف الصناعية",
+      value2024: 1038133,
+      value2030: 1300000,
+      unit: "وظائف",
+      suffix2030: "+",
+      source: "بارومتر الصناعة الوطنية 2025 (mcinet.gov.ma)",
+      note: "تجاوز المليون في 2024: أكبر مشغّل خاص في البلاد.",
+      accent: "#38bdf8"
+    },
+    {
+      label: "سوق الصناعة 4.0 في المغرب",
+      value2024: 1.5,
+      value2030: 4.0,
+      unit: "مليار USD",
+      decimals: 1,
+      source: "تقدير — Mordor Intelligence + PAI 2.0",
+      note: "نمو سنوي مركب +23%: السوق المحلي يتضاعف أربع مرات بحلول 2030.",
+      accent: "#4ade80"
+    }
+  ]
+};
+
 
 const GESI_SOURCE_URL =
   "https://www.natural-net.fr/blog-agence-web/2025/01/08/intelligence-artificielle-et-seo-les-nouvelles-strategies-pour-optimiser-son-referencement.html";
@@ -795,6 +1178,17 @@ const UI_COPY: Record<
     mecaAutomotiveSubtitle: string;
     mecaAeronauticTitle: string;
     mecaAeronauticSubtitle: string;
+    datasetLabel: string;
+    datasetsTitle: string;
+    statLabel: string;
+    kpiTargetLabel: string;
+    perYearLabel: string;
+    advancedTrackLabel: string;
+    salaryOutlookTitle: string;
+    roboticsMarketTitle: string;
+    evPenetrationTitle: string;
+    productionLabel: string;
+    jobsLabel: string;
     sections: Record<OrientationSection, string>;
   }
 > = {
@@ -802,7 +1196,7 @@ const UI_COPY: Record<
     recommended: "Profil recommande",
     projectLink: "Lien avec ton projet",
     chooseBranch: "Explore les parcours du departement et compare-les a ton profil.",
-    highlightsTitle: "Chiffres cles",
+    highlightsTitle: "Indicateurs & performance",
     focusTitle: "Axes principaux",
     downloadTitle: "Guide PDF par filiere",
     downloadBody:
@@ -838,6 +1232,17 @@ const UI_COPY: Record<
     mecaAutomotiveSubtitle: "Evolution remarquable du secteur: production doublée en 15 ans, exports multipliés par 7. L'automobile tire la fabrication marocaine et genere plus de 180 000 emplois directs.",
     mecaAeronauticTitle: "Secteur Aeronautique — La filière mecanique de pointe",
     mecaAeronauticSubtitle: "Ascension fulgurante: 150 entreprises implantées, 26 000 emplois directs (doublement prévu d'ici 2030). Le Maroc est devenu la 5ème nation mondiale en dynamisme aéronautique.",
+    datasetLabel: "Dataset",
+    datasetsTitle: "Données & perspectives",
+    statLabel: "Statistique",
+    kpiTargetLabel: "Objectif 2030",
+    perYearLabel: "/ an",
+    advancedTrackLabel: "Filière de pointe",
+    salaryOutlookTitle: "Perspectives salariales",
+    roboticsMarketTitle: "Marché mondial robotique (Mds USD)",
+    evPenetrationTitle: "Pénétration des véhicules électriques (%)",
+    productionLabel: "Production",
+    jobsLabel: "Emplois",
     sections: {
       modules: "Modules phares",
       careers: "Debouches",
@@ -849,42 +1254,53 @@ const UI_COPY: Record<
     recommended: "Recommended profile",
     projectLink: "Project connection",
     chooseBranch: "Explore the department tracks and compare them with your profile.",
-    highlightsTitle: "Key figures",
+    highlightsTitle: "Indicators & performance",
     focusTitle: "Core focus",
     downloadTitle: "PDF guide per track",
     downloadBody:
       "To support your research, we prepared a PDF guide for each track. Pick the one that interests you, but remember: the choice should be yours, not driven by other people's recommendations.",
     downloadCta: "Download guide",
-    energyCurveTitle: "The convincing curve - Morocco renewable capacity",
+    energyCurveTitle: "المنحنى المقنع - قدرة الطاقات المتجددة في المغرب",
     energyCurveSubtitle:
-      "Installed renewables tripled since 2000, from 1,221 MW to 4,067 MW in 2021, driven by wind and solar. Approx values for 2000/2010/2015/2017/2018.",
-    energyLegendCapacity: "Renewable capacity (MW)",
-    energyLegendMix: "Share in mix (%)",
-    windCurveTitle: "Wind - the most dramatic curve",
+      "تضاعفت القدرة المركبة للطاقة المتجددة منذ 2000، من 1,221 ميغاواط إلى 4,067 ميغاواط في 2021، مدفوعة بالرياح والشمس. القيم تقريبية لـ 2000/2010/2015/2017/2018.",
+    energyLegendCapacity: "قدرة الطاقات المتجددة (ميغاواط)",
+    energyLegendMix: "الحصة في المزيج (%)",
+    windCurveTitle: "الرياح - المنحنى الأكثر لفتًا",
     windCurveSubtitle:
-      "From 50 MW in 2000 to 1,466 MW in 2021, then 2,451 MW in June 2025. Output < 100 GWh -> > 5,000 GWh.",
-    windLegendCapacity: "Wind capacity (MW)",
-    giSectionTitle: "Industry 4.0 - Morocco Radar",
-    giSectionSubtitle: "Dashboard of key signals for industrial transformation.",
-    giDataset1Title: "Digitalized factories in Morocco (%)",
-    giDataset2Title: "Digital talents trained per year",
-    giDataset3Title: "Industrial revenue & investments (Bn MAD)",
-    giDataset4Title: "Digital exports (Bn MAD)",
-    giKpiTitle: "Key KPIs 2024 -> 2030",
-    giKpiSubtitle: "Quick read of gaps to close and opportunities.",
-    giLegendFactories: "Digitalized factories (%)",
-    giLegendTalents: "Talents trained / year",
-    giLegendRevenue: "Industrial revenue",
-    giLegendInvestments: "Industrial investments",
-    giLegendExports: "Digital exports",
-    giLegendJobs: "Digital jobs",
-    sourceLabel: "Source",
+      "من 50 ميغاواط في 2000 إلى 1,466 ميغاواط في 2021، ثم 2,451 ميغاواط في يونيو 2025. الإنتاج < 100 غيغاواط ساعي -> > 5,000 غيغاواط ساعي.",
+    windLegendCapacity: "قدرة طاقة الرياح (ميغاواط)",
+    giSectionTitle: "الصناعة 4.0 - رادار المغرب",
+    giSectionSubtitle: "لوحة مؤشرات للإشارات الأساسية للتحول الصناعي.",
+    giDataset1Title: "المصانع المُرقمنة في المغرب (%)",
+    giDataset2Title: "المواهب الرقمية المُكوَّنة سنويًا",
+    giDataset3Title: "رقم معاملات الصناعة والاستثمارات (مليار درهم)",
+    giDataset4Title: "الصادرات الرقمية (مليار درهم)",
+    giKpiTitle: "مؤشرات رئيسية 2024 -> 2030",
+    giKpiSubtitle: "قراءة سريعة للفجوات والفرص.",
+    giLegendFactories: "مصانع مُرقمنة (%)",
+    giLegendTalents: "مواهب مُكوَّنة/سنة",
+    giLegendRevenue: "رقم معاملات الصناعة",
+    giLegendInvestments: "الاستثمارات",
+    giLegendExports: "الصادرات الرقمية",
+    giLegendJobs: "وظائف رقمية",
+    sourceLabel: "المصدر",
     mecaSalariesTitle: "Mechanical engineer salaries in Morocco",
     mecaSalariesSubtitle: "Salary comparison for different profiles of mechanical engineers. Salaries vary by experience and educational background.",
     mecaAutomotiveTitle: "Automotive Sector - Morocco's mechanical engine",
     mecaAutomotiveSubtitle: "Remarkable growth: production doubled in 15 years, exports multiplied by 7. Automotive drives Moroccan manufacturing and generates over 180,000 direct jobs.",
     mecaAeronauticTitle: "Aeronautic Sector - Advanced mechanical expertise",
     mecaAeronauticSubtitle: "Rapid rise: 150 companies established, 26,000 direct jobs (expected to double by 2030). Morocco has become the world's 5th most dynamic aerospace nation.",
+    datasetLabel: "Dataset",
+    datasetsTitle: "Data & outlook",
+    statLabel: "Statistic",
+    kpiTargetLabel: "2030 target",
+    perYearLabel: "/ year",
+    advancedTrackLabel: "Advanced track",
+    salaryOutlookTitle: "Salary outlook",
+    roboticsMarketTitle: "Global robotics market (Bn USD)",
+    evPenetrationTitle: "EV penetration (%)",
+    productionLabel: "Production",
+    jobsLabel: "Jobs",
     sections: {
       modules: "Core modules",
       careers: "Career paths",
@@ -896,7 +1312,7 @@ const UI_COPY: Record<
     recommended: "المسلك المقترح",
     projectLink: "صلة بمشروعك",
     chooseBranch: "استكشف مسالك الشعبة وقارنها مع ملفك.",
-    highlightsTitle: "أرقام رئيسية",
+    highlightsTitle: "مؤشرات الأداء",
     focusTitle: "محاور أساسية",
     downloadTitle: "دليل PDF لكل مسلك",
     downloadBody:
@@ -932,12 +1348,222 @@ const UI_COPY: Record<
     mecaAutomotiveSubtitle: "نمو ملحوظ: تضاعفت الإنتاجية في 15 سنة، الصادرات تضاعفت 7 مرات. يولد قطاع السيارات أكثر من 180 الف منصب عمل مباشرة.",
     mecaAeronauticTitle: "القطاع الطيراني - الخبرة الميكانيكية المتقدمة",
     mecaAeronauticSubtitle: "ارتفاع سريع: 150 شركة منخرطة، 26 الف منصب عمل مباشر (من المتوقع أن يتضاعف بحلول 2030). أصبح المغرب الدولة الخامسة الأكثر ديناميكية في الفضاء الجوي.",
+    datasetLabel: "مجموعة بيانات",
+    datasetsTitle: "البيانات والآفاق",
+    statLabel: "إحصائية",
+    kpiTargetLabel: "هدف 2030",
+    perYearLabel: "/ سنة",
+    advancedTrackLabel: "مسلك متقدم",
+    salaryOutlookTitle: "آفاق الأجور",
+    roboticsMarketTitle: "سوق الروبوتات العالمي (مليار دولار)",
+    evPenetrationTitle: "نسبة انتشار المركبات الكهربائية (%)",
+    productionLabel: "الإنتاج",
+    jobsLabel: "الوظائف",
     sections: {
       modules: "الوحدات الأساسية",
       careers: "الفرص",
       companies: "المؤسسات المستهدفة",
       projects: "مشاريع نموذجية"
     }
+  }
+};
+
+type VisionBlock = {
+  label: string;
+  title: string;
+  quote: string;
+  source?: string;
+  imageAlt: string;
+};
+
+const VISION_COPY: Record<
+  SiteLocale,
+  {
+    gesi: [VisionBlock, VisionBlock];
+    gi: [VisionBlock, VisionBlock];
+    gm: [VisionBlock, VisionBlock];
+    meca: [VisionBlock];
+  }
+> = {
+  fr: {
+    gesi: [
+      {
+        label: "Discours Royaux & Stratégie",
+        title: "COP22 - Marrakech",
+        quote:
+          "Le Maroc a pris des initiatives concrètes pour assurer, à l'horizon 2030, 52% de sa capacité électrique nationale à partir de sources d'énergie propre.",
+        source: "maroc.ma",
+        imageAlt: "S.M. le Roi Mohammed VI"
+      },
+      {
+        label: "Ministère de la Transition Énergétique",
+        title: "Leila Benali - Vision 2025",
+        quote:
+          "L'intelligence artificielle est devenue le pivot du développement durable et intelligent du Maroc, optimisant la gestion du mix énergétique.",
+        imageAlt: "Leila Benali"
+      }
+    ],
+    gi: [
+      {
+        label: "Vision Industrielle",
+        title: "Journée de l’Industrie",
+        quote:
+          "J'invite le secteur privé à s'investir dans des domaines de pointe et d'avenir, reposant sur l'innovation.",
+        imageAlt: "Vision Royale"
+      },
+      {
+        label: "Message Ministériel",
+        title: "Ryad Mezzour - 2025",
+        quote:
+          "Nous formons des ingénieurs prêts à relever les défis d'une industrie moderne, verte et inclusive.",
+        imageAlt: "Ryad Mezzour"
+      }
+    ],
+    gm: [
+      {
+        label: "Innovation Mécatronique",
+        title: "La Vision Royale",
+        quote:
+          "Nous appelons à investir dans les secteurs de pointe pour relever les défis de la souveraineté technologique.",
+        imageAlt: "Vision Technologique"
+      },
+      {
+        label: "Transition Numérique",
+        title: "Ghita Mezzour - 2025",
+        quote:
+          "Le génie mécatronique est le moteur de l'innovation de demain. C'est la convergence du physique et du digital.",
+        imageAlt: "Ghita Mezzour"
+      }
+    ],
+    meca: [
+      {
+        label: "Excellence Mécanique",
+        title: "Vision Royale",
+        quote:
+          "Le label \"Made in Morocco\" doit devenir le symbole d'une ingénierie d'excellence et de souveraineté.",
+        imageAlt: "Ingénierie Royale"
+      }
+    ]
+  },
+  en: {
+    gesi: [
+      {
+        label: "Royal speeches & strategy",
+        title: "COP22 - Marrakech",
+        quote:
+          "Morocco has taken concrete initiatives to ensure that by 2030, 52% of its national electricity capacity comes from clean energy sources.",
+        source: "maroc.ma",
+        imageAlt: "H.M. King Mohammed VI"
+      },
+      {
+        label: "Ministry of Energy Transition",
+        title: "Leila Benali - Vision 2025",
+        quote:
+          "Artificial intelligence has become the pivot of Morocco’s sustainable and intelligent development, optimizing the management of the energy mix.",
+        imageAlt: "Leila Benali"
+      }
+    ],
+    gi: [
+      {
+        label: "Industrial vision",
+        title: "Industry Day",
+        quote:
+          "I invite the private sector to invest in cutting-edge and future-oriented fields based on innovation.",
+        imageAlt: "Royal vision"
+      },
+      {
+        label: "Ministerial message",
+        title: "Ryad Mezzour - 2025",
+        quote:
+          "We are training engineers ready to meet the challenges of a modern, green, and inclusive industry.",
+        imageAlt: "Ryad Mezzour"
+      }
+    ],
+    gm: [
+      {
+        label: "Mechatronics innovation",
+        title: "Royal vision",
+        quote:
+          "We call for investment in cutting-edge sectors to meet the challenges of technological sovereignty.",
+        imageAlt: "Technological vision"
+      },
+      {
+        label: "Digital transition",
+        title: "Ghita Mezzour - 2025",
+        quote:
+          "Mechatronics engineering is the engine of tomorrow’s innovation. It is the convergence of the physical and the digital.",
+        imageAlt: "Ghita Mezzour"
+      }
+    ],
+    meca: [
+      {
+        label: "Mechanical excellence",
+        title: "Royal vision",
+        quote:
+          "The \"Made in Morocco\" label must become the symbol of engineering excellence and sovereignty.",
+        imageAlt: "Royal engineering"
+      }
+    ]
+  },
+  ar: {
+    gesi: [
+      {
+        label: "خطابات ملكية واستراتيجية",
+        title: "COP22 - مراكش",
+        quote:
+          "اتخذ المغرب مبادرات ملموسة لضمان أن 52% من قدرته الكهربائية الوطنية بحلول 2030 تأتي من مصادر طاقة نظيفة.",
+        source: "maroc.ma",
+        imageAlt: "جلالة الملك محمد السادس"
+      },
+      {
+        label: "وزارة الانتقال الطاقي",
+        title: "ليلى بنعلي - رؤية 2025",
+        quote:
+          "أصبح الذكاء الاصطناعي محور التنمية المستدامة والذكية في المغرب، بما يحسّن إدارة مزيج الطاقة.",
+        imageAlt: "ليلى بنعلي"
+      }
+    ],
+    gi: [
+      {
+        label: "الرؤية الصناعية",
+        title: "يوم الصناعة",
+        quote:
+          "أدعو القطاع الخاص إلى الاستثمار في مجالات متقدمة وموجهة للمستقبل قائمة على الابتكار.",
+        imageAlt: "الرؤية الملكية"
+      },
+      {
+        label: "رسالة وزارية",
+        title: "رياض مزّور - 2025",
+        quote:
+          "نحن نكوّن مهندسين مستعدين لمواجهة تحديات صناعة حديثة وخضراء وشاملة.",
+        imageAlt: "رياض مزّور"
+      }
+    ],
+    gm: [
+      {
+        label: "ابتكار الميكاترونيك",
+        title: "الرؤية الملكية",
+        quote:
+          "ندعو إلى الاستثمار في القطاعات المتقدمة لمواجهة تحديات السيادة التكنولوجية.",
+        imageAlt: "رؤية تكنولوجية"
+      },
+      {
+        label: "التحول الرقمي",
+        title: "غيثة مزّور - 2025",
+        quote:
+          "الهندسة الميكاترونية هي محرك ابتكار الغد، وهي تقاطع بين العالم المادي والرقمي.",
+        imageAlt: "غيثة مزّور"
+      }
+    ],
+    meca: [
+      {
+        label: "التميّز الميكانيكي",
+        title: "الرؤية الملكية",
+        quote:
+          "يجب أن يصبح وسم «صُنع في المغرب» رمزًا للتميّز الهندسي والسيادة.",
+        imageAlt: "الهندسة الملكية"
+      }
+    ]
   }
 };
 
@@ -1032,6 +1658,15 @@ export function ApplicantOrientationExplorer({
   projectDomain: string;
 }) {
   const copy = UI_COPY[locale];
+  const vision = VISION_COPY[locale];
+  const giDigitalFactories = GI_DIGITAL_FACTORIES[locale];
+  const giTalentsPerYear = GI_TALENTS_PER_YEAR[locale];
+  const giKpis = GI_KPIS[locale];
+  const mecaSalaries = MECA_SALARIES_BY_LOCALE[locale];
+  const gesiVision = vision.gesi;
+  const giVision = vision.gi;
+  const gmVision = vision.gm;
+  const mecaVision = vision.meca;
   const content = DATA[locale];
   const [selectedBranch, setSelectedBranch] = useState<BranchKey>(recommendedBranch);
 
@@ -1158,35 +1793,33 @@ export function ApplicantOrientationExplorer({
               <>
                 <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Discours Royaux & Stratégie</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{gesiVision[0].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">COP22 - Marrakech</p>
-                        <p className="mt-2 text-sm text-ink/75 leading-relaxed italic">
-                          "Le Maroc a pris des initiatives concrètes pour assurer, à l'horizon 2030, 52% de sa capacité électrique nationale à partir de sources d'énergie propre."
-                        </p>
-                        <div className="mt-4 text-[11px] text-ink/50 uppercase tracking-widest flex items-center gap-2">
-                          <span className="h-px w-4 bg-ink/20" /> Source: maroc.ma
-                        </div>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{gesiVision[0].title}</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed italic">{gesiVision[0].quote}</p>
+                        {gesiVision[0].source ? (
+                          <div className="mt-4 text-[11px] text-ink/50 uppercase tracking-widest flex items-center gap-2">
+                            <span className="h-px w-4 bg-ink/20" /> {copy.sourceLabel}: {gesiVision[0].source}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/image.png" alt="S.M. le Roi Mohammed VI" className="h-full w-full object-cover" />
+                    <img src="/images/image.png" alt={gesiVision[0].imageAlt} className="h-full w-full object-cover" />
                   </div>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/La ministre Leila Benali.jpg" alt="Leila Benali" className="h-full w-full object-cover" />
+                    <img src="/images/La ministre Leila Benali.jpg" alt={gesiVision[1].imageAlt} className="h-full w-full object-cover" />
                   </div>
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Ministère de la Transition Énergétique</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{gesiVision[1].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">Leila Benali - Vision 2025</p>
-                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
-                          "L'intelligence artificielle est devenue le pivot du développement durable and intelligent du Maroc, optimisant la gestion du mix énergétique."
-                        </p>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{gesiVision[1].title}</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">{gesiVision[1].quote}</p>
                       </div>
                     </div>
                   </div>
@@ -1198,32 +1831,28 @@ export function ApplicantOrientationExplorer({
               <>
                 <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Vision Industrielle</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{giVision[0].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">Journée de l’Industrie</p>
-                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
-                          « J'invite le secteur privé à s'investir dans des domaines de pointe and d'avenir, reposant sur l'innovation. »
-                        </p>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{giVision[0].title}</p>
+                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">{giVision[0].quote}</p>
                       </div>
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/image.png" alt="Vision Royale" className="h-full w-full object-cover" />
+                    <img src="/images/image.png" alt={giVision[0].imageAlt} className="h-full w-full object-cover" />
                   </div>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/mezzour_ryad.jpg" alt="Ryad Mezzour" className="h-full w-full object-cover" />
+                    <img src="/images/mezzour_ryad.jpg" alt={giVision[1].imageAlt} className="h-full w-full object-cover" />
                   </div>
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Message Ministériel</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{giVision[1].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">Ryad Mezzour - 2025</p>
-                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
-                          « Nous formons des ingénieurs prêts à relever les défis d'une industrie moderne, verte and inclusive. »
-                        </p>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{giVision[1].title}</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">{giVision[1].quote}</p>
                       </div>
                     </div>
                   </div>
@@ -1235,32 +1864,28 @@ export function ApplicantOrientationExplorer({
               <>
                 <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Innovation Mécatronique</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{gmVision[0].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">La Vision Royale</p>
-                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
-                          « Nous appelons à investir dans les secteurs de pointe pour relever les défis de la souveraineté technologique. »
-                        </p>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{gmVision[0].title}</p>
+                        <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">{gmVision[0].quote}</p>
                       </div>
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/image.png" alt="Vision Technologique" className="h-full w-full object-cover" />
+                    <img src="/images/image.png" alt={gmVision[0].imageAlt} className="h-full w-full object-cover" />
                   </div>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
                   <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[300px]">
-                    <img src="/images/Le Message de Ghita Mezzour.webp" alt="Ghita Mezzour" className="h-full w-full object-cover" />
+                    <img src="/images/Le Message de Ghita Mezzour.webp" alt={gmVision[1].imageAlt} className="h-full w-full object-cover" />
                   </div>
                   <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Transition Numérique</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{gmVision[1].label}</p>
                     <div className="mt-5">
                       <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                        <p className="font-display text-xl font-bold uppercase text-ink">Ghita Mezzour - 2025</p>
-                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">
-                          « Le génie mécatronique est le moteur de l'innovation de demain. C'est la convergence du physique and du digital. »
-                        </p>
+                        <p className="font-display text-xl font-bold uppercase text-ink">{gmVision[1].title}</p>
+                        <p className="mt-2 text-sm text-ink/75 leading-relaxed">{gmVision[1].quote}</p>
                       </div>
                     </div>
                   </div>
@@ -1271,18 +1896,16 @@ export function ApplicantOrientationExplorer({
             {isMeca && (
               <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
                 <div className="rounded-3xl border border-edge/45 bg-panel/70 p-6" style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">Excellence Mécanique</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/40">{mecaVision[0].label}</p>
                   <div className="mt-5">
                     <div className="rounded-2xl border border-edge/40 bg-panel/80 p-5">
-                      <p className="font-display text-xl font-bold uppercase text-ink">Vision Royale</p>
-                      <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">
-                        « Le label "Made in Morocco" doit devenir le symbole d'une ingénierie d'excellence and de souveraineté. »
-                      </p>
+                      <p className="font-display text-xl font-bold uppercase text-ink">{mecaVision[0].title}</p>
+                      <p className="mt-3 text-sm text-ink/75 italic leading-relaxed">{mecaVision[0].quote}</p>
                     </div>
                   </div>
                 </div>
                 <div className="overflow-hidden rounded-3xl border border-edge/45 bg-panel/70 relative min-h-[350px]">
-                  <img src="/images/image.png" alt="Ingénierie Royale" className="h-full w-full object-cover" />
+                  <img src="/images/image.png" alt={mecaVision[0].imageAlt} className="h-full w-full object-cover" />
                 </div>
               </div>
             )}
@@ -1312,12 +1935,12 @@ export function ApplicantOrientationExplorer({
           {/* 3. Chiffres clés (Highlights) */}
           <section>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/40 mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-edge/40" /> Indicateurs & Performance
+              <span className="h-px w-8 bg-edge/40" /> {copy.highlightsTitle}
             </p>
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {branch.highlights.map((item, idx) => (
                 <div key={idx} className="glass-card p-6 flex flex-col gap-3 group transition-all hover:-translate-y-1" style={{ borderColor: `${branch.color}25` }}>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/30">Statistique {idx + 1}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/30">{copy.statLabel} {idx + 1}</span>
                   <span className="font-display text-3xl font-bold transition-colors" style={{ color: branch.color }}>{item.value}</span>
                   <span className="text-sm font-medium text-ink/80 leading-snug">{item.label}</span>
                   {item.note && <p className="text-[10px] text-ink/50 italic border-t border-edge/10 pt-3 mt-auto">{item.note}</p>}
@@ -1329,13 +1952,13 @@ export function ApplicantOrientationExplorer({
           {/* 4. Graphs and Datasets */}
           <section className="space-y-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/40 flex items-center gap-3">
-              <span className="h-px w-8 bg-edge/40" /> {isGi ? copy.giSectionTitle : "Données & Perspectives"}
+              <span className="h-px w-8 bg-edge/40" /> {isGi ? copy.giSectionTitle : copy.datasetsTitle}
             </p>
             
             {isGesi && (
               <div className="grid gap-6 md:grid-cols-2">
                 <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 1</p>
                   <p className="mt-2 text-sm font-semibold text-ink">{copy.energyCurveTitle}</p>
                   <div className="mt-3 h-[250px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -1356,7 +1979,7 @@ export function ApplicantOrientationExplorer({
                   </div>
                 </div>
                 <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 2</p>
                   <p className="mt-2 text-sm font-semibold text-ink">{copy.windCurveTitle}</p>
                   <div className="mt-3 h-[250px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -1377,11 +2000,11 @@ export function ApplicantOrientationExplorer({
               <div className="space-y-8">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className={giCardClass}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 1</p>
                     <p className="mt-2 text-sm font-semibold text-ink">{copy.giDataset1Title}</p>
                     <div className="mt-3 h-[230px] w-full">
                       <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={GI_DIGITAL_FACTORIES}>
+                        <AreaChart data={giDigitalFactories}>
                           <defs>
                             <linearGradient id="giCyanGradient" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.6} />
@@ -1394,7 +2017,7 @@ export function ApplicantOrientationExplorer({
                           <Tooltip
                             content={({ active, payload, label }) => {
                               if (!active || !payload?.length) return null;
-                              const data = payload[0].payload as (typeof GI_DIGITAL_FACTORIES)[number];
+                              const data = payload[0].payload as (typeof giDigitalFactories)[number];
                               return (
                                 <div style={giTooltipStyle("#38bdf8")} className={giTooltipClass}>
                                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/60">{label}</p>
@@ -1411,11 +2034,11 @@ export function ApplicantOrientationExplorer({
                     </div>
                   </div>
                   <div className={giCardClass}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 2</p>
                     <p className="mt-2 text-sm font-semibold text-ink">{copy.giDataset2Title}</p>
                     <div className="mt-3 h-[230px] w-full">
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={GI_TALENTS_PER_YEAR}>
+                        <BarChart data={giTalentsPerYear}>
                           <defs>
                             <linearGradient id="giGreenGradient" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="0%" stopColor="#4ade80" stopOpacity={0.9} />
@@ -1428,11 +2051,11 @@ export function ApplicantOrientationExplorer({
                           <Tooltip
                             content={({ active, payload, label }) => {
                               if (!active || !payload?.length) return null;
-                              const data = payload[0].payload as (typeof GI_TALENTS_PER_YEAR)[number];
+                              const data = payload[0].payload as (typeof giTalentsPerYear)[number];
                               return (
                                 <div style={giTooltipStyle("#4ade80")} className={giTooltipClass}>
                                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/60">{label}</p>
-                                  <p className="mt-1 text-base font-semibold text-ink">{formatNumber(data.value, locale)} / an</p>
+                                  <p className="mt-1 text-base font-semibold text-ink">{formatNumber(data.value, locale)} {copy.perYearLabel}</p>
                                   <p className="mt-1 text-[10px] text-ink/70">{data.dataType}</p>
                                 </div>
                               );
@@ -1447,11 +2070,11 @@ export function ApplicantOrientationExplorer({
                 <div className="glass-card p-6" ref={kpiRef}>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/60">{copy.giKpiTitle}</p>
                   <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {GI_KPIS.slice(0, 4).map((kpi) => (
+                    {giKpis.slice(0, 4).map((kpi) => (
                       <div key={kpi.label} className={giKpiCardClass} style={{ borderColor: `${kpi.accent}30` }}>
                         <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-ink/60 truncate">{kpi.label}</p>
                         <div className="mt-3">
-                          <p className="text-[10px] text-ink/40 uppercase">Objectif 2030</p>
+                          <p className="text-[10px] text-ink/40 uppercase">{copy.kpiTargetLabel}</p>
                           <p className="text-2xl font-bold" style={{ color: kpi.accent }}>
                             {kpi.prefix2030 ?? ""}{formatNumber(kpi.value2030, locale)}{kpi.suffix2030 ?? ""} {kpi.unit}
                           </p>
@@ -1466,7 +2089,7 @@ export function ApplicantOrientationExplorer({
             {isMeca && (
               <div className="space-y-6">
                 <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 1</p>
                   <p className="mt-2 text-sm font-semibold text-ink">{copy.mecaAutomotiveTitle}</p>
                   <div className="mt-3 h-[300px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -1477,15 +2100,15 @@ export function ApplicantOrientationExplorer({
                         <YAxis yAxisId="right" orientation="right" stroke="rgba(100,116,139,.8)" fontSize={11} />
                         <Tooltip contentStyle={tooltipStyle} />
                         <Legend />
-                        <Bar yAxisId="left" dataKey="production" name="Production" fill={branch.color} radius={[4, 4, 0, 0]} />
-                        <Bar yAxisId="right" dataKey="emplois" name="Emplois" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                        <Bar yAxisId="left" dataKey="production" name={copy.productionLabel} fill={branch.color} radius={[4, 4, 0, 0]} />
+                        <Bar yAxisId="right" dataKey="emplois" name={copy.jobsLabel} fill="#6366f1" radius={[4, 4, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Filière de pointe</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.advancedTrackLabel}</p>
                     <p className="mt-2 text-sm font-semibold text-ink">{copy.mecaAeronauticTitle}</p>
                     <div className="mt-3 h-[230px] w-full">
                       <ResponsiveContainer width="100%" height="100%">
@@ -1500,9 +2123,9 @@ export function ApplicantOrientationExplorer({
                     </div>
                   </div>
                   <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Perspectives Salariales</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.salaryOutlookTitle}</p>
                     <div className="mt-4 space-y-3">
-                      {MECA_SALARIES.map((s, idx) => (
+                      {mecaSalaries.map((s, idx) => (
                         <div key={idx} className="flex justify-between items-center bg-panel/40 p-3 rounded-xl border border-edge/20">
                           <span className="text-xs text-ink/70">{s.profile.replace('\n', ' ')}</span>
                           <span className="text-sm font-bold text-ink" style={{ color: branch.color }}>{s.salary}</span>
@@ -1517,8 +2140,8 @@ export function ApplicantOrientationExplorer({
             {isGm && (
               <div className="grid gap-6 md:grid-cols-2">
                 <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 1</p>
-                  <p className="mt-2 text-sm font-semibold text-ink">Marché Mondial Robotique (Mds USD)</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 1</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">{copy.roboticsMarketTitle}</p>
                   <div className="mt-3 h-[230px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={MECATRONIQUE_MARKET}>
@@ -1538,8 +2161,8 @@ export function ApplicantOrientationExplorer({
                   </div>
                 </div>
                 <div className={giCardClass} style={{ borderColor: `${branch.color}25` }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">Dataset 2</p>
-                  <p className="mt-2 text-sm font-semibold text-ink">Pénétration Véhicules Électriques (%)</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60">{copy.datasetLabel} 2</p>
+                  <p className="mt-2 text-sm font-semibold text-ink">{copy.evPenetrationTitle}</p>
                   <div className="mt-3 h-[230px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={MECATRONIQUE_VE}>

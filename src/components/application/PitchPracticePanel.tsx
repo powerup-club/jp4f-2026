@@ -28,6 +28,7 @@ const MAX_SECONDS = 180;
 const COPY: Record<
   SiteLocale,
   {
+    badge: string;
     title: string;
     subtitle: string;
     start: string;
@@ -48,9 +49,11 @@ const COPY: Record<
     bestLine: string;
     missingElement: string;
     nextTip: string;
+    charsLabel: string;
   }
 > = {
   fr: {
+    badge: "Mini jeu",
     title: "Pitch Timer",
     subtitle: "Entraine ton pitch, respecte les 3 minutes, puis demande un feedback jury.",
     start: "Commencer",
@@ -81,9 +84,11 @@ const COPY: Record<
     },
     bestLine: "Meilleure phrase",
     missingElement: "Element manquant",
-    nextTip: "Conseil suivant"
+    nextTip: "Conseil suivant",
+    charsLabel: "caracteres"
   },
   en: {
+    badge: "Mini game",
     title: "Pitch Timer",
     subtitle: "Practice your pitch, stay inside 3 minutes, then request jury-like feedback.",
     start: "Start",
@@ -114,9 +119,11 @@ const COPY: Record<
     },
     bestLine: "Best line",
     missingElement: "Missing element",
-    nextTip: "Next tip"
+    nextTip: "Next tip",
+    charsLabel: "chars"
   },
   ar: {
+    badge: "لعبة مصغرة",
     title: "Pitch Timer",
     subtitle: "تدرب على العرض، احترم 3 دقائق، ثم اطلب ملاحظات شبيهة باللجنة.",
     start: "ابدأ",
@@ -147,7 +154,8 @@ const COPY: Record<
     },
     bestLine: "أفضل جملة",
     missingElement: "العنصر الناقص",
-    nextTip: "النصيحة التالية"
+    nextTip: "النصيحة التالية",
+    charsLabel: "حرف"
   }
 };
 
@@ -238,18 +246,35 @@ export function PitchPracticePanel({ locale }: { locale: SiteLocale }) {
 
   if (phase === "intro") {
     return (
-      <article className="glass-card p-6 sm:p-8" dir={locale === "ar" ? "rtl" : "ltr"}>
-        <p className="badge-line">Mini game</p>
-        <h2 className="mt-4 font-display text-5xl font-semibold uppercase text-ink">{copy.title}</h2>
-        <p className="mt-4 max-w-3xl text-lg text-ink/72">{copy.subtitle}</p>
-        <button
-          type="button"
-          onClick={() => setPhase("write")}
-          className="mt-8 rounded-full border border-transparent bg-accent px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2"
-        >
-          {copy.start}
-        </button>
-      </article>
+      <button
+        type="button"
+        onClick={() => setPhase("write")}
+        className="group relative block w-full overflow-hidden rounded-[18px] border border-edge/55 bg-panel/88 p-6 text-left shadow-xl transition duration-300 hover:-translate-y-1 hover:border-edge hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-panel liquid-card"
+        style={{ backgroundImage: "linear-gradient(140deg, rgba(249, 115, 22, 0.094), rgba(249, 115, 22, 0.024))" }}
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: "radial-gradient(circle at 30% 16%, rgba(249, 115, 22, 0.157), transparent 42%)" }}
+        />
+        <div className="relative flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3">
+            <span
+              className="inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]"
+              style={{ border: "1px solid rgba(249, 115, 22, 0.314)", color: "rgb(249, 115, 22)", backgroundColor: "rgba(249, 115, 22, 0.07)" }}
+            >
+              {copy.badge}
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.16em] text-ink/55">↗</span>
+          </div>
+          <p className="font-display text-[22px] uppercase leading-tight text-ink">{copy.title}</p>
+          <p className="text-sm text-ink/76">{copy.subtitle}</p>
+          <div className="mt-1 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "rgb(249, 115, 22)" }}>
+            <span className="h-[1px] w-7 bg-current opacity-40" />
+            {copy.start} · PITCH
+          </div>
+        </div>
+      </button>
     );
   }
 
@@ -385,7 +410,9 @@ export function PitchPracticePanel({ locale }: { locale: SiteLocale }) {
         className="mt-6 min-h-80 w-full rounded-3xl border border-edge/55 bg-panel/65 px-5 py-4 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-accent focus:bg-panel sm:text-base"
       />
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.16em] text-ink/42">
-        <span>{pitch.trim().length} chars</span>
+        <span>
+          {pitch.trim().length} {copy.charsLabel}
+        </span>
         <span>{formatTime(seconds)}</span>
       </div>
 

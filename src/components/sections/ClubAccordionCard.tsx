@@ -57,7 +57,7 @@ const MTZ_PHOTOS = [
   "/images/clubs/MTZ/Imane dchiouch.jpeg",
   "/images/clubs/MTZ/Khadija el-mesbahi.jpeg",
   "/images/clubs/MTZ/Samia el badri.jpeg",
-  "/images/clubs/MTZ/Sebbane Saad.jpeg",
+  "/images/clubs/MTZ/Sebbane Saad2.jpeg",
   "/images/clubs/MTZ/Taoufik ouanzi.jpeg",
   "/images/clubs/MTZ/Wahiba raki.jpeg",
   "/images/clubs/MTZ/Yassine El Addaoui.jpeg",
@@ -155,23 +155,23 @@ const POWERUP_MEMBERS: MemberSeed[] = [
 ];
 
 const TRENZ_MEMBERS: MemberSeed[] = [
-  { name: "Amine Boustiti", role: "PrÃ©sident Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Amine Boustiti.jpeg" },
-  { name: "Taoufik Ouanzi", role: "Vice-prÃ©sident Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Taoufik ouanzi.jpeg" },
-  { name: "Dina Droukli", role: "SecrÃ©taire gÃ©nÃ©rale Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Dina Droukli.jpeg" },
-  { name: "Wahiba Raki", role: "Resp. RH Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Wahiba raki.jpeg" },
-  { name: "Yassine El Addaoui", role: "Resp. interne Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Yassine El Addaoui.jpeg" },
-  { name: "Khadija El-Mesbahi", role: "Resp. formation Â· GIND1", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Khadija el-mesbahi.jpeg" },
-  { name: "Ilyas Baba", role: "Resp. externe Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Ilyas Baba.jpeg" },
-  { name: "Imane Dchiouch", role: "TrÃ©soriÃ¨re Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Imane dchiouch.jpeg" },
-  { name: "Abla Jalal", role: "Cellule mÃ©dia Â· CP2", email: "", linkedin: "", instagram: "", photo: "/images/uknown women.png" },
-  { name: "Ikram Kab", role: "Cellule mÃ©dia Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Ikram Kab.jpeg" },
-  { name: "Chaimae El Azzouzi", role: "Cellule mÃ©dia Â· GM2", email: "", linkedin: "", instagram: "" },
-  { name: "Khadija Eddebbarhi", role: "Cellule mÃ©dia Â· GM2", email: "", linkedin: "", instagram: "", photo: "/images/uknown women.png" },
-  { name: "Abdelilah El Kasmy", role: "Cellule organisation Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Abdelilah El Kasmy.jpeg" },
-  { name: "Saad Sebbane", role: "Cellule R&D Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Sebbane Saad.jpeg" },
-  { name: "Aziz Iguidre", role: "Cellule R&D Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Aziz iguidre.jpeg" },
-  { name: "Samia El Badri", role: "Cellule com Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Samia el badri.jpeg" },
-  { name: "Hajar Touimi", role: "Cellule com Â· GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Hajar Touimi.jpeg" },
+  { name: "Amine Boustiti", role: "Président · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Amine Boustiti.jpeg" },
+  { name: "Taoufik Ouanzi", role: "Vice-président · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Taoufik ouanzi.jpeg" },
+  { name: "Dina Droukli", role: "Secrétaire générale · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Dina Droukli.jpeg" },
+  { name: "Wahiba Raki", role: "Resp. RH · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Wahiba raki.jpeg" },
+  { name: "Yassine El Addaoui", role: "Resp. interne · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Yassine El Addaoui.jpeg" },
+  { name: "Khadija El-Mesbahi", role: "Resp. formation · GIND1", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Khadija el-mesbahi.jpeg" },
+  { name: "Ilyas Baba", role: "Resp. externe · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Ilyas Baba.jpeg" },
+  { name: "Imane Dchiouch", role: "Trésorière · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Imane dchiouch.jpeg" },
+  { name: "Abla Jalal", role: "Cellule média · CP2", email: "", linkedin: "", instagram: "", photo: "/images/uknown women.png" },
+  { name: "Ikram Kab", role: "Cellule média · GM2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Ikram Kab.jpeg" },
+  { name: "Chaimae El Azzouzi", role: "Cellule média · GM2", email: "", linkedin: "", instagram: "", photo: "/images/uknown women.png" },
+  { name: "Khadija Eddebbarhi", role: "Cellule média · GM2", email: "", linkedin: "", instagram: "", photo: "/images/uknown women.png" },
+  { name: "Abdelilah El Kasmy", role: "Cellule organisation · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Abdelilah El Kasmy.jpeg" },
+  { name: "Saad Sebbane", role: "Cellule R&D · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Sebbane Saad2.jpeg" },
+  { name: "Aziz Iguidre", role: "Cellule R&D · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Aziz iguidre.jpeg" },
+  { name: "Samia El Badri", role: "Cellule com · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Samia el badri.jpeg" },
+  { name: "Hajar Touimi", role: "Cellule com · GMT2", email: "", linkedin: "", instagram: "", photo: "/images/clubs/MTZ/Hajar Touimi.jpeg" },
 ];
 
 const IEC_MEMBERS: MemberSeed[] = [
@@ -384,8 +384,8 @@ function buildMembers(club: Club): MemberProfile[] {
 
 function textByLocale(locale: SiteLocale) {
   if (locale === "en") return { team: "TEAM", members: "members", viewTeam: "Meet team", close: "Close" };
-  if (locale === "ar") return { team: "Ø§Ù„ÙØ±ÙŠÙ‚", members: "Ø£Ø¹Ø¶Ø§Ø¡", viewTeam: "ØªØ¹Ø±Ù Ø¹Ù„Ù‰ Ø§Ù„ÙØ±ÙŠÙ‚", close: "Ø¥ØºÙ„Ø§Ù‚" };
-  return { team: "Ã‰QUIPE", members: "membres", viewTeam: "Voir l'Ã©quipe", close: "Fermer" };
+  if (locale === "ar") return { team: "الفريق", members: "أعضاء", viewTeam: "تعرّف على الفريق", close: "إغلاق" };
+  return { team: "ÉQUIPE", members: "membres", viewTeam: "Voir l'équipe", close: "Fermer" };
 }
 
 function MemberOverlay({
@@ -531,7 +531,7 @@ export function ClubAccordionCard({ club, locale, isExpanded, onToggle }: ClubAc
             <p className="mt-1 truncate font-mono text-[11px] text-ink/60">{club.tagline}</p>
           </div>
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border text-lg" style={{ borderColor: isExpanded ? accent : "rgba(255,255,255,.2)", color: isExpanded ? accent : "rgba(255,255,255,.45)" }}>
-            {isExpanded ? "âˆ’" : "+"}
+            {isExpanded ? "−" : "+"}
           </span>
         </button>
 
@@ -555,11 +555,11 @@ export function ClubAccordionCard({ club, locale, isExpanded, onToggle }: ClubAc
               <p className="max-w-xl flex-1 font-mono text-[12px] leading-relaxed text-white/55">{club.description}</p>
               <div className="space-y-2">
                 <Link href={`tel:${club.phone}`} className="block font-mono text-[10px] uppercase tracking-[0.12em]" style={{ color: `${accent}bb` }}>
-                  â†— {club.phone}
+                  ↗ {club.phone}
                 </Link>
                 {club.links.map((link) => (
                   <Link key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="block font-mono text-[10px] uppercase tracking-[0.12em] text-white/45">
-                    â†— {link.label}
+                    ↗ {link.label}
                   </Link>
                 ))}
               </div>

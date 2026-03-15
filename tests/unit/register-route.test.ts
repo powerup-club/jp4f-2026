@@ -67,6 +67,7 @@ describe("register api route", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: "Alice",
+          email: "alice@example.com",
           projectTitle: "Smart Line"
         })
       })
@@ -108,6 +109,7 @@ describe("register api route", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: "Alice",
+          email: "alice@example.com",
           projectTitle: "Smart Line"
         })
       })
@@ -136,6 +138,7 @@ describe("register api route", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: "Alice",
+          email: "alice@example.com",
           projectTitle: "Smart Line"
         })
       })
@@ -157,6 +160,88 @@ describe("register api route", () => {
         sheetSyncMessage: "Apps Script down"
       })
     );
+
+    vi.unstubAllEnvs();
+  });
+
+  it("rejects invalid participant email addresses", async () => {
+    authMock.mockResolvedValue({ user: { email: "user@example.com", name: "User" } });
+    vi.stubEnv("GOOGLE_SCRIPT_URL_REGISTER", "https://script.google.com/macros/s/test/exec");
+
+    const response = await POST(
+      new Request("http://localhost/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: "Alice",
+          email: "not-an-email",
+          projectTitle: "Smart Line"
+        })
+      })
+    );
+    const payload = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(payload.error).toBe("Email invalide.");
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(saveApplicantApplicationMock).not.toHaveBeenCalled();
+
+    vi.unstubAllEnvs();
+  });
+
+  it("rejects team members with missing email or name", async () => {
+    authMock.mockResolvedValue({ user: { email: "user@example.com", name: "User" } });
+    vi.stubEnv("GOOGLE_SCRIPT_URL_REGISTER", "https://script.google.com/macros/s/test/exec");
+
+    const response = await POST(
+      new Request("http://localhost/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "team",
+          fullName: "Alice",
+          email: "alice@example.com",
+          teamName: "Team A",
+          member2Email: "member2@example.com",
+          projTitle: "Smart Line"
+        })
+      })
+    );
+    const payload = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(payload.error).toBe("Membre 2: Nom obligatoire si l'email est rempli.");
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(saveApplicantApplicationMock).not.toHaveBeenCalled();
+
+    vi.unstubAllEnvs();
+  });
+
+  it("rejects team members with invalid email addresses", async () => {
+    authMock.mockResolvedValue({ user: { email: "user@example.com", name: "User" } });
+    vi.stubEnv("GOOGLE_SCRIPT_URL_REGISTER", "https://script.google.com/macros/s/test/exec");
+
+    const response = await POST(
+      new Request("http://localhost/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "team",
+          fullName: "Alice",
+          email: "alice@example.com",
+          teamName: "Team A",
+          member2Name: "Bob",
+          member2Email: "not-an-email",
+          projTitle: "Smart Line"
+        })
+      })
+    );
+    const payload = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(payload.error).toBe("Membre 2: Email invalide.");
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(saveApplicantApplicationMock).not.toHaveBeenCalled();
 
     vi.unstubAllEnvs();
   });

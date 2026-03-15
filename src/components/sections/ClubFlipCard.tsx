@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -55,7 +55,7 @@ const MTZ_PHOTOS = [
   "/images/clubs/MTZ/Imane dchiouch.jpeg",
   "/images/clubs/MTZ/Khadija el-mesbahi.jpeg",
   "/images/clubs/MTZ/Samia el badri.jpeg",
-  "/images/clubs/MTZ/Sebbane Saad.jpeg",
+  "/images/clubs/MTZ/Sebbane Saad2.jpeg",
   "/images/clubs/MTZ/Taoufik ouanzi.jpeg",
   "/images/clubs/MTZ/Wahiba raki.jpeg",
   "/images/clubs/MTZ/Yassine El Addaoui.jpeg",
@@ -263,7 +263,7 @@ const TRENZ_MEMBERS: MemberSeed[] = [
     email: "",
     linkedin: "",
     instagram: "",
-    photo: "/images/clubs/MTZ/Sebbane Saad.jpeg",
+    photo: "/images/clubs/MTZ/Sebbane Saad2.jpeg",
   },
   {
     name: "Aziz Iguidre",
@@ -462,16 +462,19 @@ function buildMembers(club: Club): MemberProfile[] {
     }));
   }
   if (club.id === "trenz") {
-    return TRENZ_MEMBERS.map((member, i) => ({
-      id: `${club.id}-member-${i + 1}`,
-      name: member.name,
-      role: member.role,
-      email: `${socialHandle(club.id)}.${i + 1}@jp4f-club.test`,
-      instagram: normalizeInstagram(member.instagram, member.name),
-      linkedin: normalizeLinkedin(member.linkedin, member.name),
-      photo: member.photo ?? MTZ_PHOTOS[i % MTZ_PHOTOS.length],
-      fallbackPhoto: MTZ_PHOTOS[i % MTZ_PHOTOS.length],
-    }));
+    return TRENZ_MEMBERS.map((member, i) => {
+      const photo = member.photo ?? MTZ_PHOTOS[i % MTZ_PHOTOS.length];
+      return {
+        id: `${club.id}-member-${i + 1}`,
+        name: member.name,
+        role: member.role,
+        email: `${socialHandle(club.id)}.${i + 1}@Innov'Industry-club.test`,
+        instagram: normalizeInstagram(member.instagram, member.name),
+        linkedin: normalizeLinkedin(member.linkedin, member.name),
+        photo,
+        fallbackPhoto: photo, // keep fallback aligned to the intended photo to avoid cross-person swaps
+      };
+    });
   }
   if (club.id === "iec") {
     return IEC_MEMBERS.map((member, i) => ({
@@ -492,7 +495,7 @@ function buildMembers(club: Club): MemberProfile[] {
       id:            `${club.id}-member-${i + 1}`,
       name:          seed.name,
       role:          seed.role,
-      email:         `${socialHandle(club.id)}.${i + 1}@jp4f-club.test`,
+      email:         `${socialHandle(club.id)}.${i + 1}@Innov'Industry-club.test`,
       instagram:     `https://instagram.com/${safe}_${club.id}`,
       linkedin:      `https://linkedin.com/in/${safe}-${club.id}`,
       photo:         pool[i % pool.length],

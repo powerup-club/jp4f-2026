@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ApplicantOrientationExplorer } from "@/components/application/ApplicantOrientationExplorer";
 import { PageIntro } from "@/components/sections/PageIntro";
 import type { SiteLocale } from "@/config/locales";
@@ -33,25 +33,25 @@ const COPY: Record<SiteLocale, { badge: string; title: string; subtitle: string;
 };
 
 export const metadata: Metadata = {
-  title: "Filières ENSA Fès | 4 filières ingénieur JP4F 2026",
+  title: "Filières ENSA Fès | 4 filières ingénieur Innov'Industry 2026",
   description: "Filières ENSA Fès: comment choisir sa filière à ENSA Fès, quelles sont les filières de ENSA Fès et 4 filières ENSA Fès, meilleure filière ingénieur au Maroc.",
   keywords: SEO_KEYWORDS,
-  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  authors: [{ name: "Innov'Industry 2026 - ENSA Fès" }],
   openGraph: {
-    title: "Filières ENSA Fès | 4 filières ingénieur JP4F 2026",
+    title: "Filières ENSA Fès | 4 filières ingénieur Innov'Industry 2026",
     description: "Filières ENSA Fès: comment choisir sa filière à ENSA Fès, quelles sont les filières de ENSA Fès et 4 filières ENSA Fès, meilleure filière ingénieur au Maroc.",
-    url: "https://jp4f.vercel.app/[locale]/filieres",
-    siteName: "JP4F 2026",
+    url: "https://enginov-days.vercel.app/[locale]/filieres",
+    siteName: "Innov'Industry 2026",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+    images: [{ url: "https://enginov-days.vercel.app/og-image.png", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Filières ENSA Fès | 4 filières ingénieur JP4F 2026",
+    title: "Filières ENSA Fès | 4 filières ingénieur Innov'Industry 2026",
     description: "Filières ENSA Fès: comment choisir sa filière à ENSA Fès, quelles sont les filières de ENSA Fès et 4 filières ENSA Fès, meilleure filière ingénieur au Maroc."
   },
-  alternates: { canonical: "https://jp4f.vercel.app/[locale]/filieres" }
+  alternates: { canonical: "https://enginov-days.vercel.app/[locale]/filieres" }
 };
 
 const ORI_ACCENT = "#38bdf8";
@@ -77,20 +77,6 @@ export default async function FilieresPage({ params }: { params: Promise<{ local
           --ori-chip-bg:       rgba(56, 189, 248, 0.12);
           --ori-chip-border:   rgba(56, 189, 248, 0.42);
           --ori-grid-line:     rgba(56, 189, 248, 0.06);
-        }
-
-        html[data-theme="light"] .ori-page {
-          --ori-ticker-bg:     rgba(14, 165, 233, 0.09);
-          --ori-ticker-border: rgba(14, 165, 233, 0.28);
-          --ori-ticker-muted:  rgba(31, 41, 55, 0.56);
-          --ori-bg:            rgba(255, 255, 255, 0.72);
-          --ori-line-soft:     rgba(31, 41, 55, 0.12);
-          --ori-line-strong:   rgba(14, 165, 233, 0.44);
-          --ori-text-strong:   rgba(31, 41, 55, 0.95);
-          --ori-text-muted:    rgba(31, 41, 55, 0.8);
-          --ori-chip-bg:       rgba(14, 165, 233, 0.12);
-          --ori-chip-border:   rgba(14, 165, 233, 0.35);
-          --ori-grid-line:     rgba(14, 165, 233, 0.10);
         }
 
         @keyframes ori-ticker-move {
@@ -205,7 +191,7 @@ export default async function FilieresPage({ params }: { params: Promise<{ local
             <div className="ori-ticker-track">
               {[0, 1].map((rep) => (
                 <div key={rep} className="flex items-center">
-                  {["JP4F 2026", "ENSA FÈS", "4 FILIÈRES", "GI · GE · GC · GIN", "ORIENTATION", "QUIZ INTELLIGENT"].map((item, index) => (
+                  {["Innov'Industry 2026", "ENSA FÈS", "4 FIL IÈRES", "GI · GE · GC · GIN", "ORIENTATION", "QUIZ INTELLIGENT"].map((item, index) => (
                     <span
                       key={`${rep}-${index}`}
                       className="ori-ticker-item"
@@ -227,7 +213,7 @@ export default async function FilieresPage({ params }: { params: Promise<{ local
             <div className="relative z-[1]">
               <span className="ori-chip">
                 <span className="ori-chip-dot" />
-                JP4F 2026 — Orientation active
+                Innov'Industry 2026 — Orientation active
               </span>
               <h2
                 className="mt-4 font-display text-[clamp(28px,3.8vw,48px)] font-semibold uppercase leading-tight"

@@ -3,10 +3,10 @@ import { BackgroundCanvas } from "@/components/ui/BackgroundCanvas";
 
 export const metadata: Metadata = {
   title: {
-    default: "Admin | JP4F 2026",
-    template: "%s | JP4F 2026"
+    default: "Admin | Innov'Industry 2026",
+    template: "%s | Innov'Industry 2026"
   },
-  description: "Dashboard interne JP4F 2026",
+  description: "Dashboard interne Innov'Industry 2026",
   robots: {
     index: false,
     follow: false

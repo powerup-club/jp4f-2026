@@ -41,5 +41,5 @@ export async function initDB() {
 }
 
 export function generateTeamId(): string {
-  return `JP4F-26-${Math.random().toString(36).substring(2,7).toUpperCase()}`;
+  return `Innov'Industry-26-${Math.random().toString(36).substring(2,7).toUpperCase()}`;
 }

@@ -56,6 +56,34 @@ function pick(index: Record<string, string>, aliases: string[]): string {
   return "";
 }
 
+function parseTeamMembers(value: unknown) {
+  if (Array.isArray(value)) {
+    return value
+      .map((entry) => {
+        if (!entry || typeof entry !== "object") {
+          return { name: "", email: "" };
+        }
+
+        const teamMember = entry as { name?: unknown; email?: unknown };
+        return {
+          name: typeof teamMember.name === "string" ? teamMember.name.trim() : "",
+          email: typeof teamMember.email === "string" ? teamMember.email.trim().toLowerCase() : ""
+        };
+      })
+      .filter((entry) => entry.name || entry.email);
+  }
+
+  if (typeof value === "string" && value.trim()) {
+    try {
+      return parseTeamMembers(JSON.parse(value));
+    } catch {
+      return [];
+    }
+  }
+
+  return [];
+}
+
 function normalizeRegistrationType(rawType: string, teamName: string): "Individuel" | "Equipe" {
   const value = rawType
     .normalize("NFD")
@@ -104,7 +132,80 @@ function splitFullName(fullName: string): { firstName: string; lastName: string 
 
 export function normalizeRegistrationRow(row: RawRow): AdminRegistrationRow {
   const index = toIndex(row);
-  const teamName = pick(index, ["teamName", "teamname", "nomEquipe", "nomequipe"]);
+  const teamName = pick(index, [
+    "teamName",
+    "teamname",
+    "nomEquipe",
+    "nomequipe",
+    "Nom equipe",
+    "Nom équipe"
+  ]);
+  const teamMembers = parseTeamMembers(
+    (row as RawRow).teamMembers ?? (row as RawRow).team_members
+  );
+  const member2 = teamMembers[0] ?? { name: "", email: "" };
+  const member3 = teamMembers[1] ?? { name: "", email: "" };
+  const member4 = teamMembers[2] ?? { name: "", email: "" };
+  const member2Name =
+    pick(index, [
+      "member2Name",
+      "member2name",
+      "membre2Nom",
+      "membre2nom",
+      "membre2Name",
+      "Membre 2 - Nom",
+      "Membre 2 — Nom"
+    ]) ||
+    member2.name;
+  const member2Email =
+    pick(index, [
+      "member2Email",
+      "member2email",
+      "membre2Email",
+      "membre2email",
+      "Membre 2 - Email",
+      "Membre 2 — Email"
+    ]) || member2.email;
+  const member3Name =
+    pick(index, [
+      "member3Name",
+      "member3name",
+      "membre3Nom",
+      "membre3nom",
+      "membre3Name",
+      "Membre 3 - Nom",
+      "Membre 3 — Nom"
+    ]) ||
+    member3.name;
+  const member3Email =
+    pick(index, [
+      "member3Email",
+      "member3email",
+      "membre3Email",
+      "membre3email",
+      "Membre 3 - Email",
+      "Membre 3 — Email"
+    ]) || member3.email;
+  const member4Name =
+    pick(index, [
+      "member4Name",
+      "member4name",
+      "membre4Nom",
+      "membre4nom",
+      "membre4Name",
+      "Membre 4 - Nom",
+      "Membre 4 — Nom"
+    ]) ||
+    member4.name;
+  const member4Email =
+    pick(index, [
+      "member4Email",
+      "member4email",
+      "membre4Email",
+      "membre4email",
+      "Membre 4 - Email",
+      "Membre 4 — Email"
+    ]) || member4.email;
 
   return {
     timestamp: pick(index, ["timestamp", "date", "createdAt", "createdat"]),
@@ -112,16 +213,70 @@ export function normalizeRegistrationRow(row: RawRow): AdminRegistrationRow {
     type: normalizeRegistrationType(pick(index, ["type", "participationType", "participationtype"]), teamName),
     fullName: pick(index, ["fullName", "fullname", "nomComplet", "nomcomplet", "name", "nom"]),
     email: pick(index, ["email", "mail"]),
-    phone: pick(index, ["phone", "telephone", "tel"]),
-    university: pick(index, ["university", "school", "ecole", "universite"]),
-    branch: pick(index, ["branch", "filiere", "specialite", "track"]),
-    yearOfStudy: pick(index, ["yearOfStudy", "yearofstudy", "niveau", "studyYear"]),
+    phone: pick(index, ["phone", "telephone", "tel", "Téléphone"]),
+    university: pick(index, ["university", "school", "ecole", "universite", "Université / École"]),
+    branch: pick(index, ["branch", "filiere", "specialite", "track", "Filière"]),
+    yearOfStudy: pick(index, ["yearOfStudy", "yearofstudy", "niveau", "studyYear", "Niveau d'études"]),
+    linkedin: pick(index, ["linkedin", "linkedIn", "linkedInUrl", "linkedInURL", "LinkedIn"]),
     teamName,
-    projTitle: pick(index, ["projTitle", "projtitle", "projectTitle", "projecttitle", "titreProjet", "titreprojet"]),
-    projDomain: pick(index, ["projDomain", "projdomain", "projectDomain", "projectdomain", "domaineProjet", "domaineprojet"]),
-    demoFormat: pick(index, ["demoFormat", "demoformat", "presentationFormat", "presentationformat"]),
-    heardFrom: pick(index, ["heardFrom", "heardfrom", "source", "canal"]),
-    fileLink: pick(index, ["fileLink", "filelink", "documentLink", "documentlink", "lienFichier", "lienfichier"])
+    member2Name,
+    member2Email,
+    member3Name,
+    member3Email,
+    member4Name,
+    member4Email,
+    projTitle: pick(index, [
+      "projTitle",
+      "projtitle",
+      "projectTitle",
+      "projecttitle",
+      "titreProjet",
+      "titreprojet",
+      "Titre du projet"
+    ]),
+    projDomain: pick(index, [
+      "projDomain",
+      "projdomain",
+      "projectDomain",
+      "projectdomain",
+      "domaineProjet",
+      "domaineprojet",
+      "Domaine"
+    ]),
+    projDesc: pick(index, [
+      "projDesc",
+      "projdesc",
+      "projectDesc",
+      "projectdesc",
+      "descriptionProjet",
+      "descriptionprojet",
+      "Description du projet"
+    ]),
+    innovation: pick(index, [
+      "innovation",
+      "valeurAjoutee",
+      "valeurajoutee",
+      "valueAdded",
+      "valueadded",
+      "Innovation / Valeur ajoutée"
+    ]),
+    demoFormat: pick(index, [
+      "demoFormat",
+      "demoformat",
+      "presentationFormat",
+      "presentationformat",
+      "Format de présentation"
+    ]),
+    heardFrom: pick(index, ["heardFrom", "heardfrom", "source", "canal", "Comment entendu parler"]),
+    fileLink: pick(index, [
+      "fileLink",
+      "filelink",
+      "documentLink",
+      "documentlink",
+      "lienFichier",
+      "lienfichier",
+      "Fichier (lien Drive)"
+    ])
   };
 }
 
@@ -248,9 +403,13 @@ export async function fetchAdminData(
         university AS "university",
         branch AS "branch",
         year_of_study AS "yearOfStudy",
+        linkedin AS "linkedin",
         team_name AS "teamName",
+        team_members AS "teamMembers",
         project_title AS "projTitle",
         project_domain AS "projDomain",
+        project_desc AS "projDesc",
+        innovation AS "innovation",
         demo_format AS "demoFormat",
         heard_from AS "heardFrom",
         file_url AS "fileLink"

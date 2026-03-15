@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import type { SiteLocale } from "@/config/locales";
 import { localizeHref } from "@/lib/routing";
 
@@ -17,7 +15,6 @@ type SidebarItem = {
     | "rules"
     | "evaluate"
     | "orientation"
-    | "games"
     | "quiz"
     | "chat"
     | "contact";
@@ -42,7 +39,6 @@ const COPY: Record<
       { href: "/application/rules", label: "Reglement", icon: "rules" },
       { href: "/application/evaluate", label: "Evaluation", icon: "evaluate" },
       { href: "/application/orientation", label: "Orientation", icon: "orientation" },
-      { href: "/application/games", label: "Jeux", icon: "games" },
       { href: "/application/quiz", label: "Quiz", icon: "quiz" },
       { href: "/application/chat", label: "Assistant", icon: "chat" },
       { href: "/application/contact", label: "Contact", icon: "contact" }
@@ -58,7 +54,6 @@ const COPY: Record<
       { href: "/application/rules", label: "Rules", icon: "rules" },
       { href: "/application/evaluate", label: "Evaluate", icon: "evaluate" },
       { href: "/application/orientation", label: "Orientation", icon: "orientation" },
-      { href: "/application/games", label: "Games", icon: "games" },
       { href: "/application/quiz", label: "Quiz", icon: "quiz" },
       { href: "/application/chat", label: "Chat", icon: "chat" },
       { href: "/application/contact", label: "Contact", icon: "contact" }
@@ -74,7 +69,6 @@ const COPY: Record<
       { href: "/application/rules", label: "القواعد", icon: "rules" },
       { href: "/application/evaluate", label: "التقييم", icon: "evaluate" },
       { href: "/application/orientation", label: "التوجيه", icon: "orientation" },
-      { href: "/application/games", label: "الألعاب", icon: "games" },
       { href: "/application/quiz", label: "الاختبار", icon: "quiz" },
       { href: "/application/chat", label: "المساعد", icon: "chat" },
       { href: "/application/contact", label: "التواصل", icon: "contact" }
@@ -133,19 +127,6 @@ function Icon({ kind }: { kind: SidebarItem["icon"] }) {
       </svg>
     );
   }
-
-  if (kind === "games") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M6.5 9H9" />
-        <path d="M7.75 7.75v2.5" />
-        <path d="M15.5 8.75h.01" />
-        <path d="M18 11.25h.01" />
-        <path d="M7.8 18.5h8.4A4.8 4.8 0 0 0 21 13.7c0-3.1-2.4-5.7-5.5-5.9L13.3 5a2.3 2.3 0 0 0-2.6-.6L6.2 6.2A4.8 4.8 0 0 0 3 10.7v2.9a4.9 4.9 0 0 0 4.8 4.9Z" />
-      </svg>
-    );
-  }
-
   if (kind === "chat") {
     return (
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -230,12 +211,7 @@ export function ApplicantPortalSidebar({
     </button>
   );
 
-  const utilities = (
-    <div className="mt-5 flex flex-wrap items-center gap-3">
-      <ThemeToggle locale={locale} />
-      <LocaleSwitcher locale={locale} />
-    </div>
-  );
+  const utilities = null;
 
   return (
     <aside className="glass-card hidden h-fit border border-edge/80 bg-panel/95 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.08)] lg:block lg:sticky lg:top-28">
@@ -247,7 +223,7 @@ export function ApplicantPortalSidebar({
           </p>
           <p className="mt-1 break-all text-sm text-ink/65">{userEmail}</p>
         </div>
-        <ThemeToggle locale={locale} />
+        <div />
       </div>
 
       {navItems}

@@ -7,8 +7,8 @@ import { buildPageMetadata } from "@/lib/metadata";
 
 const COPY: Record<SiteLocale, { badge: string; title: string; subtitle: string }> = {
   fr: {
-    badge: "Mini game",
-    title: "Industry 4.0 Quiz",
+    badge: "Mini jeu",
+    title: "Quiz Industrie 4.0",
     subtitle: "Teste ta culture industrielle et compare ton score au classement du portail."
   },
   en: {
@@ -17,8 +17,8 @@ const COPY: Record<SiteLocale, { badge: string; title: string; subtitle: string 
     subtitle: "Test your industrial knowledge and compare your score with the portal leaderboard."
   },
   ar: {
-    badge: "Mini game",
-    title: "Industry 4.0 Quiz",
+    badge: "لعبة مصغرة",
+    title: "اختبار الصناعة 4.0",
     subtitle: "اختبر ثقافتك الصناعية وقارن نتيجتك بترتيب البوابة."
   }
 };

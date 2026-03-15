@@ -40,15 +40,15 @@ const COPY: Record<
     ]
   },
   ar: {
-    badge: "Mini games",
+    badge: "ألعاب مصغرة",
     title: "الألعاب والتحديات",
     subtitle: "درب ثقافتك الصناعية والعرض والمنهجية قبل يوم اللجنة.",
     openLabel: "فتح",
     cards: [
-      { href: "/application/games/quiz", title: "Industry 4.0 Quiz", body: "اختبار سريع مع نتيجة وترتيب داخل البوابة.", tag: "Quiz", color: "#10b981" },
-      { href: "/application/games/pitch", title: "Pitch Timer", body: "قِس عرضك واطلب ملاحظات شبيهة باللجنة.", tag: "Pitch", color: "#f97316" },
-      { href: "/application/games/match", title: "Filiere Match", body: "اربط التقنيات بالمسالك المناسبة داخل الشعبة.", tag: "Orientation", color: "#8b5cf6" },
-      { href: "/application/games/scenario", title: "Scenario Challenge", body: "أجب عن حالة صناعية واحصل على تحليل خبير.", tag: "Case study", color: "#0ea5e9" }
+      { href: "/application/games/quiz", title: "اختبار الصناعة 4.0", body: "اختبار سريع مع نتيجة وترتيب داخل البوابة.", tag: "اختبار", color: "#10b981" },
+      { href: "/application/games/pitch", title: "مؤقّت العرض", body: "قِس عرضك واطلب ملاحظات شبيهة باللجنة.", tag: "عرض", color: "#f97316" },
+      { href: "/application/games/match", title: "مطابقة المسارات", body: "اربط التقنيات بالمسالك المناسبة داخل الشعبة.", tag: "توجيه", color: "#8b5cf6" },
+      { href: "/application/games/scenario", title: "تحدي السيناريو", body: "أجب عن حالة صناعية واحصل على تحليل خبير.", tag: "دراسة حالة", color: "#0ea5e9" }
     ]
   }
 };

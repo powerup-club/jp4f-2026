@@ -388,7 +388,7 @@ export function formatApplicantTeamId(applicationId: number | string | null | un
         : 0;
 
   const safeId = Number.isFinite(numericId) && numericId > 0 ? Math.trunc(numericId) : 0;
-  return `JP4F-${String(safeId).padStart(6, "0")}`;
+  return `Innov'Industry-${String(safeId).padStart(6, "0")}`;
 }
 
 export function splitDisplayName(fullName: string): { firstName: string; lastName: string } {

@@ -45,7 +45,7 @@ function buildSystemPrompt(locale: SupportedLocale, application: ApplicantApplic
   const applicationSnapshot = buildApplicationSnapshot(application);
 
   if (locale === "en") {
-    return `You are the applicant portal assistant for JP4F 2026 at ENSA Fes.
+    return `You are the applicant portal assistant for Innov'Industry 2026 at ENSA Fes.
 
 Your job:
 - help the applicant understand the competition, portal tools, quiz, games, evaluation flow, and contact process
@@ -60,7 +60,7 @@ ${applicationSnapshot}`;
   }
 
   if (locale === "ar") {
-    return `أنت مساعد بوابة المترشحين الخاصة بفعالية JP4F 2026 في ENSA Fes.
+    return `أنت مساعد بوابة المترشحين الخاصة بفعالية Innov'Industry 2026 في ENSA Fes.
 
 مهامك:
 - ساعد المترشح على فهم المسابقة وأدوات البوابة والاختبار والألعاب وصفحة التقييم والتواصل
@@ -74,7 +74,7 @@ ${applicationSnapshot}`;
 ${applicationSnapshot}`;
   }
 
-  return `Tu es l'assistant du portail candidat JP4F 2026 a l'ENSA Fes.
+  return `Tu es l'assistant du portail candidat Innov'Industry 2026 a l'ENSA Fes.
 
 Ta mission :
 - aider le candidat a comprendre la competition, les outils du portail, le quiz, les jeux, l'auto-evaluation et le contact

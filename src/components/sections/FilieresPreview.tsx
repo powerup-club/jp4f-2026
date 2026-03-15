@@ -33,7 +33,7 @@ export function FilieresPreview({ locale, content, tag, title, subtitle }: Filie
             <Link
               key={item.code}
               href={localizeHref(locale, "/filieres")}
-              className="glass-card group p-5 transition hover:-translate-y-1 hover:border-accent"
+              className="glass-card liquid-card group p-5 transition hover:-translate-y-1 hover:border-accent"
             >
               <span
                 className={`inline-flex rounded-full bg-gradient-to-r px-3 py-1 font-display text-lg uppercase tracking-[0.08em] text-white ${

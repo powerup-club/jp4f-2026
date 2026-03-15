@@ -7,7 +7,7 @@ const BRANCHES = ["GESI","Génie Mécanique","Mécatronique","Génie Industriel 
 const YEARS = ["1ère année","2ème année","3ème année","4ème année","5ème année","Master / Doctorat"];
 const DOMAINS = ["Habitat intelligent & domotique","Énergie propre & efficacité énergétique","Mobilité intelligente & transport","Digitalisation & Industrie 4.0","Agriculture connectée","Santé & bien-être","Eau & environnement","Autre"];
 const DEMOS = ["Prototype fonctionnel","Maquette physique","Simulation numérique","Application mobile / web","Présentation slides","Vidéo démo","Autre"];
-const HEARD = ["Réseaux sociaux","Affiche / Flyer ENSA","Professeur / Encadrant","Camarade de classe","Site web JP4F","Email","Autre"];
+const HEARD = ["Réseaux sociaux","Affiche / Flyer ENSA","Professeur / Encadrant","Camarade de classe","Site web ENGINOV DAYS","Email","Autre"];
 
 function Input({ label, value, onChange, placeholder, type="text", required=false }: any) {
   return (

@@ -68,7 +68,7 @@ export function Countdown({ targetIso, label, endedLabel }: CountdownProps) {
   const displayParts: CountdownParts = parts ?? { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
   return (
-    <div className="glass-card p-5">
+    <div className="glass-card liquid-card shadow-2xl p-5">
       <p className="font-display text-lg uppercase tracking-[0.1em] text-ink/72">{label}</p>
       <div className="mt-4 grid grid-cols-4 gap-2">
         {unitList.map((unit) => {

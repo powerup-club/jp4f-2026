@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/sections/PageIntro";
 import { Reveal } from "@/components/ui/Reveal";
@@ -24,7 +24,7 @@ function findActiveTimelineIndex(timeline: CompetitionTimelineItem[]): number {
 function tickerEntries(locale: SiteLocale, title: string, dateValue: string, venueValue: string): string[] {
   if (locale === "ar") {
     return [
-      "JESI'2025",
+      "JI'2026",
       title,
       dateValue,
       venueValue,
@@ -35,7 +35,7 @@ function tickerEntries(locale: SiteLocale, title: string, dateValue: string, ven
 
   if (locale === "en") {
     return [
-      "JESI'2025",
+      "JI'2026",
       title,
       dateValue,
       venueValue,
@@ -45,7 +45,7 @@ function tickerEntries(locale: SiteLocale, title: string, dateValue: string, ven
   }
 
   return [
-    "JESI'2025",
+    "JI'2026",
     title,
     dateValue,
     venueValue,
@@ -61,7 +61,7 @@ function labelsByLocale(locale: SiteLocale) {
       partners: "Partners",
       contact: "Contact",
       formats: "Presentation formats",
-      openBadge: "JESI'2025 — Applications open",
+      openBadge: "JI'2026 — Applications open",
       orientationQuiz: "Take the orientation quiz",
       orientationHint: "Unsure about your branch? Run the 5-question smart quiz.",
     };
@@ -73,7 +73,7 @@ function labelsByLocale(locale: SiteLocale) {
       partners: "الشركاء",
       contact: "التواصل",
       formats: "صيغ التقديم",
-      openBadge: "JESI'2025 — باب الترشح مفتوح",
+      openBadge: "JI'2026 — باب الترشح مفتوح",
       orientationQuiz: "قم باختبار التوجيه",
       orientationHint: "غير متأكد من المسلك؟ جرب اختبار التوجيه الذكي من 5 أسئلة.",
     };
@@ -84,36 +84,36 @@ function labelsByLocale(locale: SiteLocale) {
     partners: "Partenaires",
     contact: "Contact",
     formats: "Formats de présentation",
-    openBadge: "JESI'2025 — Ouvert aux candidatures",
+    openBadge: "JI'2026 — Ouvert aux candidatures",
     orientationQuiz: "Faire le quiz d'orientation",
     orientationHint: "Pas encore décidé ? Lance le quiz intelligent en 5 questions.",
   };
 }
 
 export const metadata: Metadata = {
-  title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+  title: "Compétition Innov'Industry 2026 | Challenge étudiant ENSA Fès",
   description:
-    "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc.",
+    "Participez à Innov'Dom Challenge 2026 : challenge étudiant Maroc, hackathon ENSA Fès, présentez votre idée innovante et pitch startup étudiant à l'ENGINOV DAYS.",
   keywords: SEO_KEYWORDS,
-  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  authors: [{ name: "Innov'Industry 2026 - ENSA Fès" }],
   openGraph: {
-    title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+    title: "Compétition Innov'Industry 2026 | Challenge étudiant ENSA Fès",
     description:
-      "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc.",
-    url: "https://jp4f.vercel.app/[locale]/competition",
-    siteName: "JP4F 2026",
+      "Participez à Innov'Dom Challenge 2026 : challenge étudiant Maroc, hackathon ENSA Fès, présentez votre idée innovante et pitch startup étudiant à l'ENGINOV DAYS.",
+    url: "https://enginov-days.vercel.app/[locale]/competition",
+    siteName: "Innov'Industry 2026",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+    images: [{ url: "https://enginov-days.vercel.app/og-image.png", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Compétition JP4F 2026 | Challenge étudiant ENSA Fès",
+    title: "Compétition Innov'Industry 2026 | Challenge étudiant ENSA Fès",
     description:
-      "Participez à la compétition ingénieur Maroc 2026 de JP4F: challenge étudiant Maroc, hackathon ENSA Fès, quiz ingénieur Maroc et pitch startup étudiant Maroc."
+      "Participez à Innov'Dom Challenge 2026 : challenge étudiant Maroc, hackathon ENSA Fès, présentez votre idée innovante et pitch startup étudiant à l'ENGINOV DAYS."
   },
   alternates: {
-    canonical: "https://jp4f.vercel.app/[locale]/competition"
+    canonical: "https://enginov-days.vercel.app/[locale]/competition"
   }
 };
 
@@ -123,8 +123,9 @@ export default async function CompetitionPage({ params }: { params: Promise<{ lo
   const timeline = content.competition.timeline;
   const activeTimelineIndex = findActiveTimelineIndex(timeline);
 
-  const eventDate = timeline.at(-1)?.date ?? "21 April 2025";
-  const statFormatValue = locale === "ar" ? "5-10 د" : "5-10 min";
+  const eventDate =
+    locale === "ar" ? "3 مراحل" : locale === "en" ? "3 phases" : "3 phases";
+  const statFormatValue = locale === "ar" ? "5–10 دقائق" : "5–10 min";
   const statVenueValue = "ENSA FES";
   const statIdeasValue = "∞";
 
@@ -156,26 +157,6 @@ export default async function CompetitionPage({ params }: { params: Promise<{ lo
           --comp-row-hover: rgba(251, 191, 36, 0.09);
           --comp-register-bg: linear-gradient(145deg, rgba(251, 191, 36, 0.08) 0%, rgba(10, 12, 16, 0.88) 52%);
           --comp-warning: rgba(251, 146, 60, 0.9);
-        }
-
-        html[data-theme="light"] .comp-page {
-          --comp-ticker-bg: rgba(249, 115, 22, 0.09);
-          --comp-ticker-border: rgba(249, 115, 22, 0.28);
-          --comp-ticker-muted: rgba(31, 41, 55, 0.56);
-          --comp-bg: rgba(255, 255, 255, 0.72);
-          --comp-bg-soft: rgba(248, 250, 252, 0.72);
-          --comp-line: rgba(31, 41, 55, 0.15);
-          --comp-line-soft: rgba(31, 41, 55, 0.12);
-          --comp-line-strong: rgba(249, 115, 22, 0.44);
-          --comp-text-strong: rgba(31, 41, 55, 0.95);
-          --comp-text-muted: rgba(31, 41, 55, 0.8);
-          --comp-text-subtle: rgba(31, 41, 55, 0.62);
-          --comp-chip-bg: rgba(249, 115, 22, 0.12);
-          --comp-chip-border: rgba(249, 115, 22, 0.35);
-          --comp-grid-line: rgba(249, 115, 22, 0.1);
-          --comp-row-hover: rgba(249, 115, 22, 0.11);
-          --comp-register-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.76) 0%, rgba(241, 245, 249, 0.78) 52%);
-          --comp-warning: rgba(180, 83, 9, 0.95);
         }
 
         @keyframes comp-ticker-move {

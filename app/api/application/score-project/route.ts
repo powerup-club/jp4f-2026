@@ -36,7 +36,7 @@ function normalizeScore(value: unknown): number {
 
 function buildScoringPrompt(locale: SupportedLocale, projTitle: string, projDesc: string, projDomain: string, innovation: string): string {
   if (locale === "en") {
-    return `You are an expert evaluator for the JP4F 2026 Innov'Dom challenge at ENSA Fes. Analyze this project and rate it on 5 dimensions from 1 (weak) to 5 (excellent). Use realistic scores reflecting actual strengths and weaknesses.
+    return `You are an expert evaluator for the Innov'Industry 2026 Innov'Dom challenge at ENSA Fes. Analyze this project and rate it on 5 dimensions from 1 (weak) to 5 (excellent). Use realistic scores reflecting actual strengths and weaknesses.
 
 Project title: ${projTitle}
 Project domain: ${projDomain}
@@ -61,7 +61,7 @@ Return ONLY valid JSON in this exact format:
   }
 
   if (locale === "ar") {
-    return `أنت خبير تقييم لمسابقة Innov'Dom ضمن JP4F 2026 في ENSA Fes. حلل هذا المشروع وقيمه على 5 أبعاد من 1 (ضعيف) إلى 5 (ممتاز). استخدم درجات واقعية تعكس نقاط القوة والضعف الفعلية.
+    return `أنت خبير تقييم لمسابقة Innov'Dom ضمن Innov'Industry 2026 في ENSA Fes. حلل هذا المشروع وقيمه على 5 أبعاد من 1 (ضعيف) إلى 5 (ممتاز). استخدم درجات واقعية تعكس نقاط القوة والضعف الفعلية.
 
 عنوان المشروع: ${projTitle}
 مجال المشروع: ${projDomain}
@@ -85,7 +85,7 @@ Return ONLY valid JSON in this exact format:
 }`;
   }
 
-  return `Tu es un expert évaluateur pour le challenge Innov'Dom de JP4F 2026 à l'ENSA Fes. Analyse ce projet et évalue-le sur 5 dimensions de 1 (faible) à 5 (excellent). Utilise des scores réalistes reflétant les vraies forces et faiblesses.
+  return `Tu es un expert évaluateur pour le challenge Innov'Dom de Innov'Industry 2026 à l'ENSA Fes. Analyse ce projet et évalue-le sur 5 dimensions de 1 (faible) à 5 (excellent). Utilise des scores réalistes reflétant les vraies forces et faiblesses.
 
 Titre du projet: ${projTitle}
 Domaine du projet: ${projDomain}

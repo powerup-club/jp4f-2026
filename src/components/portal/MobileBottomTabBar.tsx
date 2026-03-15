@@ -12,7 +12,6 @@ type TabKey =
   | "rules"
   | "evaluate"
   | "orientation"
-  | "games"
   | "quiz"
   | "chat"
   | "contact"
@@ -25,7 +24,6 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     rules: "Reglement",
     evaluate: "Evaluation",
     orientation: "Orientation",
-    games: "Jeux",
     quiz: "Quiz",
     chat: "Chat",
     contact: "Contact",
@@ -37,7 +35,6 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     rules: "Rules",
     evaluate: "Evaluate",
     orientation: "Orientation",
-    games: "Games",
     chat: "Chat",
     quiz: "Quiz",
     contact: "Contact",
@@ -49,7 +46,6 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     rules: "القواعد",
     evaluate: "التقييم",
     orientation: "التوجيه",
-    games: "الألعاب",
     chat: "المساعد",
     quiz: "الاختبار",
     contact: "التواصل",
@@ -60,14 +56,13 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
 const TABS: Array<{
   key: TabKey;
   href: string;
-  icon: "home" | "form" | "rules" | "evaluate" | "orientation" | "games" | "quiz" | "chat" | "contact" | "logout";
+  icon: "home" | "form" | "rules" | "evaluate" | "orientation" | "quiz" | "chat" | "contact" | "logout";
 }> = [
   { key: "home", href: "/application", icon: "home" },
   { key: "form", href: "/application/form", icon: "form" },
   { key: "rules", href: "/application/rules", icon: "rules" },
   { key: "evaluate", href: "/application/evaluate", icon: "evaluate" },
   { key: "orientation", href: "/application/orientation", icon: "orientation" },
-  { key: "games", href: "/application/games", icon: "games" },
   { key: "quiz", href: "/application/quiz", icon: "quiz" },
   { key: "chat", href: "/application/chat", icon: "chat" },
   { key: "contact", href: "/application/contact", icon: "contact" },
@@ -83,7 +78,6 @@ function TabIcon({
     | "rules"
     | "evaluate"
     | "orientation"
-    | "games"
     | "quiz"
     | "chat"
     | "contact"
@@ -139,19 +133,6 @@ function TabIcon({
       </svg>
     );
   }
-
-  if (kind === "games") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M6.5 9H9" />
-        <path d="M7.75 7.75v2.5" />
-        <path d="M15.5 8.75h.01" />
-        <path d="M18 11.25h.01" />
-        <path d="M7.8 18.5h8.4A4.8 4.8 0 0 0 21 13.7c0-3.1-2.4-5.7-5.5-5.9L13.3 5a2.3 2.3 0 0 0-2.6-.6L6.2 6.2A4.8 4.8 0 0 0 3 10.7v2.9a4.9 4.9 0 0 0 4.8 4.9Z" />
-      </svg>
-    );
-  }
-
   if (kind === "chat") {
     return (
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

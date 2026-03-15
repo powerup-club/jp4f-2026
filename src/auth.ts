@@ -5,7 +5,7 @@ import { getAuthSecret, getGoogleClientId, getGoogleClientSecret } from "@/admin
 const googleClientId = getGoogleClientId();
 const googleClientSecret = getGoogleClientSecret();
 const authSecret =
-  getAuthSecret() || (process.env.NODE_ENV === "production" ? undefined : "jp4f-admin-dev-secret");
+  getAuthSecret() || (process.env.NODE_ENV === "production" ? undefined : "Innov'Industry-admin-dev-secret");
 
 export const { handlers, auth } = NextAuth({
   trustHost: true,

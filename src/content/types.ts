@@ -97,6 +97,11 @@ export interface HomeContent {
   challengeTag: string;
   challengeTitle: string;
   challengeSubtitle: string;
+  registrationHighlight: {
+    deadlineLabel: string;
+    ctaLabel: string;
+    ctaHref: string;
+  };
 }
 
 export interface ProgrammeContent {

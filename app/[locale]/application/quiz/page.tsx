@@ -10,25 +10,41 @@ import { buildPageMetadata } from "@/lib/metadata";
 const COPY: Record<
   SiteLocale,
   {
+    badge: string;
     title: string;
     subtitle: string;
     latestTitle: string;
+    branchLabel: string;
+    profileLabel: string;
+    savedLabel: string;
   }
 > = {
   fr: {
+    badge: "Quiz",
     title: "Quiz portail",
     subtitle: "Passe le quiz d'orientation depuis ton espace candidat et conserve ton resultat.",
-    latestTitle: "Dernier resultat"
+    latestTitle: "Dernier resultat",
+    branchLabel: "Filiere",
+    profileLabel: "Profil",
+    savedLabel: "Enregistre"
   },
   en: {
+    badge: "Quiz",
     title: "Portal quiz",
     subtitle: "Take the orientation quiz from your applicant portal and keep your result.",
-    latestTitle: "Latest result"
+    latestTitle: "Latest result",
+    branchLabel: "Track",
+    profileLabel: "Profile",
+    savedLabel: "Saved"
   },
   ar: {
+    badge: "الاختبار",
     title: "اختبار البوابة",
     subtitle: "أنجز اختبار التوجيه من داخل البوابة واحتفظ بنتيجتك.",
-    latestTitle: "آخر نتيجة"
+    latestTitle: "آخر نتيجة",
+    branchLabel: "المسلك",
+    profileLabel: "الملف الشخصي",
+    savedLabel: "محفوظ"
   }
 };
 
@@ -67,7 +83,7 @@ export default async function ApplicantQuizPage({ params }: { params: Promise<{ 
   return (
     <>
       <article className="glass-card p-6 sm:p-8">
-        <p className="badge-line">Quiz</p>
+        <p className="badge-line">{copy.badge}</p>
         <h1 className="mt-4 font-display text-5xl font-semibold uppercase leading-[0.95] text-ink sm:text-6xl">
           <span className="gradient-title">{copy.title}</span>
         </h1>
@@ -79,15 +95,15 @@ export default async function ApplicantQuizPage({ params }: { params: Promise<{ 
           <p className="font-display text-3xl font-semibold uppercase text-ink">{copy.latestTitle}</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-edge/50 bg-panel/70 p-4">
-              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">Branch</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">{copy.branchLabel}</p>
               <p className="mt-2 font-display text-2xl uppercase text-ink">{workspace.latestQuizAttempt.branch}</p>
             </div>
             <div className="rounded-2xl border border-edge/50 bg-panel/70 p-4">
-              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">Profile</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">{copy.profileLabel}</p>
               <p className="mt-2 text-sm text-ink/78">{workspace.latestQuizAttempt.profile}</p>
             </div>
             <div className="rounded-2xl border border-edge/50 bg-panel/70 p-4">
-              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">Saved</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-ink/45">{copy.savedLabel}</p>
               <p className="mt-2 text-sm text-ink/78">{dateLabel(workspace.latestQuizAttempt.createdAt, locale)}</p>
             </div>
           </div>

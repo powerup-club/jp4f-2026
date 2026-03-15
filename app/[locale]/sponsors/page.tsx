@@ -208,29 +208,29 @@ function LogoMarquee({
 }
 
 export const metadata: Metadata = {
-  title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+  title: "Sponsors Innov'Industry 2026 | Partenaires industriels ENSA Fès",
   description:
-    "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
+    "Sponsors ENGINOV DAYS: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
   keywords: SEO_KEYWORDS,
-  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  authors: [{ name: "Innov'Industry 2026 - ENSA Fès" }],
   openGraph: {
-    title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+    title: "Sponsors Innov'Industry 2026 | Partenaires industriels ENSA Fès",
     description:
-      "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
-    url: "https://jp4f.vercel.app/[locale]/sponsors",
-    siteName: "JP4F 2026",
+      "Sponsors ENGINOV DAYS: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc.",
+    url: "https://enginov-days.vercel.app/[locale]/sponsors",
+    siteName: "Innov'Industry 2026",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+    images: [{ url: "https://enginov-days.vercel.app/og-image.png", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sponsors JP4F 2026 | Partenaires industriels ENSA Fès",
+    title: "Sponsors Innov'Industry 2026 | Partenaires industriels ENSA Fès",
     description:
-      "Sponsors JP4F: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc."
+      "Sponsors ENGINOV DAYS: entreprise partenaire ENSA Fès, partenariat industriel ENSA Fès et entreprises qui recrutent ingénieurs Fès, recruteur ingénieur Fès au Maroc."
   },
   alternates: {
-    canonical: "https://jp4f.vercel.app/[locale]/sponsors"
+    canonical: "https://enginov-days.vercel.app/[locale]/sponsors"
   }
 };
 
@@ -263,7 +263,7 @@ export default async function SponsorsPage({ params }: { params: Promise<{ local
     <div className="space-y-16" dir={locale === "ar" ? "rtl" : "ltr"}>
       <section className="section-shell pt-6">
         <article className="glass-card overflow-hidden p-8 sm:p-12">
-          <p className="badge-line">{locale === "ar" ? "JP4F 2026" : "JP4F 2026"}</p>
+          <p className="badge-line">{locale === "ar" ? "Innov'Industry 2026" : "Innov'Industry 2026"}</p>
           <h1 className="mt-5 font-display text-4xl font-semibold uppercase text-ink sm:text-6xl">
             <span className="gradient-title">{copy.hero.title}</span>
           </h1>

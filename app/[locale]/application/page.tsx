@@ -35,6 +35,28 @@ const COPY: Record<
     sentAtLabel: string;
     toolsTitle: string;
     toolsSubtitle: string;
+    labels: {
+      account: string;
+      teamId: string;
+      fullName: string;
+      email: string;
+      phone: string;
+      university: string;
+      branch: string;
+      profile: string;
+      mode: string;
+      team: string;
+      members: string;
+      title: string;
+      domain: string;
+      format: string;
+      description: string;
+      fileName: string;
+      fileType: string;
+      fileSize: string;
+      storage: string;
+      lastSync: string;
+    };
   }
 > = {
   fr: {
@@ -62,7 +84,29 @@ const COPY: Record<
     ratingLabel: "Note",
     sentAtLabel: "Envoye le",
     toolsTitle: "Outils portail",
-    toolsSubtitle: "Retrouve ici les experiences importees depuis l'ancien portail."
+    toolsSubtitle: "Retrouve ici les experiences importees depuis l'ancien portail.",
+    labels: {
+      account: "Compte",
+      teamId: "ID equipe",
+      fullName: "Nom complet",
+      email: "Email",
+      phone: "Telephone",
+      university: "Universite",
+      branch: "Filiere",
+      profile: "Profil",
+      mode: "Mode",
+      team: "Equipe",
+      members: "Membres",
+      title: "Titre",
+      domain: "Domaine",
+      format: "Format",
+      description: "Description",
+      fileName: "Nom",
+      fileType: "Type",
+      fileSize: "Taille",
+      storage: "Stockage",
+      lastSync: "Derniere synchro"
+    }
   },
   en: {
     badge: "Portal home",
@@ -89,7 +133,29 @@ const COPY: Record<
     ratingLabel: "Rating",
     sentAtLabel: "Sent on",
     toolsTitle: "Portal tools",
-    toolsSubtitle: "Access the imported experiences from the legacy portal here."
+    toolsSubtitle: "Access the imported experiences from the legacy portal here.",
+    labels: {
+      account: "Account",
+      teamId: "Team ID",
+      fullName: "Full name",
+      email: "Email",
+      phone: "Phone",
+      university: "University",
+      branch: "Track",
+      profile: "Profile",
+      mode: "Mode",
+      team: "Team",
+      members: "Members",
+      title: "Title",
+      domain: "Domain",
+      format: "Format",
+      description: "Description",
+      fileName: "File name",
+      fileType: "File type",
+      fileSize: "Size",
+      storage: "Storage",
+      lastSync: "Last sync"
+    }
   },
   ar: {
     badge: "Portal home",
@@ -116,7 +182,29 @@ const COPY: Record<
     ratingLabel: "التقييم",
     sentAtLabel: "أرسل في",
     toolsTitle: "أدوات البوابة",
-    toolsSubtitle: "هنا تجد الميزات المستوردة من البوابة القديمة."
+    toolsSubtitle: "هنا تجد الميزات المستوردة من البوابة القديمة.",
+    labels: {
+      account: "الحساب",
+      teamId: "معرّف الفريق",
+      fullName: "الاسم الكامل",
+      email: "البريد الإلكتروني",
+      phone: "الهاتف",
+      university: "الجامعة",
+      branch: "المسلك",
+      profile: "الملف الشخصي",
+      mode: "النمط",
+      team: "الفريق",
+      members: "الأعضاء",
+      title: "العنوان",
+      domain: "المجال",
+      format: "الصيغة",
+      description: "الوصف",
+      fileName: "اسم الملف",
+      fileType: "نوع الملف",
+      fileSize: "الحجم",
+      storage: "التخزين",
+      lastSync: "آخر مزامنة"
+    }
   }
 };
 
@@ -125,7 +213,6 @@ function quickLinks(locale: SiteLocale) {
     return [
       { href: "/application/evaluate", label: "Project evaluation", body: "Score your project and request jury-style feedback.", tone: "emerald", code: "EV" },
       { href: "/application/orientation", label: "Orientation explorer", body: "Compare your profile with the department tracks.", tone: "sky", code: "OR" },
-      { href: "/application/games", label: "Games hub", body: "Train with the quiz, pitch timer, and scenario drills.", tone: "violet", code: "GM" },
       { href: "/application/chat", label: "AI assistant", body: "Ask about your application, project, or competition steps.", tone: "orange", code: "AI" }
     ] as const;
   }
@@ -134,7 +221,6 @@ function quickLinks(locale: SiteLocale) {
     return [
       { href: "/application/evaluate", label: "تقييم المشروع", body: "امنح مشروعك نقاطا واطلب رأيا شبيها باللجنة.", tone: "emerald", code: "EV" },
       { href: "/application/orientation", label: "التوجيه", body: "قارن ملفك بمسالك الشعبة المختلفة.", tone: "sky", code: "OR" },
-      { href: "/application/games", label: "الألعاب", body: "تدرب عبر الاختبار ومؤقت العرض وحالات السيناريو.", tone: "violet", code: "GM" },
       { href: "/application/chat", label: "المساعد الذكي", body: "اسأل عن الترشح أو المشروع أو خطوات المسابقة.", tone: "orange", code: "AI" }
     ] as const;
   }
@@ -142,7 +228,6 @@ function quickLinks(locale: SiteLocale) {
   return [
     { href: "/application/evaluate", label: "Evaluation projet", body: "Note ton projet puis demande un retour type jury.", tone: "emerald", code: "EV" },
     { href: "/application/orientation", label: "Explorer orientation", body: "Compare ton profil aux parcours du departement.", tone: "sky", code: "OR" },
-    { href: "/application/games", label: "Hub jeux", body: "Entraine-toi avec le quiz, le pitch timer et les scenarios.", tone: "violet", code: "GM" },
     { href: "/application/chat", label: "Assistant IA", body: "Pose des questions sur ta candidature ou la competition.", tone: "orange", code: "AI" }
   ] as const;
 }
@@ -306,9 +391,7 @@ export default async function ApplicantWorkspacePage({
                       ? "bg-emerald-500/15 text-emerald-600"
                       : item.tone === "sky"
                         ? "bg-signal/15 text-signal"
-                        : item.tone === "violet"
-                          ? "bg-violet/15 text-violet"
-                          : "bg-accent/15 text-accent"
+                        : "bg-accent/15 text-accent"
                   }`}
                 >
                   {item.code}
@@ -327,13 +410,13 @@ export default async function ApplicantWorkspacePage({
         {summaryCard(
           copy.profileTitle,
           <>
-            {line("Compte", displayValue(application?.accountEmail || user.email, copy.fallbackValue))}
-            {line("Team ID", displayValue(application?.teamId, copy.fallbackValue))}
-            {line("Nom", displayValue(application?.contactFullName || user.name, copy.fallbackValue))}
-            {line("Email", displayValue(application?.contactEmail || user.email, copy.fallbackValue))}
-            {line("Telephone", displayValue(application?.phone, copy.fallbackValue))}
-            {line("Universite", displayValue(application?.university, copy.fallbackValue))}
-            {line("Filiere", displayValue(application?.branch, copy.fallbackValue))}
+            {line(copy.labels.account, displayValue(application?.accountEmail || user.email, copy.fallbackValue))}
+            {line(copy.labels.teamId, displayValue(application?.teamId, copy.fallbackValue))}
+            {line(copy.labels.fullName, displayValue(application?.contactFullName || user.name, copy.fallbackValue))}
+            {line(copy.labels.email, displayValue(application?.contactEmail || user.email, copy.fallbackValue))}
+            {line(copy.labels.phone, displayValue(application?.phone, copy.fallbackValue))}
+            {line(copy.labels.university, displayValue(application?.university, copy.fallbackValue))}
+            {line(copy.labels.branch, displayValue(application?.branch, copy.fallbackValue))}
           </>
         )}
 
@@ -342,10 +425,10 @@ export default async function ApplicantWorkspacePage({
           <>
             {line(copy.statusLabel, displayValue(application?.status, copy.fallbackValue))}
             {line(copy.syncLabel, displayValue(application?.sheetSyncStatus, copy.fallbackValue))}
-            {line("Mode", displayValue(application?.participationType, copy.fallbackValue))}
-            {line("Equipe", displayValue(application?.teamName, copy.fallbackValue))}
+            {line(copy.labels.mode, displayValue(application?.participationType, copy.fallbackValue))}
+            {line(copy.labels.team, displayValue(application?.teamName, copy.fallbackValue))}
             {line(
-              "Membres",
+              copy.labels.members,
               application?.teamMembers?.length
                 ? application.teamMembers.map((member) => member.name || member.email).join(", ")
                 : copy.fallbackValue
@@ -356,25 +439,25 @@ export default async function ApplicantWorkspacePage({
         {summaryCard(
           copy.projectTitle,
           <>
-            {line("Titre", displayValue(application?.projectTitle, copy.fallbackValue))}
-            {line("Domaine", displayValue(application?.projectDomain, copy.fallbackValue))}
-            {line("Format", displayValue(application?.demoFormat, copy.fallbackValue))}
-            {line("Description", displayValue(application?.projectDesc, copy.fallbackValue))}
+            {line(copy.labels.title, displayValue(application?.projectTitle, copy.fallbackValue))}
+            {line(copy.labels.domain, displayValue(application?.projectDomain, copy.fallbackValue))}
+            {line(copy.labels.format, displayValue(application?.demoFormat, copy.fallbackValue))}
+            {line(copy.labels.description, displayValue(application?.projectDesc, copy.fallbackValue))}
           </>
         )}
 
         {summaryCard(
           copy.fileTitle,
           <>
-            {line("Nom", displayValue(application?.fileName, copy.fallbackValue))}
-            {line("Type", displayValue(application?.fileType, copy.fallbackValue))}
+            {line(copy.labels.fileName, displayValue(application?.fileName, copy.fallbackValue))}
+            {line(copy.labels.fileType, displayValue(application?.fileType, copy.fallbackValue))}
             {line(
-              "Taille",
+              copy.labels.fileSize,
               application?.fileSizeBytes ? `${Math.round(application.fileSizeBytes / 1024)} KB` : copy.fallbackValue
             )}
-            {line("Stockage", displayValue(application?.fileStorage, copy.fallbackValue))}
+            {line(copy.labels.storage, displayValue(application?.fileStorage, copy.fallbackValue))}
             {line(
-              "Derniere synchro",
+              copy.labels.lastSync,
               displayValue(application?.lastSyncedAt || application?.updatedAt, copy.fallbackValue)
             )}
           </>
@@ -386,8 +469,8 @@ export default async function ApplicantWorkspacePage({
           <p className="font-display text-3xl font-semibold uppercase text-ink">{copy.quizTitle}</p>
           {workspace.latestQuizAttempt ? (
             <div className="mt-4 space-y-3">
-              {line("Branche", workspace.latestQuizAttempt.branch)}
-              {line("Profil", displayValue(workspace.latestQuizAttempt.profile, copy.fallbackValue))}
+              {line(copy.labels.branch, workspace.latestQuizAttempt.branch)}
+              {line(copy.labels.profile, displayValue(workspace.latestQuizAttempt.profile, copy.fallbackValue))}
               {line(copy.ratingLabel, String(workspace.latestQuizAttempt.rating))}
               {line(copy.sentAtLabel, dateLabel(workspace.latestQuizAttempt.createdAt, locale))}
             </div>
@@ -400,8 +483,8 @@ export default async function ApplicantWorkspacePage({
           <p className="font-display text-3xl font-semibold uppercase text-ink">{copy.contactTitle}</p>
           {workspace.latestContactRequest ? (
             <div className="mt-4 space-y-3">
-              {line("Team ID", displayValue(workspace.latestContactRequest.teamId, copy.fallbackValue))}
-              {line("Telephone", displayValue(workspace.latestContactRequest.phone, copy.fallbackValue))}
+              {line(copy.labels.teamId, displayValue(workspace.latestContactRequest.teamId, copy.fallbackValue))}
+              {line(copy.labels.phone, displayValue(workspace.latestContactRequest.phone, copy.fallbackValue))}
               {line(copy.syncLabel, workspace.latestContactRequest.sheetSyncStatus)}
               {line(copy.sentAtLabel, dateLabel(workspace.latestContactRequest.createdAt, locale))}
             </div>

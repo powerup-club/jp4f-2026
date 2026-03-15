@@ -48,7 +48,7 @@ export default function ChatPage() {
       <div style={{ padding:"16px 24px", borderBottom:"1px solid rgba(255,255,255,.06)", display:"flex", alignItems:"center", gap:10, flexShrink:0 }}>
         <div style={{ width:36, height:36, borderRadius:10, background:"linear-gradient(135deg,#f5a000,#c27800)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:18 }}>🤖</div>
         <div>
-          <div style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:800, color:"#fff" }}>Assistant IA JP4F</div>
+          <div style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:800, color:"#fff" }}>Assistant IA ENGINOV DAYS</div>
           <div style={{ fontSize:11, color:"rgba(0,245,160,.7)" }}>● En ligne · Propulsé par Groq</div>
         </div>
       </div>

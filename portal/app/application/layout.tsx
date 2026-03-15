@@ -9,7 +9,6 @@ const NAV = [
   { icon:"📋", label:"Règlement",   href:"/application/rules",      tip:"Règlement" },
   { icon:"📊", label:"Évaluer",     href:"/application/evaluate",   tip:"Évaluer mon projet" },
   { icon:"🗺️", label:"Orientation", href:"/application/orientation",tip:"Mon profil filière" },
-  { icon:"🎮", label:"Jeux",        href:"/application/games",      tip:"Mini-jeux" },
   { icon:"💬", label:"Assistant",   href:"/application/chat",       tip:"Assistant IA" },
   { icon:"📞", label:"Contact",     href:"/application/contact",    tip:"Contacter l'équipe" },
 ];
@@ -49,7 +48,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         {/* Logo */}
         <div style={{ padding:"18px 14px", borderBottom:"1px solid rgba(255,255,255,.05)", display:"flex", alignItems:"center", gap:10, minHeight:68 }}>
           <div style={{ width:36, height:36, borderRadius:10, background:"linear-gradient(135deg,#f5a000,#c27800)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Syne',sans-serif", fontSize:13, fontWeight:800, color:"#fff", flexShrink:0 }}>JP</div>
-          {(!collapsed||mobile) && <div><div style={{ fontFamily:"'Syne',sans-serif", fontSize:13, fontWeight:800, color:"#fff" }}>JP4F 2026</div><div style={{ fontSize:9, color:"rgba(255,255,255,.3)", letterSpacing:1.5 }}>ESPACE CANDIDAT</div></div>}
+          {(!collapsed||mobile) && <div><div style={{ fontFamily:"'Syne',sans-serif", fontSize:13, fontWeight:800, color:"#fff" }}>Innov'Industry 2026</div><div style={{ fontSize:9, color:"rgba(255,255,255,.3)", letterSpacing:1.5 }}>ESPACE CANDIDAT</div></div>}
         </div>
 
         {/* User */}
@@ -64,8 +63,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         {/* Nav */}
         <nav style={{ flex:1, padding:"10px 8px", display:"flex", flexDirection:"column", gap:3, overflowY:"auto" }}>
           {NAV.map(item => {
-            const isGames = item.href === "/application/games";
-            const active = pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/application") || (isGames && pathname.startsWith("/application/games"));
+            const active = pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/application");
             return (
               <Link key={item.href} href={item.href} onClick={()=>setMobileOpen(false)} title={collapsed?item.tip:""}
                 style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 10px", borderRadius:10, background:active?"rgba(245,160,0,.12)":"transparent", border:`1px solid ${active?"rgba(245,160,0,.22)":"transparent"}`, color:active?"#f5a000":"rgba(255,255,255,.45)", textDecoration:"none", transition:"all .15s", fontSize:13, fontWeight:active?700:500, whiteSpace:"nowrap" }}>
@@ -94,7 +92,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         {mobile && (
           <div style={{ position:"sticky", top:0, background:"rgba(4,8,15,.95)", backdropFilter:"blur(16px)", borderBottom:"1px solid rgba(245,160,0,.08)", padding:"12px 16px", display:"flex", alignItems:"center", gap:12, zIndex:30 }}>
             <button onClick={()=>setMobileOpen(o=>!o)} style={{ background:"none", border:"none", color:"#f5a000", fontSize:22, cursor:"pointer", padding:4 }}>☰</button>
-            <span style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:800, color:"#fff" }}>JP4F 2026</span>
+            <span style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:800, color:"#fff" }}>Innov'Industry 2026</span>
           </div>
         )}
         {children}

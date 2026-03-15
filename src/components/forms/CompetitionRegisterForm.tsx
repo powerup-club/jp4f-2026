@@ -15,6 +15,12 @@ type ErrorKey =
   | "branch"
   | "yearOfStudy"
   | "teamName"
+  | "member2Name"
+  | "member2Email"
+  | "member3Name"
+  | "member3Email"
+  | "member4Name"
+  | "member4Email"
   | "projectTitle"
   | "projectDomain"
   | "projectDesc"
@@ -86,7 +92,7 @@ const COPY: Record<SiteLocale, Copy> = {
     title: "Formulaire De Candidature",
     subtitle: "Version integree au site JESI, compatible mode clair/sombre.",
     badge: "JESI 2025 · INNOV'DOM",
-    deadline: "Date limite: 15 avril 2025",
+    deadline: "Date limite: 05 avril 2026",
     stepWord: "Etape",
     steps: ["Mode", "Participant", "Equipe", "Projet", "Fichier"],
     modeTitle: "Mode de participation",
@@ -104,9 +110,9 @@ const COPY: Record<SiteLocale, Copy> = {
     yearOptions: [
       "Bac+1 / CP1",
       "Bac+2 / CP2",
-      "Bac+3",
-      "Bac+4 / 1ere annee cycle ingenieur",
-      "Bac+5 / 2eme annee cycle ingenieur",
+      "Bac+3 / 1ere annee cycle ingenieur",
+      "Bac+4 / 2eme annee cycle ingenieur",
+      "Bac+5 / 3eme annee cycle ingenieur",
       "Bac+5+ / Master / Doctorat",
       "Chercheur / Professionnel"
     ],
@@ -168,7 +174,7 @@ const COPY: Record<SiteLocale, Copy> = {
     title: "Challenge Registration",
     subtitle: "Native page integrated in the JESI website with light/dark support.",
     badge: "JESI 2025 · INNOV'DOM",
-    deadline: "Deadline: April 15, 2025",
+    deadline: "Deadline: April 5, 2026",
     stepWord: "Step",
     steps: ["Mode", "Participant", "Team", "Project", "File"],
     modeTitle: "Participation mode",
@@ -250,7 +256,7 @@ const COPY: Record<SiteLocale, Copy> = {
     title: "استمارة الترشح للتحدي",
     subtitle: "نسخة مدمجة داخل الموقع وتدعم تغيير الثيم.",
     badge: "JESI 2025 · INNOV'DOM",
-    deadline: "آخر موعد: 15 أبريل 2025",
+    deadline: "آخر موعد: 05 أبريل 2026",
     stepWord: "المرحلة",
     steps: ["النمط", "المشارك", "الفريق", "المشروع", "الملف"],
     modeTitle: "نوع المشاركة",
@@ -465,8 +471,31 @@ export function CompetitionRegisterForm({
       }
     }
 
-    if (target === 2 && mode === "team" && !teamName.trim()) {
-      nextErrors.teamName = copy.required;
+    if (target === 2 && mode === "team") {
+      if (!teamName.trim()) {
+        nextErrors.teamName = copy.required;
+      }
+
+      teamMembers.forEach((member, index) => {
+        const memberNumber = index + 2;
+        const name = member.name.trim();
+        const memberEmail = member.email.trim().toLowerCase();
+        const nameKey = `member${memberNumber}Name` as ErrorKey;
+        const emailKey = `member${memberNumber}Email` as ErrorKey;
+
+        if (name && !memberEmail) {
+          nextErrors[emailKey] = copy.required;
+          return;
+        }
+
+        if (memberEmail && !name) {
+          nextErrors[nameKey] = copy.required;
+        }
+
+        if (memberEmail && !EMAIL_REGEX.test(memberEmail)) {
+          nextErrors[emailKey] = copy.invalidEmail;
+        }
+      });
     }
 
     if (target === 3) {
@@ -663,6 +692,8 @@ export function CompetitionRegisterForm({
           --rf-accent: #f59e0b;
           --rf-accent-soft: rgba(245, 158, 11, 0.1);
           --rf-surface: rgba(255, 255, 255, 0.72);
+          --rf-dropdown: rgba(12, 18, 30, 0.92);
+          color-scheme: light dark; /* improve native form controls contrast */
         }
 
         html[data-theme="dark"] .register-form {
@@ -672,6 +703,7 @@ export function CompetitionRegisterForm({
           --rf-line: rgba(241, 245, 249, 0.15);
           --rf-accent-soft: rgba(245, 158, 11, 0.16);
           --rf-surface: rgba(12, 18, 30, 0.7);
+          --rf-dropdown: rgba(6, 10, 18, 0.95);
         }
 
         .register-form .glass-card {
@@ -689,9 +721,10 @@ export function CompetitionRegisterForm({
           border: 1px solid var(--rf-line);
           border-radius: 8px;
           padding: 10px 12px;
-          background: transparent;
+          background: var(--rf-surface);
           color: var(--rf-text);
           font-size: 14px;
+          appearance: none;
         }
 
         .rf-input::placeholder,
@@ -705,6 +738,11 @@ export function CompetitionRegisterForm({
           outline: none;
           border-color: var(--rf-accent);
           background: var(--rf-accent-soft);
+        }
+
+        .rf-select option {
+          background: var(--rf-dropdown);
+          color: var(--rf-text);
         }
 
         .rf-textarea {
@@ -921,17 +959,43 @@ export function CompetitionRegisterForm({
               {copy.teamHint}
             </p>
 
-            {teamMembers.map((member, index) => (
-              <div key={index} className="rounded border p-3" style={{ borderColor: "var(--rf-line)" }}>
-                <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.12em]" style={{ color: "var(--rf-accent)" }}>
-                  {copy.memberLabel(index + 2)}
-                </p>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <input className="rf-input" value={member.name} onChange={(e) => updateMember(index, "name", e.target.value)} placeholder={copy.memberName} />
-                  <input className="rf-input" type="email" value={member.email} onChange={(e) => updateMember(index, "email", e.target.value)} placeholder={copy.memberEmail} />
+            {teamMembers.map((member, index) => {
+              const memberNumber = index + 2;
+              const nameError = errors[`member${memberNumber}Name` as ErrorKey];
+              const emailError = errors[`member${memberNumber}Email` as ErrorKey];
+
+              return (
+                <div key={index} className="rounded border p-3" style={{ borderColor: "var(--rf-line)" }}>
+                  <p
+                    className="mb-2 font-mono text-[11px] uppercase tracking-[0.12em]"
+                    style={{ color: "var(--rf-accent)" }}
+                  >
+                    {copy.memberLabel(memberNumber)}
+                  </p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <div>
+                      <input
+                        className="rf-input"
+                        value={member.name}
+                        onChange={(e) => updateMember(index, "name", e.target.value)}
+                        placeholder={copy.memberName}
+                      />
+                      {nameError ? <p className="mt-1 text-xs text-red-500">{nameError}</p> : null}
+                    </div>
+                    <div>
+                      <input
+                        className="rf-input"
+                        type="email"
+                        value={member.email}
+                        onChange={(e) => updateMember(index, "email", e.target.value)}
+                        placeholder={copy.memberEmail}
+                      />
+                      {emailError ? <p className="mt-1 text-xs text-red-500">{emailError}</p> : null}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             <div className="flex gap-2">
               <button type="button" onClick={prevStep} className="rounded border px-4 py-2 text-sm" style={{ borderColor: "var(--rf-line)", color: "var(--rf-muted)" }}>

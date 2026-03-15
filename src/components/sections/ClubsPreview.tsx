@@ -26,7 +26,7 @@ export function ClubsPreview({ locale, content, tag, title, subtitle }: ClubsPre
             <Link
               key={club.id}
               href={localizeHref(locale, "/clubs") + `#${club.id}`}
-              className="glass-card flex flex-col items-center p-5 text-center transition hover:-translate-y-1 hover:border-accent/85"
+              className="glass-card liquid-card flex flex-col items-center p-5 text-center transition hover:-translate-y-1 hover:border-accent/85"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={club.logo} alt={club.name} className="h-20 w-20 rounded-2xl border border-edge/75 bg-white/40 p-2" />

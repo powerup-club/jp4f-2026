@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { PageIntro } from "@/components/sections/PageIntro";
 import { ProgrammeTabs } from "@/components/ui/ProgrammeTabs";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,29 +7,29 @@ import { getValidatedLocale } from "@/lib/locale-page";
 import { SEO_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Programme JP4F 2026 | Journée pédagogique ENSA Fès",
+  title: "Programme Innov'Industry 2026 | Journée de l'Innovation Industrielle & Technologique",
   description:
-    "Consultez le programme journée pédagogique ENSA Fès 2026: conférences, masterclass, atelier CV ingénieur Maroc, forum ingénierie Fès 2026 et JP4F programme.",
+    "Consultez le programme Innov'Industry 2026 à l'ENSA Fès: conférences, masterclass, ateliers 17 & 18 avril 2026 et comment s'inscrire.",
   keywords: SEO_KEYWORDS,
-  authors: [{ name: "JESI - Club Étudiant ENSA Fès" }],
+  authors: [{ name: "Innov'Industry 2026 - ENSA Fès" }],
   openGraph: {
-    title: "Programme JP4F 2026 | Journée pédagogique ENSA Fès",
+    title: "Programme Innov'Industry 2026 | Journée de l'Innovation Industrielle & Technologique",
     description:
-      "Consultez le programme journée pédagogique ENSA Fès 2026: conférences, masterclass, atelier CV ingénieur Maroc, forum ingénierie Fès 2026 et JP4F programme.",
-    url: "https://jp4f.vercel.app/[locale]/programme",
-    siteName: "JP4F 2026",
+      "Consultez le programme Innov'Industry 2026 à l'ENSA Fès: conférences, masterclass, ateliers 17 & 18 avril 2026 et comment s'inscrire.",
+    url: "https://enginov-days.vercel.app/[locale]/programme",
+    siteName: "Innov'Industry 2026",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "https://jp4f.vercel.app/og-image.png", width: 1200, height: 630 }]
+    images: [{ url: "https://enginov-days.vercel.app/og-image.png", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Programme JP4F 2026 | Journée pédagogique ENSA Fès",
+    title: "Programme Innov'Industry 2026 | Journée de l'Innovation Industrielle & Technologique",
     description:
-      "Consultez le programme journée pédagogique ENSA Fès 2026: conférences, masterclass, atelier CV ingénieur Maroc, forum ingénierie Fès 2026 et JP4F programme."
+      "Consultez le programme Innov'Industry 2026 à l'ENSA Fès: conférences, masterclass, ateliers 17 & 18 avril 2026 et comment s'inscrire."
   },
   alternates: {
-    canonical: "https://jp4f.vercel.app/[locale]/programme"
+    canonical: "https://enginov-days.vercel.app/[locale]/programme"
   }
 };
 

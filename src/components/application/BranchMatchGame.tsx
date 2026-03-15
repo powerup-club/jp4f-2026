@@ -7,7 +7,7 @@ import type { SiteLocale } from "@/config/locales";
 type BranchKey = ApplicantQuizBranch;
 
 type MatchCard = {
-  label: string;
+  label: Record<SiteLocale, string>;
   branch: BranchKey;
   hint: Record<SiteLocale, string>;
 };
@@ -19,7 +19,7 @@ const BRANCH_META: Record<
   fr: {
     GESI: { label: "GESI", color: "#10b981", icon: "GE" },
     MECA: { label: "MECA", color: "#f97316", icon: "ME" },
-    MECATRONIQUE: { label: "Mecatronique", color: "#8b5cf6", icon: "MC" },
+    MECATRONIQUE: { label: "Mécatronique", color: "#8b5cf6", icon: "MC" },
     GI: { label: "GI", color: "#0ea5e9", icon: "GI" }
   },
   en: {
@@ -38,7 +38,11 @@ const BRANCH_META: Record<
 
 const CARDS: MatchCard[] = [
   {
-    label: "Predictive energy dashboard",
+    label: {
+      fr: "Tableau de bord énergie prédictive",
+      en: "Predictive energy dashboard",
+      ar: "لوحة قيادة طاقة تنبؤية"
+    },
     branch: "GESI",
     hint: {
       fr: "Energie, donnee et pilotage intelligent.",
@@ -47,7 +51,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Finite-element simulation",
+    label: {
+      fr: "Simulation éléments finis",
+      en: "Finite-element simulation",
+      ar: "محاكاة العناصر المحددة"
+    },
     branch: "MECA",
     hint: {
       fr: "Calcul de structure et validation mecanique.",
@@ -56,7 +64,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Autonomous robotic arm",
+    label: {
+      fr: "Bras robotique autonome",
+      en: "Autonomous robotic arm",
+      ar: "ذراع روبوتية ذاتية"
+    },
     branch: "MECATRONIQUE",
     hint: {
       fr: "Robotique, vision et actionneurs.",
@@ -65,7 +77,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Lean production board",
+    label: {
+      fr: "Tableau Lean production",
+      en: "Lean production board",
+      ar: "لوحة الإنتاج الرشيق"
+    },
     branch: "GI",
     hint: {
       fr: "Pilotage des flux et performance.",
@@ -74,7 +90,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Smart solar micro-grid",
+    label: {
+      fr: "Micro-réseau solaire intelligent",
+      en: "Smart solar micro-grid",
+      ar: "شبكة شمسية مصغّرة ذكية"
+    },
     branch: "GESI",
     hint: {
       fr: "Reseau intelligent et transition energetique.",
@@ -83,7 +103,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Additive-manufacturing fixture",
+    label: {
+      fr: "Gabarit de fabrication additive",
+      en: "Additive-manufacturing fixture",
+      ar: "قالب للتصنيع الإضافي"
+    },
     branch: "MECA",
     hint: {
       fr: "Conception et fabrication mecanique.",
@@ -92,7 +116,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "PLC-driven sorting cell",
+    label: {
+      fr: "Cellule de tri pilotée par PLC",
+      en: "PLC-driven sorting cell",
+      ar: "خلية فرز مؤتمتة عبر PLC"
+    },
     branch: "MECATRONIQUE",
     hint: {
       fr: "Automatique et systemes hybrides.",
@@ -101,7 +129,11 @@ const CARDS: MatchCard[] = [
     }
   },
   {
-    label: "Supply-chain KPI cockpit",
+    label: {
+      fr: "Cockpit KPI supply chain",
+      en: "Supply-chain KPI cockpit",
+      ar: "لوحة مؤشرات سلسلة الإمداد"
+    },
     branch: "GI",
     hint: {
       fr: "Decision, KPI et organisation.",
@@ -125,7 +157,7 @@ const COPY: Record<
   }
 > = {
   fr: {
-    title: "Filiere Match",
+    title: "Filière Match",
     subtitle: "Associe chaque techno au bon parcours du departement.",
     instructions: "A quelle filiere rattaches-tu cette carte ?",
     next: "Carte suivante",
@@ -145,7 +177,7 @@ const COPY: Record<
     summary: "Dominant profile"
   },
   ar: {
-    title: "Filiere Match",
+    title: "مطابقة المسارات",
     subtitle: "اربط كل بطاقة تقنية بالمسلك الأنسب داخل الشعبة.",
     instructions: "ما المسلك الأنسب لهذه البطاقة؟",
     next: "البطاقة التالية",
@@ -268,7 +300,7 @@ export function BranchMatchGame({ locale }: { locale: SiteLocale }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="badge-line">{copy.title}</p>
-          <h2 className="mt-4 font-display text-5xl font-semibold uppercase text-ink">{current.label}</h2>
+          <h2 className="mt-4 font-display text-5xl font-semibold uppercase text-ink">{current.label[locale]}</h2>
         </div>
         <span className="rounded-full border border-edge/60 bg-panel/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink/52">
           {copy.score} {Object.values(scores).reduce((sum, value) => sum + value, 0)}

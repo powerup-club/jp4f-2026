@@ -73,7 +73,7 @@ export default function ContactPage() {
       )}
 
       <div style={{ marginTop:20, display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-        {[["📧","Email","jp4f@usmba.ac.ma"],["📍","Lieu","ENSA Fès, Avenue My Abdallah"]].map(([icon,label,val])=>(
+        {[["📧","Email","Innov'Industry@usmba.ac.ma"],["📍","Lieu","ENSA Fès, Avenue My Abdallah"]].map(([icon,label,val])=>(
           <div key={label} style={{ background:"rgba(255,255,255,.025)", border:"1px solid rgba(255,255,255,.07)", borderRadius:12, padding:"14px 16px", display:"flex", gap:10, alignItems:"center" }}>
             <span style={{ fontSize:20 }}>{icon}</span>
             <div><div style={{ color:"rgba(255,255,255,.4)", fontSize:11 }}>{label}</div><div style={{ color:"#fff", fontSize:13 }}>{val}</div></div>

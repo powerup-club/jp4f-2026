@@ -30,9 +30,18 @@ export interface AdminRegistrationRow {
   university: string;
   branch: string;
   yearOfStudy: string;
+  linkedin: string;
   teamName: string;
+  member2Name: string;
+  member2Email: string;
+  member3Name: string;
+  member3Email: string;
+  member4Name: string;
+  member4Email: string;
   projTitle: string;
   projDomain: string;
+  projDesc: string;
+  innovation: string;
   demoFormat: string;
   heardFrom: string;
   fileLink: string;

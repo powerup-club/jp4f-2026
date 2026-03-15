@@ -6,28 +6,32 @@ import type { SiteLocale } from "@/config/locales";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { buildPageMetadata } from "@/lib/metadata";
 
-const COPY: Record<
-  SiteLocale,
-  {
-    title: string;
-    subtitle: string;
-    setupTitle: string;
-    schemaTitle: string;
-  }
-> = {
+type CopyLocale = SiteLocale | "en" | "ar";
+type CopyBlock = {
+  badge: string;
+  title: string;
+  subtitle: string;
+  setupTitle: string;
+  schemaTitle: string;
+};
+
+const COPY: Record<CopyLocale, CopyBlock> = {
   fr: {
+    badge: "Assistant IA",
     title: "Chat IA",
     subtitle: "Assistant Groq persistant, rattache a ton espace candidat.",
     setupTitle: "Configuration Neon requise",
     schemaTitle: "Schema Neon manquant"
   },
   en: {
+    badge: "AI assistant",
     title: "AI chat",
     subtitle: "Persistent Groq assistant linked to your applicant portal.",
     setupTitle: "Neon setup required",
     schemaTitle: "Neon schema missing"
   },
   ar: {
+    badge: "المساعد الذكي",
     title: "مساعد الذكاء الاصطناعي",
     subtitle: "مساعد دائم مرتبط ببوابة المترشحين ويستعمل سياق ملفك عند الحاجة.",
     setupTitle: "يلزم إعداد Neon",
@@ -55,7 +59,7 @@ export default async function ApplicantChatPage({ params }: { params: Promise<{ 
   return (
     <>
       <article className="glass-card p-6 sm:p-8">
-        <p className="badge-line">AI assistant</p>
+        <p className="badge-line">{copy.badge}</p>
         <h1 className="mt-4 font-display text-5xl font-semibold uppercase leading-[0.95] text-ink sm:text-6xl">
           <span className="gradient-title">{copy.title}</span>
         </h1>

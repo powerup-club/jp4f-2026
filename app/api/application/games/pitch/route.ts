@@ -81,7 +81,7 @@ function normalizeResult(value: unknown): PitchResult {
 
 function buildPrompt(locale: SupportedLocale, pitch: string, duration: number) {
   if (locale === "en") {
-    return `You are a demanding but fair jury for the JP4F 2026 Innov'Dom challenge at ENSA Fes.
+    return `You are a demanding but fair jury for the Innov'Industry 2026 Innov'Dom challenge at ENSA Fes.
 
 The candidate delivered this pitch in ${duration} seconds:
 ${pitch}
@@ -105,7 +105,7 @@ Return valid JSON only:
   }
 
   if (locale === "ar") {
-    return `أنت عضو لجنة صارم لكنه منصف في تحدي Innov'Dom ضمن JP4F 2026 في ENSA Fes.
+    return `أنت عضو لجنة صارم لكنه منصف في تحدي Innov'Dom ضمن Innov'Industry 2026 في ENSA Fes.
 
 قدم المترشح هذا العرض في ${duration} ثانية:
 ${pitch}
@@ -128,7 +128,7 @@ ${pitch}
 }`;
   }
 
-  return `Tu es un membre de jury exigeant mais juste pour le challenge Innov'Dom de JP4F 2026 a l'ENSA Fes.
+  return `Tu es un membre de jury exigeant mais juste pour le challenge Innov'Dom de Innov'Industry 2026 a l'ENSA Fes.
 
 Le candidat a presente ce pitch en ${duration} secondes :
 ${pitch}

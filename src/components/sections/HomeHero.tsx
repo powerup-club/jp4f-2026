@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import type { HomeContent, SiteLocale } from "@/content/types";
 import { localizeHref } from "@/lib/routing";
 import { Countdown } from "@/components/ui/Countdown";
@@ -12,7 +12,7 @@ interface HomeHeroProps {
 function registerLabelByLocale(locale: SiteLocale): string {
   if (locale === "en") return "Register for Innov'Dom";
   if (locale === "ar") return "التسجيل في Innov'Dom";
-  return "S'inscrire a Innov'Dom";
+  return "S'inscrire à Innov'Dom";
 }
 
 export function HomeHero({ locale, home }: HomeHeroProps) {
@@ -21,14 +21,10 @@ export function HomeHero({ locale, home }: HomeHeroProps) {
       <div className="hero-grid grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <p className="badge-line">{home.tag}</p>
-          <p className="mt-5 inline-flex rounded-full border border-edge/75 bg-panel/70 px-4 py-1.5 font-display text-base uppercase tracking-[0.1em] text-ink/78">
-            {home.badge}
-          </p>
           <h1 className="mt-6 font-display text-6xl font-semibold uppercase leading-[0.9] sm:text-7xl lg:text-8xl">
             {home.title}
             <span className="gradient-title block">{home.titleAccent}</span>
           </h1>
-          <p className="mt-4 text-xl font-semibold text-ink/90 sm:text-2xl">{home.subtitle}</p>
           <p className="mt-3 max-w-2xl text-lg text-ink/72 sm:text-xl">{home.slogan}</p>
 
           <div className="mt-7 flex flex-wrap gap-3">
@@ -37,12 +33,6 @@ export function HomeHero({ locale, home }: HomeHeroProps) {
               className="rounded-full border border-transparent bg-accent px-6 py-3 font-display text-xl uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2"
             >
               {home.primaryCta.label}
-            </Link>
-            <Link
-              href={localizeHref(locale, home.secondaryCta.href)}
-              className="rounded-full border border-edge/75 bg-panel/90 px-6 py-3 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
-            >
-              {home.secondaryCta.label}
             </Link>
             <Link
               href={localizeHref(locale, "/application")}
@@ -54,20 +44,22 @@ export function HomeHero({ locale, home }: HomeHeroProps) {
         </div>
 
         <div className="space-y-4">
-          <Countdown
-            targetIso={EVENT_DATE_ISO}
-            label={home.countdownLabel}
-            endedLabel={home.challengeSubtitle}
-          />
+          <Link href={home.registrationHighlight.ctaHref} target="_blank" rel="noreferrer" className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-panel">
+            <Countdown targetIso={EVENT_DATE_ISO} label={home.countdownLabel} endedLabel={home.challengeSubtitle} />
+          </Link>
 
-          <div className="glass-card p-5">
-            <ul className="space-y-3 text-base text-ink/75">
-              <li>{home.dateLabel}</li>
-              <li>{home.locationLabel}</li>
-              <li>{home.challengeLabel}</li>
-              <li>{home.clubsLabel}</li>
-            </ul>
-          </div>
+          <Link
+            href={home.registrationHighlight.ctaHref}
+            target="_blank"
+            rel="noreferrer"
+            className="glass-card liquid-card shadow-2xl space-y-4 p-6 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-ink/55">Deadline</p>
+            <p className="text-2xl font-semibold text-ink">{home.registrationHighlight.deadlineLabel}</p>
+            <span className="inline-flex w-full items-center justify-center rounded-full border border-edge/75 bg-panel/90 px-5 py-3 text-center font-display text-lg uppercase tracking-[0.1em] text-ink transition hover:border-accent hover:text-accent">
+              {home.registrationHighlight.ctaLabel}
+            </span>
+          </Link>
         </div>
       </div>
     </section>

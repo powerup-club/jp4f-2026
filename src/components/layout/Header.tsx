@@ -2,8 +2,6 @@
 import type { NavigationItem, SiteLocale } from "@/content/types";
 import { localizeHref } from "@/lib/routing";
 import { NavMenu } from "./NavMenu";
-import { LocaleSwitcher } from "./LocaleSwitcher";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface HeaderProps {
   locale: SiteLocale;
@@ -13,23 +11,24 @@ interface HeaderProps {
 
 export function Header({ locale, nav, siteName }: HeaderProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-edge/70 bg-paper/70 backdrop-blur-xl">
-      <div className="section-shell flex h-20 items-center justify-between gap-3">
-        <Link
-          href={localizeHref(locale, "/")}
-          className="inline-flex items-center gap-3 rounded-full border border-edge bg-panel/95 px-4 py-2 shadow-halo"
-        >
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-signal via-accent2 to-accent text-sm font-extrabold text-white">
-            JP
-          </span>
-          <span className="font-display text-lg font-semibold uppercase tracking-[0.06em] sm:text-xl">{siteName}</span>
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-edge/50 bg-paper/95 backdrop-blur-sm">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+          <Link
+            href={localizeHref(locale, "/")}
+            className="inline-flex items-center gap-2 rounded-full px-2 py-1"
+          >
+            <span
+              id="site-logo-text"
+              className="font-display text-base font-semibold uppercase tracking-[0.06em] sm:text-lg"
+            >
+              {siteName}
+            </span>
+          </Link>
 
-        <NavMenu locale={locale} items={nav} />
+          <NavMenu locale={locale} items={nav} />
 
-        <div className="flex items-center gap-2">
-          <LocaleSwitcher locale={locale} />
-          <ThemeToggle locale={locale} />
+          <div className="flex items-center gap-2" />
         </div>
       </div>
     </header>

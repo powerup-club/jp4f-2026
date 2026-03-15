@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const content = getSiteContent(locale);
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://enginov-days.vercel.app"),
     title: {
       default: content.meta.siteName,
       template: `%s | ${content.meta.siteName}`
@@ -39,12 +40,18 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const locale = rawLocale;
   const content = getSiteContent(locale);
   const direction = localeDirection(locale);
+  const fontClass = locale === "fr" || locale === "en" ? "font-syne-manrope" : "";
 
   return (
-    <div lang={locale} dir={direction} data-locale-dir={direction} className="relative min-h-screen text-ink">
+    <div
+      lang={locale}
+      dir={direction}
+      data-locale-dir={direction}
+      className={`relative min-h-screen text-ink ${fontClass}`}
+    >
       <BackgroundCanvas />
       <Header locale={locale} nav={content.navigation} siteName={content.meta.siteName} />
-      <main className="relative z-10 pb-28 pt-24 lg:pb-8">{children}</main>
+      <main className="relative z-10 pb-28 pt-16 lg:pb-8">{children}</main>
       <PortalFooter locale={locale} content={content.footer} />
       <MobileNav locale={locale} items={content.mobileNavigation} />
     </div>

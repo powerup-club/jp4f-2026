@@ -196,7 +196,7 @@ function normalizeResult(value: unknown): ScenarioResult {
 
 function buildPrompt(locale: SupportedLocale, scenario: Scenario, answer: string) {
   if (locale === "en") {
-    return `You are an industrial innovation evaluator for JP4F 2026 at ENSA Fes.
+    return `You are an industrial innovation evaluator for Innov'Industry 2026 at ENSA Fes.
 
 Scenario title: ${scenario.title}
 Domain: ${scenario.domain}
@@ -219,7 +219,7 @@ Return valid JSON only:
   }
 
   if (locale === "ar") {
-    return `أنت مقيم في الابتكار والهندسة الصناعية ضمن فعالية JP4F 2026 في ENSA Fes.
+    return `أنت مقيم في الابتكار والهندسة الصناعية ضمن فعالية Innov'Industry 2026 في ENSA Fes.
 
 عنوان السيناريو: ${scenario.title}
 المجال: ${scenario.domain}
@@ -241,7 +241,7 @@ ${answer}
 }`;
   }
 
-  return `Tu es evaluateur en innovation et ingenierie industrielle pour JP4F 2026 a l'ENSA Fes.
+  return `Tu es evaluateur en innovation et ingenierie industrielle pour Innov'Industry 2026 a l'ENSA Fes.
 
 Titre du scenario : ${scenario.title}
 Domaine : ${scenario.domain}

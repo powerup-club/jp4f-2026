@@ -30,7 +30,7 @@ const QUESTIONS: Question[] = [
     options: {
       fr: ["Internet of Things", "Industrial Operation Tracking", "Integrated Object Transfer", "Internet of Terminals"],
       en: ["Internet of Things", "Industrial Operation Tracking", "Integrated Object Transfer", "Internet of Terminals"],
-      ar: ["Internet of Things", "Industrial Operation Tracking", "Integrated Object Transfer", "Internet of Terminals"]
+      ar: ["إنترنت الأشياء", "تتبّع العمليات الصناعية", "نقل الكائنات المدمج", "إنترنت المحطات"]
     },
     answer: 0
   },
@@ -156,6 +156,7 @@ const QUESTIONS: Question[] = [
 const COPY: Record<
   SiteLocale,
   {
+    badge: string;
     title: string;
     subtitle: string;
     start: string;
@@ -173,6 +174,7 @@ const COPY: Record<
   }
 > = {
   fr: {
+    badge: "Mini jeu",
     title: "Industry 4.0 Quiz",
     subtitle: "Un quiz rapide pour tester ta culture industrie, IoT, lean et automatisation.",
     start: "Commencer",
@@ -189,6 +191,7 @@ const COPY: Record<
     rankLabel: "Top candidats"
   },
   en: {
+    badge: "Mini game",
     title: "Industry 4.0 Quiz",
     subtitle: "A quick challenge to test your industrial, IoT, lean, and automation knowledge.",
     start: "Start quiz",
@@ -205,6 +208,7 @@ const COPY: Record<
     rankLabel: "Top applicants"
   },
   ar: {
+    badge: "لعبة مصغرة",
     title: "اختبار Industry 4.0",
     subtitle: "اختبار سريع لقياس معرفتك بالصناعة وIoT وlean والأتمتة.",
     start: "ابدأ الاختبار",
@@ -229,6 +233,7 @@ function shuffle<T>(items: T[]): T[] {
 export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
   const copy = COPY[locale];
   const [phase, setPhase] = useState<Phase>("intro");
+  const accent = "#10b981";
   const [deckSeed, setDeckSeed] = useState(0);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -320,29 +325,35 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
 
   if (phase === "intro") {
     return (
-      <article className="glass-card p-6 sm:p-8" dir={locale === "ar" ? "rtl" : "ltr"}>
-        <div className="max-w-3xl">
-          <p className="badge-line">Mini game</p>
-          <h2 className="mt-4 font-display text-5xl font-semibold uppercase text-ink">{copy.title}</h2>
-          <p className="mt-4 text-lg text-ink/72">{copy.subtitle}</p>
+      <button
+        type="button"
+        onClick={() => setPhase("playing")}
+        className="group relative block w-full overflow-hidden rounded-[18px] border border-edge/55 bg-panel/88 p-6 text-left shadow-xl transition duration-300 hover:-translate-y-1 hover:border-edge hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-panel liquid-card"
+        style={{ backgroundImage: `linear-gradient(140deg, ${accent}18, ${accent}06)` }}
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: `radial-gradient(circle at 30% 16%, ${accent}28, transparent 42%)` }}
+        />
+        <div className="relative flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3">
+            <span
+              className="inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]"
+              style={{ border: `1px solid ${accent}50`, color: accent, backgroundColor: `${accent}12` }}
+            >
+              {copy.badge}
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.16em] text-ink/55">↗</span>
+          </div>
+          <p className="font-display text-[22px] uppercase leading-tight text-ink">{copy.title}</p>
+          <p className="text-sm text-ink/76">{copy.subtitle}</p>
+          <div className="mt-1 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: accent }}>
+            <span className="h-[1px] w-7 bg-current opacity-40" />
+            {copy.start} · QUIZ
+          </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => setPhase("playing")}
-            className="rounded-full border border-transparent bg-accent px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-white shadow-halo transition hover:bg-accent2"
-          >
-            {copy.start}
-          </button>
-          <button
-            type="button"
-            onClick={() => void openLeaderboard()}
-            className="rounded-full border border-edge/70 bg-panel/75 px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
-          >
-            {copy.leaderboard}
-          </button>
-        </div>
-      </article>
+      </button>
     );
   }
 

@@ -122,6 +122,18 @@ function formatDate(value: string) {
   }).format(date);
 }
 
+function formatFileLabel(value: string) {
+  if (!value) return "--";
+  try {
+    const url = new URL(value);
+    const parts = url.pathname.split("/").filter(Boolean);
+    const tail = parts[parts.length - 1] ?? "";
+    return `${url.hostname}/${tail || "fichier"}`;
+  } catch {
+    return "Ouvrir le fichier";
+  }
+}
+
 function matchesQuery(value: string, query: string) {
   return value.toLowerCase().includes(query.toLowerCase());
 }
@@ -211,7 +223,26 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
 
   const filteredRegistrations = registerState.rows.filter((row) =>
     matchesQuery(
-      [row.fullName, row.email, row.university, row.projTitle, row.teamName].join(" "),
+      [
+        row.fullName,
+        row.email,
+        row.phone,
+        row.university,
+        row.branch,
+        row.yearOfStudy,
+        row.linkedin,
+        row.teamName,
+        row.member2Name,
+        row.member2Email,
+        row.member3Name,
+        row.member3Email,
+        row.member4Name,
+        row.member4Email,
+        row.projTitle,
+        row.projDomain,
+        row.projDesc,
+        row.innovation
+      ].join(" "),
       deferredSearch
     )
   );
@@ -255,7 +286,7 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
             <p className="badge-line">Pilotage live</p>
             <h1 className="mt-4 font-display text-5xl font-semibold uppercase leading-[0.92] text-ink sm:text-6xl">
               <span className="gradient-title">Dashboard</span>
-              <span className="block">Admin JP4F</span>
+              <span className="block">Admin Innov'Industry</span>
             </h1>
             <p className="mt-3 max-w-3xl text-base text-ink/72 sm:text-lg">
               Vue interne des inscriptions Innov&apos;Dom et des reponses du quiz d&apos;orientation.
@@ -431,17 +462,32 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
                   onExport={() =>
                     exportCsv(
                       filteredRegistrations.map((row) => ({
-                        timestamp: row.timestamp,
-                        type: row.type,
-                        fullName: row.fullName,
-                        email: row.email,
-                        university: row.university,
-                        branch: row.branch,
-                        projectTitle: row.projTitle,
-                        projectDomain: row.projDomain,
-                        heardFrom: row.heardFrom
+                        Horodatage: row.timestamp,
+                        Langue: row.lang ? row.lang.toUpperCase() : "",
+                        Type: row.type,
+                        "Nom complet": row.fullName,
+                        Email: row.email,
+                        "Téléphone": row.phone,
+                        "Université / École": row.university,
+                        "Filière": row.branch,
+                        "Niveau d'études": row.yearOfStudy,
+                        LinkedIn: row.linkedin,
+                        "Nom équipe": row.teamName,
+                        "Membre 2 — Nom": row.member2Name,
+                        "Membre 2 — Email": row.member2Email,
+                        "Membre 3 — Nom": row.member3Name,
+                        "Membre 3 — Email": row.member3Email,
+                        "Membre 4 — Nom": row.member4Name,
+                        "Membre 4 — Email": row.member4Email,
+                        "Titre du projet": row.projTitle,
+                        Domaine: row.projDomain,
+                        "Description du projet": row.projDesc,
+                        "Innovation / Valeur ajoutée": row.innovation,
+                        "Format de présentation": row.demoFormat,
+                        "Comment entendu parler": row.heardFrom,
+                        "Fichier (lien Drive)": row.fileLink
                       })),
-                      "jp4f-admin-inscriptions.csv"
+                      "Innov'Industry-admin-inscriptions.csv"
                     )
                   }
                 />
@@ -449,30 +495,60 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
                 <DataTable
                   columns={[
                     "#",
-                    "Nom",
-                    "Email",
+                    "Horodatage",
+                    "Langue",
                     "Type",
-                    "Universite",
-                    "Filiere",
-                    "Projet",
+                    "Nom complet",
+                    "Email",
+                    "Téléphone",
+                    "Université / École",
+                    "Filière",
+                    "Niveau d'études",
+                    "LinkedIn",
+                    "Nom équipe",
+                    "Membre 2 — Nom",
+                    "Membre 2 — Email",
+                    "Membre 3 — Nom",
+                    "Membre 3 — Email",
+                    "Membre 4 — Nom",
+                    "Membre 4 — Email",
+                    "Titre du projet",
                     "Domaine",
-                    "Fichier",
-                    "Date"
+                    "Description du projet",
+                    "Innovation / Valeur ajoutée",
+                    "Format de présentation",
+                    "Comment entendu parler",
+                    "Fichier (lien Drive)"
                   ]}
                   emptyLabel="Aucune inscription a afficher."
                   rows={filteredRegistrations.map((row, index) => [
                     String(index + 1),
+                    formatDate(row.timestamp),
+                    row.lang ? row.lang.toUpperCase() : "--",
+                    row.type,
                     row.fullName || "--",
                     row.email || "--",
-                    row.type,
+                    row.phone || "--",
                     row.university || "--",
                     row.branch || "--",
+                    row.yearOfStudy || "--",
+                    row.linkedin || "--",
+                    row.teamName || "--",
+                    row.member2Name || "--",
+                    row.member2Email || "--",
+                    row.member3Name || "--",
+                    row.member3Email || "--",
+                    row.member4Name || "--",
+                    row.member4Email || "--",
                     row.projTitle || "--",
                     row.projDomain || "--",
-                    row.fileLink ? "Ouvrir" : "--",
-                    formatDate(row.timestamp)
+                    row.projDesc || "--",
+                    row.innovation || "--",
+                    row.demoFormat || "--",
+                    row.heardFrom || "--",
+                    formatFileLabel(row.fileLink)
                   ])}
-                  linkColumnIndex={8}
+                  linkColumnIndex={24}
                   linkValues={filteredRegistrations.map((row) => row.fileLink)}
                 />
               </section>
@@ -495,7 +571,7 @@ export function AdminDashboardClient({ userEmail }: AdminDashboardClientProps) {
                         comment: row.comment,
                         lang: row.lang
                       })),
-                      "jp4f-admin-quiz.csv"
+                      "Innov'Industry-admin-quiz.csv"
                     )
                   }
                 />

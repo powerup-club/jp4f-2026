@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>INNOV'INDUSTRY 2026</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/intro/home-intro.css" />
+  </head>
+  <body>
+    <!-- 2D BG canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <canvas id="fx-canvas"></canvas>
+    <div id="grain"></div>
+    <div id="vignette"></div>
+    <div id="flash"></div>
+
+    <div id="prog"><div id="prog-fill"></div></div>
+    <div id="slabel"></div>
+
+    <!-- NOUVELLE TRANSITION : Volets Tech Scanners -->
+    <div id="tech-transition">
+      <div class="tt-slice" data-label="SYS.01 // READY"></div>
+      <div class="tt-slice" data-label="INNOV.26 // SYNC"></div>
+      <div class="tt-slice" data-label="LOAD.O // EXECUTE"></div>
+      <div class="tt-slice" data-label="DATA.IO // BRIDGED"></div>
+      <div class="tt-slice" data-label="CORE.X // ONLINE"></div>
+      <div class="tt-slice" data-label="SYNC.3 // STABLE"></div>
+      <div class="tt-slice" data-label="UP.INK // PARSED"></div>
+      <div class="tt-slice" data-label="JESI.VR // RENDER"></div>
+    </div>
+
+    <div class="br-corner tl"></div>
+    <div class="br-corner tr"></div>
+    <div class="br-corner bl"></div>
+    <div class="br-corner br"></div>
+
+    <div id="stage">
+      <!-- WELCOME -->
+      <div id="welcome">
+        <div class="w-pre">ENSA Fès · Département Génie Industriel</div>
+        <div class="w-main">
+          <span class="w-innov">INNOV</span><span class="w-apos">'</span>
+          <span class="w-ind">INDUSTRY</span>
+        </div>
+        <div class="w-year">2 0 2 6</div>
+        <div class="w-sub">Journée d'Innovation industrielle · J2I'2026</div>
+      </div>
+
+      <!-- S01 -->
+      <div class="slide" id="s01">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">01 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="brand-box">
+          <div class="b-title"><span class="h">INNOV'</span><span class="ha">INDUSTRY</span></div>
+          <div class="b-sub">Journée d'Innovation industrielle 2026 — J2I'2026</div>
+          <div class="b-date">17 &amp; 18 Avril 2026 · ENSA Fès</div>
+        </div>
+        <div class="s-bar"></div>
+        <div class="s-sub">J2I'2026 · JESI + Innov Tech + Campus Indus</div>
+      </div>
+
+      <!-- S02 -->
+      <div class="slide" id="s02">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">02 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="s-title"><span class="ha">3</span> Événements <span class="h">Combinés</span></div>
+        <div class="s-bar"></div>
+        <div class="ev-panels">
+          <div class="ev-p ev-jesi">
+            <div class="ev-n">JESI</div>
+            <div class="ev-club">Club PowerUP · GESI</div>
+            <div class="ev-idx">01</div>
+          </div>
+          <div class="ev-p ev-innov">
+            <div class="ev-n">INNOV TECH</div>
+            <div class="ev-club">Club MTZ</div>
+            <div class="ev-idx">02</div>
+          </div>
+          <div class="ev-p ev-campus">
+            <div class="ev-n">CAMPUS INDUS</div>
+            <div class="ev-club">Club IEC 4.0</div>
+            <div class="ev-idx">03</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S03 -->
+      <div class="slide" id="s03">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">03 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="s-title"><span class="h">1</span> Département · <span class="ha">4</span> Filières</div>
+        <div class="s-bar"></div>
+        <div class="fil-grid">
+          <div class="fil-card f-gesi">
+            <div class="fil-code">GESI</div>
+            <div class="fil-name">Génie Énergétique &amp; Systèmes Intelligents</div>
+          </div>
+          <div class="fil-card f-meca">
+            <div class="fil-code">MÉCA</div>
+            <div class="fil-name">Génie Mécatronique</div>
+          </div>
+          <div class="fil-card f-gm">
+            <div class="fil-code">GM</div>
+            <div class="fil-name">Génie Mécanique</div>
+          </div>
+          <div class="fil-card f-gi">
+            <div class="fil-code">GI</div>
+            <div class="fil-name">Génie Industriel</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S04 -->
+      <div class="slide" id="s04">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">04 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="s-title"><span class="ha">3</span> Clubs <span class="ht">Organisateurs</span></div>
+        <div class="s-bar"></div>
+        <div class="club-row">
+          <div class="club-card c-pup">
+            <div class="club-img-wrap">
+              <img
+                src="/images/clubs/logo-powerup.png"
+                alt="Club PowerUP"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              />
+              <div class="club-img-ph" data-label="LOGO · POWERUP" style="display: none"></div>
+            </div>
+            <div class="club-info">
+              <div class="club-nm">PowerUP</div>
+              <div class="club-tg">GESI · ENSA Fès</div>
+              <span class="club-accent"></span>
+            </div>
+          </div>
+          <div class="club-card c-iec">
+            <div class="club-img-wrap">
+              <img
+                src="/images/clubs/logo-iec.png"
+                alt="Club IEC 4.0"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              />
+              <div class="club-img-ph" data-label="LOGO · IEC 4.0" style="display: none"></div>
+            </div>
+            <div class="club-info">
+              <div class="club-nm">Engineering Cycle</div>
+              <div class="club-tg">GI · IEC 4.0</div>
+              <span class="club-accent"></span>
+            </div>
+          </div>
+          <div class="club-card c-mtz">
+            <div class="club-img-wrap">
+              <img
+                src="/images/clubs/logo-trenz.png"
+                alt="Club MTZ"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              />
+              <div class="club-img-ph" data-label="LOGO · MTZ" style="display: none"></div>
+            </div>
+            <div class="club-info">
+              <div class="club-nm">Mécatronics Trendz</div>
+              <div class="club-tg">MÉCA &amp; GM</div>
+              <span class="club-accent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S05 -->
+      <div class="slide" id="s05">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">05 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="big-ctr">
+          <span class="ctr-plus">+</span>
+          <div class="ctr-num">12</div>
+        </div>
+        <div class="ctr-lbl">Sponsors et Partenaires</div>
+        <div class="s-bar"></div>
+        <div class="s-sub">L'industrie de demain commence ici</div>
+      </div>
+
+      <!-- S06 -->
+      <div class="slide" id="s06">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">06 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="id-badge">INNOV'DOM CHALLENGE</div>
+        <div class="id-sub">2ème Édition · DE RETOUR</div>
+        <div class="s-bar" style="margin-top: 14px"></div>
+        <div class="id-desc">La Compétition de Projets Technologiques Innovants</div>
+      </div>
+
+      <!-- S07 -->
+      <div class="slide" id="s07">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">07 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="s-title"><span class="ht">AI</span> Features <span class="h">&amp; Outils</span></div>
+        <div class="ai-intro" id="ai-intro">Plateforme <span>jp4f.vercel.app</span> · 6 modules actifs</div>
+        <div class="ai-features-wrap">
+          <div class="ai-feat f1">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_01</div>
+            <div class="ai-feat-name">Project Evaluator</div>
+            <div class="ai-feat-desc">Évalue et note ton projet avant soumission</div>
+            <div class="ai-feat-tag">INNOV'DOM</div>
+          </div>
+          <div class="ai-feat f2">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_02</div>
+            <div class="ai-feat-name">AI Orientation</div>
+            <div class="ai-feat-desc">Trouve la filière adaptée à ton profil</div>
+            <div class="ai-feat-tag">QUIZ</div>
+          </div>
+          <div class="ai-feat f3">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_03</div>
+            <div class="ai-feat-name">Scenario Creator</div>
+            <div class="ai-feat-desc">Structuration de scénarios d'innovation</div>
+            <div class="ai-feat-tag">CRÉATIF</div>
+          </div>
+          <div class="ai-feat f4">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_04</div>
+            <div class="ai-feat-name">Track Matcher</div>
+            <div class="ai-feat-desc">Associe le projet aux bons thèmes</div>
+            <div class="ai-feat-tag">MATCHING</div>
+          </div>
+          <div class="ai-feat f5">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_05</div>
+            <div class="ai-feat-name">Pitch Trainer</div>
+            <div class="ai-feat-desc">Simulation de pitch et feedback IA</div>
+            <div class="ai-feat-tag">ENTRAÎN.</div>
+          </div>
+          <div class="ai-feat f6">
+            <div class="ai-feat-bar"></div>
+            <div class="ai-feat-id">MODULE_06</div>
+            <div class="ai-feat-name">Industry Quiz</div>
+            <div class="ai-feat-desc">Testez vos connaissances en indus 4.0</div>
+            <div class="ai-feat-tag">QUIZ</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S08 -->
+      <div class="slide" id="s08">
+        <div class="sh">
+          <div class="sh-rule"></div>
+          <div class="sh-num">08 / 08</div>
+          <div class="sh-rule r"></div>
+        </div>
+        <div class="s-title">Données · <span class="h">En Un Coup d'Œil</span></div>
+        <div class="s-bar"></div>
+        <div class="stats-dashboard">
+          <div class="sd-cell v1">
+            <div class="sd-label">Événements</div>
+            <div class="sd-value">3</div>
+            <div class="sd-meta">JESI · Innov Tech · Campus Indus</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+          <div class="sd-cell v2">
+            <div class="sd-label">Filières</div>
+            <div class="sd-value">4</div>
+            <div class="sd-meta">GESI · MÉCA · GM · GI</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+          <div class="sd-cell v3">
+            <div class="sd-label">Clubs Org.</div>
+            <div class="sd-value">3</div>
+            <div class="sd-meta">PUP · IEC · MTZ</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+          <div class="sd-cell v4">
+            <div class="sd-label">Sponsors &amp; Partenaires</div>
+            <div class="sd-value">+12</div>
+            <div class="sd-meta">Industrie · Académique · Médias</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+          <div class="sd-cell v5">
+            <div class="sd-label">AI Features</div>
+            <div class="sd-value">6</div>
+            <div class="sd-meta">Modules actifs sur jp4f.vercel.app</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+          <div class="sd-cell v6 wide">
+            <div class="sd-label">Notre Vision</div>
+            <div class="sd-value">Connecter l'Avenir</div>
+            <div class="sd-meta">Relier académique, industrie et innovation — 17 &amp; 18 Avril 2026</div>
+            <div class="sd-bar-track"><div class="sd-bar-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTRO -->
+      <div id="outro">
+        <div class="out-logo"><span class="o-i">INNOV</span><span class="o-ap">'</span><span class="o-ind">INDUSTRY</span></div>
+        <div id="o-year">2 0 2 6</div>
+        <div id="o-rule"></div>
+        <div id="o-info">ENSA Fès · Département Génie Industriel · 17 &amp; 18 Avril 2026</div>
+        <div id="o-tag">
+          <span style="color: var(--bone)">Inscris-toi · </span><span style="color: var(--forge)">Explore · </span
+          ><span style="color: var(--amber)">Innov'Dom</span>
+        </div>
+        <div id="o-cta">
+          <button onclick="window.open('https://jp4f.vercel.app/fr/application','_blank')">S'Inscrire · jp4f.vercel.app</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOT overlay -->
+    <div id="boot">
+      <div class="b-line" id="bl1">INNOV'INDUSTRY 2026 · ENSA FÈS</div>
+      <div class="b-line" id="bl2">DÉPARTEMENT GÉNIE INDUSTRIEL · USMBA</div>
+      <div id="b-bar-wrap"><div id="b-bar"></div></div>
+      <div id="b-pct">0%</div>
+      <div class="b-line" id="bl3">SYSTÈME EN LIGNE ✓</div>
+    </div>
+
+    <button id="replay">↺&nbsp; Replay</button>
+
+    <script src="/intro/home-intro.js" defer></script>
+  </body>
+</html>

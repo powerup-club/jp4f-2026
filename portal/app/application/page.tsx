@@ -41,7 +41,6 @@ export default function PortalHome() {
   const quickLinks = [
     { icon:"📊", label:"Évaluer mon projet", href:"/application/evaluate", color:"#00f5a0" },
     { icon:"🗺️", label:"Mon orientation",    href:"/application/orientation", color:"#0088ff" },
-    { icon:"🎮", label:"Mini-jeux",           href:"/application/games",      color:"#cc44ff" },
     { icon:"💬", label:"Assistant IA",        href:"/application/chat",       color:"#f5a000" },
   ];
 

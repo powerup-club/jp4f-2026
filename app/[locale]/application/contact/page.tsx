@@ -6,17 +6,19 @@ import type { SiteLocale } from "@/config/locales";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { buildPageMetadata } from "@/lib/metadata";
 
-const COPY: Record<
-  SiteLocale,
-  {
-    title: string;
-    subtitle: string;
-    setupTitle: string;
-    schemaTitle: string;
-    latestTitle: string;
-  }
-> = {
+type CopyLocale = SiteLocale | "en" | "ar";
+type CopyBlock = {
+  badge: string;
+  title: string;
+  subtitle: string;
+  setupTitle: string;
+  schemaTitle: string;
+  latestTitle: string;
+};
+
+const COPY: Record<CopyLocale, CopyBlock> = {
   fr: {
+    badge: "Contact",
     title: "Contact responsable",
     subtitle: "Envoie un message avec ton identifiant d'equipe pour etre recontacte.",
     setupTitle: "Configuration Neon requise",
@@ -24,6 +26,7 @@ const COPY: Record<
     latestTitle: "Derniere demande"
   },
   en: {
+    badge: "Contact",
     title: "Contact responsible",
     subtitle: "Send a message with your team identifier so the team can reach back.",
     setupTitle: "Neon setup required",
@@ -31,6 +34,7 @@ const COPY: Record<
     latestTitle: "Latest request"
   },
   ar: {
+    badge: "التواصل",
     title: "التواصل مع الفريق",
     subtitle: "أرسل رسالة مرفقة بمعرف فريقك حتى يتم التواصل معك بشكل صحيح.",
     setupTitle: "يلزم إعداد Neon",
@@ -74,7 +78,7 @@ export default async function ApplicantContactPage({ params }: { params: Promise
   return (
     <>
       <article className="glass-card p-6 sm:p-8">
-        <p className="badge-line">Contact</p>
+        <p className="badge-line">{copy.badge}</p>
         <h1 className="mt-4 font-display text-5xl font-semibold uppercase leading-[0.95] text-ink sm:text-6xl">
           <span className="gradient-title">{copy.title}</span>
         </h1>
@@ -116,7 +120,7 @@ export default async function ApplicantContactPage({ params }: { params: Promise
         defaultFullName={application?.contactFullName || user.name}
         defaultEmail={application?.contactEmail || user.email}
         defaultPhone={application?.phone || ""}
-        teamId={application?.teamId || "JP4F-000000"}
+        teamId={application?.teamId || "ENGINOV-000000"}
       />
 
       {workspace.latestContactRequest ? (

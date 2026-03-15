@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type LoginMode = "user" | "admin";
 
@@ -21,26 +20,26 @@ function mapError(errorCode: string | undefined, mode: LoginMode): string | null
 
   if (errorCode === "AccessDenied") {
     return mode === "admin"
-      ? "Acces refuse. Utilise une adresse presente dans ADMIN_EMAILS."
-      : "Connexion Google refusee. Reessaie avec un compte Google valide.";
+      ? "Accès refusé. Utilise une adresse figurant dans ADMIN_EMAILS."
+      : "Connexion Google refusée. Réessaie avec un compte Google valide.";
   }
 
   if (errorCode === "Configuration") {
-    return "Configuration Google/Auth incomplete. Verifie les variables Vercel.";
+    return "Configuration Google/Auth incomplète. Vérifie les variables Vercel.";
   }
 
-  return "Connexion impossible pour le moment. Reessaie apres verification de la configuration.";
+  return "Connexion impossible pour le moment. Réessaie après vérification de la configuration.";
 }
 
 function copyForMode(mode: LoginMode) {
   if (mode === "admin") {
     return {
       badge: "Console admin",
-      titleTop: "JP4F",
-      titleBottom: "Dashboard",
-      description: "Tableau de bord interne pour suivre les inscriptions Innov'Dom et les resultats du quiz.",
+      titleTop: "Innov'Industry",
+      titleBottom: "Tableau de bord",
+      description: "Tableau de bord interne pour suivre les inscriptions Innov'Dom et les résultats du quiz.",
       submitLabel: "Continuer avec Google",
-      footerNote: "Reserve aux administrateurs autorises.",
+      footerNote: "Réservé aux administrateurs autorisés.",
       returnHref: "/fr",
       returnLabel: "Retour au site"
     };
@@ -48,12 +47,12 @@ function copyForMode(mode: LoginMode) {
 
   return {
     badge: "Espace candidat",
-    titleTop: "JP4F",
+    titleTop: "Innov'Industry",
     titleBottom: "Application",
     description:
-      "Connexion Google pour preparer le futur espace candidat, le suivi de dossier et les echanges.",
+      "Connexion Google pour accéder à l'espace candidat, suivre ton dossier et échanger.",
     submitLabel: "Se connecter avec Google",
-    footerNote: "Base de l'espace candidat en cours de mise en place.",
+    footerNote: "Espace candidat en cours de mise en place.",
     returnHref: "/fr/application",
     returnLabel: "Retour au portail"
   };
@@ -72,10 +71,6 @@ export function GoogleLoginCard({
   return (
     <div className="section-shell flex min-h-screen items-center justify-center py-12">
       <article className="glass-card relative w-full max-w-xl overflow-hidden p-8 sm:p-10">
-        <div className="absolute right-4 top-4">
-          <ThemeToggle locale="fr" />
-        </div>
-
         <div className="max-w-md">
           <p className="badge-line">{copy.badge}</p>
           <h1 className="mt-4 font-display text-5xl font-semibold uppercase leading-[0.92] text-ink sm:text-6xl">

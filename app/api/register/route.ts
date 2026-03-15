@@ -3,6 +3,8 @@ import { getApplicantPersistenceSetup } from "@/applicant/config";
 import { saveApplicantApplication } from "@/applicant/data";
 import { buildApplicantSaveInput, type ApplicantFileStorage, type ApplicantFormPayload } from "@/applicant/types";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -10,6 +12,26 @@ function text(value: unknown): string {
 function toPersistedFileLink(value: unknown): string {
   const fileLink = text(value);
   return /^https?:\/\//i.test(fileLink) ? fileLink : "";
+}
+
+function validateTeamMember(member: { index: number; name: string; email: string }): string | null {
+  if (!member.name && !member.email) {
+    return null;
+  }
+
+  if (member.name && !member.email) {
+    return `Membre ${member.index}: Email obligatoire si le nom est rempli.`;
+  }
+
+  if (member.email && !member.name) {
+    return `Membre ${member.index}: Nom obligatoire si l'email est rempli.`;
+  }
+
+  if (member.email && !EMAIL_REGEX.test(member.email)) {
+    return `Membre ${member.index}: Email invalide.`;
+  }
+
+  return null;
 }
 
 export async function POST(request: Request) {
@@ -64,6 +86,42 @@ export async function POST(request: Request) {
         { error: "Applicant persistence is not configured", setup: persistenceSetup },
         { status: 503 }
       );
+    }
+
+    const contactFullName = text(body.fullName);
+    const contactEmail = text(body.email).toLowerCase();
+    const participationType = text(body.type);
+
+    if (!contactFullName) {
+      return Response.json({ error: "Nom complet obligatoire." }, { status: 400 });
+    }
+
+    if (!contactEmail) {
+      return Response.json({ error: "Email obligatoire." }, { status: 400 });
+    }
+
+    if (!EMAIL_REGEX.test(contactEmail)) {
+      return Response.json({ error: "Email invalide." }, { status: 400 });
+    }
+
+    if (participationType === "team") {
+      const teamName = text(body.teamName);
+      if (!teamName) {
+        return Response.json({ error: "Nom d'equipe obligatoire." }, { status: 400 });
+      }
+
+      const members = [
+        { index: 2, name: text(body.member2Name), email: text(body.member2Email).toLowerCase() },
+        { index: 3, name: text(body.member3Name), email: text(body.member3Email).toLowerCase() },
+        { index: 4, name: text(body.member4Name), email: text(body.member4Email).toLowerCase() }
+      ];
+
+      for (const member of members) {
+        const error = validateTeamMember(member);
+        if (error) {
+          return Response.json({ error }, { status: 400 });
+        }
+      }
     }
 
     const scriptUrl = process.env.GOOGLE_SCRIPT_URL_REGISTER ?? process.env.GOOGLE_SCRIPT_URL;

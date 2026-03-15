@@ -27,6 +27,7 @@ type ScenarioResult = {
 const COPY: Record<
   SiteLocale,
   {
+    badge: string;
     title: string;
     subtitle: string;
     start: string;
@@ -47,6 +48,7 @@ const COPY: Record<
   }
 > = {
   fr: {
+    badge: "Mini jeu",
     title: "Scenario Challenge",
     subtitle: "Resous un cas industriel crediblement, comme face a un vrai jury de projet.",
     start: "Lancer un scenario",
@@ -71,6 +73,7 @@ const COPY: Record<
     retry: "Nouveau scenario"
   },
   en: {
+    badge: "Mini game",
     title: "Scenario Challenge",
     subtitle: "Solve an industrial case as if you were facing a real project jury.",
     start: "Start scenario",
@@ -95,6 +98,7 @@ const COPY: Record<
     retry: "New scenario"
   },
   ar: {
+    badge: "لعبة مصغرة",
     title: "Scenario Challenge",
     subtitle: "حل حالة صناعية كما لو أنك أمام لجنة مشروع حقيقية.",
     start: "ابدأ السيناريو",
@@ -176,7 +180,7 @@ export function ScenarioChallengePanel({ locale }: { locale: SiteLocale }) {
   if (phase === "intro") {
     return (
       <article className="glass-card p-6 sm:p-8" dir={locale === "ar" ? "rtl" : "ltr"}>
-        <p className="badge-line">Mini game</p>
+        <p className="badge-line">{copy.badge}</p>
         <h2 className="mt-4 font-display text-5xl font-semibold uppercase text-ink">{copy.title}</h2>
         <p className="mt-4 max-w-3xl text-lg text-ink/72">{copy.subtitle}</p>
         <button

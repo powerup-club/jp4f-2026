@@ -61,6 +61,8 @@ const COPY: Record<
     aiUsageYes: string;
     aiUsagePartial: string;
     aiUsageNo: string;
+    lockedTitle: string;
+    lockedBody: string;
     verdicts: Record<EvaluationVerdictKey, string>;
   }
 > = {
@@ -94,6 +96,8 @@ const COPY: Record<
     aiUsageYes: "Oui",
     aiUsagePartial: "Partiel",
     aiUsageNo: "Non",
+    lockedTitle: "Evaluation verrouillee",
+    lockedBody: "Ton projet a ete evalue par le jury IA. Cette evaluation ne peut plus etre modifiee.",
     verdicts: {
       excellent: "Excellent",
       strong: "Tres solide",
@@ -132,6 +136,8 @@ const COPY: Record<
     aiUsageYes: "Yes",
     aiUsagePartial: "Partial",
     aiUsageNo: "No",
+    lockedTitle: "Evaluation locked",
+    lockedBody: "Your project has been evaluated by the AI jury. This evaluation cannot be modified.",
     verdicts: {
       excellent: "Excellent",
       strong: "Very strong",
@@ -170,6 +176,8 @@ const COPY: Record<
     aiUsageYes: "نعم",
     aiUsagePartial: "جزئي",
     aiUsageNo: "لا",
+    lockedTitle: "التقييم مقفل",
+    lockedBody: "تم تقييم مشروعك من قبل لجنة الذكاء الاصطناعي. لا يمكن تعديل هذا التقييم.",
     verdicts: {
       excellent: "ممتاز",
       strong: "قوي جدا",
@@ -368,10 +376,8 @@ export function ApplicantProjectEvaluation({
       </article>
 
       <article className="glass-card border border-emerald-500/25 bg-emerald-500/10 p-4 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">Evaluation Locked</p>
-        <p className="mt-2 text-sm text-ink/72">
-          Your project has been evaluated by the AI jury. This evaluation cannot be modified.
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">{copy.lockedTitle}</p>
+        <p className="mt-2 text-sm text-ink/72">{copy.lockedBody}</p>
       </article>
 
       <article className="glass-card p-4 sm:p-8">

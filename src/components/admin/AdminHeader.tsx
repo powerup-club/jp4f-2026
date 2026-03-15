@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface AdminHeaderProps {
   userEmail: string;
@@ -33,7 +32,7 @@ export function AdminHeader({
               JP
             </span>
             <span className="font-display text-lg font-semibold uppercase tracking-[0.06em] text-ink">
-              JP4F Admin
+              Innov'Industry Admin
             </span>
           </Link>
           <span className="badge-line">Acces interne</span>
@@ -65,7 +64,6 @@ export function AdminHeader({
           <span className="rounded-full border border-edge/70 bg-panel/90 px-4 py-2 text-xs text-ink/78">
             {userEmail}
           </span>
-          <ThemeToggle locale="fr" />
           <button
             type="button"
             onClick={() => void signOut({ redirectTo: "/admin/login" })}
