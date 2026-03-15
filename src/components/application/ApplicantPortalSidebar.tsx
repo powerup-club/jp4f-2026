@@ -15,6 +15,7 @@ type SidebarItem = {
     | "rules"
     | "evaluate"
     | "orientation"
+    | "games"
     | "quiz"
     | "chat"
     | "contact";
@@ -40,6 +41,7 @@ const COPY: Record<
       { href: "/application/evaluate", label: "Evaluation", icon: "evaluate" },
       { href: "/application/orientation", label: "Orientation", icon: "orientation" },
       { href: "/application/quiz", label: "Quiz", icon: "quiz" },
+      { href: "/application/games", label: "Jeux", icon: "games" },
       { href: "/application/chat", label: "Assistant", icon: "chat" },
       { href: "/application/contact", label: "Contact", icon: "contact" }
     ]
@@ -55,6 +57,7 @@ const COPY: Record<
       { href: "/application/evaluate", label: "Evaluate", icon: "evaluate" },
       { href: "/application/orientation", label: "Orientation", icon: "orientation" },
       { href: "/application/quiz", label: "Quiz", icon: "quiz" },
+      { href: "/application/games", label: "Games", icon: "games" },
       { href: "/application/chat", label: "Chat", icon: "chat" },
       { href: "/application/contact", label: "Contact", icon: "contact" }
     ]
@@ -70,6 +73,7 @@ const COPY: Record<
       { href: "/application/evaluate", label: "التقييم", icon: "evaluate" },
       { href: "/application/orientation", label: "التوجيه", icon: "orientation" },
       { href: "/application/quiz", label: "الاختبار", icon: "quiz" },
+      { href: "/application/games", label: "الألعاب", icon: "games" },
       { href: "/application/chat", label: "المساعد", icon: "chat" },
       { href: "/application/contact", label: "التواصل", icon: "contact" }
     ]
@@ -124,6 +128,18 @@ function Icon({ kind }: { kind: SidebarItem["icon"] }) {
         <circle cx="12" cy="12" r="8.5" />
         <path d="m12 12 5-5" />
         <path d="M12 7v5l3 3" />
+      </svg>
+    );
+  }
+
+  if (kind === "games") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M7.5 10.5h9A4.5 4.5 0 0 1 21 15v1.25A2.75 2.75 0 0 1 18.25 19h-.4a2.75 2.75 0 0 1-2.27-1.2l-.55-.8H9l-.55.8A2.75 2.75 0 0 1 6.18 19h-.43A2.75 2.75 0 0 1 3 16.25V15a4.5 4.5 0 0 1 4.5-4.5Z" />
+        <path d="M7 13.5h3" />
+        <path d="M8.5 12v3" />
+        <path d="M15.9 13.6h.01" />
+        <path d="M17.6 12.9h.01" />
       </svg>
     );
   }

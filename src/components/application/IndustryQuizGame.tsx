@@ -171,6 +171,9 @@ const COPY: Record<
     questionOf: (current: number, total: number) => string;
     scoreLabel: string;
     rankLabel: string;
+    savingScore: string;
+    scoreSaveFailed: string;
+    retrySave: string;
   }
 > = {
   fr: {
@@ -188,7 +191,10 @@ const COPY: Record<
     playAgain: "Nouvelle partie",
     questionOf: (current, total) => `Question ${current} / ${total}`,
     scoreLabel: "Score",
-    rankLabel: "Top candidats"
+    rankLabel: "Top candidats",
+    savingScore: "Enregistrement du score...",
+    scoreSaveFailed: "Impossible d'enregistrer le score.",
+    retrySave: "Reessayer"
   },
   en: {
     badge: "Mini game",
@@ -205,7 +211,10 @@ const COPY: Record<
     playAgain: "New run",
     questionOf: (current, total) => `Question ${current} / ${total}`,
     scoreLabel: "Score",
-    rankLabel: "Top applicants"
+    rankLabel: "Top applicants",
+    savingScore: "Saving score...",
+    scoreSaveFailed: "Could not save the score.",
+    retrySave: "Retry"
   },
   ar: {
     badge: "لعبة مصغرة",
@@ -222,7 +231,10 @@ const COPY: Record<
     playAgain: "محاولة جديدة",
     questionOf: (current, total) => `السؤال ${current} / ${total}`,
     scoreLabel: "النتيجة",
-    rankLabel: "أفضل المترشحين"
+    rankLabel: "أفضل المترشحين",
+    savingScore: "جاري حفظ النتيجة...",
+    scoreSaveFailed: "تعذر حفظ النتيجة.",
+    retrySave: "إعادة المحاولة"
   }
 };
 
@@ -242,14 +254,49 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [leaderboardDisabled, setLeaderboardDisabled] = useState(false);
   const [leaderboardMessage, setLeaderboardMessage] = useState<string | null>(null);
+  const [scoreSavePending, setScoreSavePending] = useState(false);
+  const [scoreSaveError, setScoreSaveError] = useState<string | null>(null);
 
   const questions = useMemo(() => shuffle(QUESTIONS).slice(0, 8), [deckSeed]);
   const currentQuestion = questions[index];
   const percentage = Math.round((score / questions.length) * 100);
 
+  async function persistScore(finalScore: number) {
+    setScoreSavePending(true);
+    setScoreSaveError(null);
+
+    try {
+      const response = await fetch("/api/application/games/leaderboard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          locale,
+          score: finalScore,
+          total: questions.length
+        })
+      });
+
+      const payload = (await response.json().catch(() => null)) as
+        | { success?: boolean; error?: { message?: string } }
+        | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.error?.message || `Score save failed (${response.status})`);
+      }
+
+      if (!payload?.success) {
+        throw new Error("Score save failed");
+      }
+    } catch (error) {
+      setScoreSaveError(error instanceof Error ? error.message : copy.scoreSaveFailed);
+    } finally {
+      setScoreSavePending(false);
+    }
+  }
+
   async function openLeaderboard() {
     try {
-      const response = await fetch("/api/application/games/leaderboard");
+      const response = await fetch("/api/application/games/leaderboard", { cache: "no-store" });
       const payload = (await response.json().catch(() => null)) as
         | { leaderboard?: LeaderboardEntry[]; disabled?: boolean; reason?: string; error?: { message?: string } }
         | null;
@@ -274,20 +321,7 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
     const finalScore = selected === currentQuestion.answer ? score + 1 : score;
     setScore(finalScore);
     setPhase("result");
-
-    try {
-      await fetch("/api/application/games/leaderboard", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          locale,
-          score: finalScore,
-          total: questions.length
-        })
-      });
-    } catch {
-      // Score persistence is best effort for this mini-game.
-    }
+    void persistScore(finalScore);
   }
 
   function answer(optionIndex: number) {
@@ -320,6 +354,8 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
     setScore(0);
     setSelected(null);
     setAnswered(false);
+    setScoreSavePending(false);
+    setScoreSaveError(null);
     setPhase("intro");
   }
 
@@ -422,6 +458,25 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
         <p className="mt-3 text-lg text-ink/72">
           {score}/{questions.length}
         </p>
+
+        {scoreSavePending ? (
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">{copy.savingScore}</p>
+        ) : null}
+
+        {!scoreSavePending && scoreSaveError ? (
+          <div className="mt-4 rounded-2xl border border-rose/40 bg-rose/10 px-4 py-3 text-sm text-rose">
+            <p>{copy.scoreSaveFailed}</p>
+            <p className="mt-2 text-xs text-rose/90">{scoreSaveError}</p>
+            <button
+              type="button"
+              onClick={() => void persistScore(score)}
+              disabled={scoreSavePending}
+              className="mt-3 rounded-full border border-rose/40 bg-panel/65 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-rose transition hover:border-rose hover:bg-panel disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {copy.retrySave}
+            </button>
+          </div>
+        ) : null}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
             type="button"
@@ -433,7 +488,8 @@ export function IndustryQuizGame({ locale }: { locale: SiteLocale }) {
           <button
             type="button"
             onClick={() => void openLeaderboard()}
-            className="rounded-full border border-edge/70 bg-panel/75 px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent"
+            disabled={scoreSavePending}
+            className="rounded-full border border-edge/70 bg-panel/75 px-6 py-4 font-display text-xl uppercase tracking-[0.08em] text-ink transition hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
           >
             {copy.leaderboard}
           </button>

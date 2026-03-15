@@ -33,6 +33,13 @@ export const metadata: Metadata = {
     email: false,
     address: false
   },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+
   openGraph: {
     title: "Innov'Industry 2026 – Journée de l'Innovation Industrielle & Technologique ENSA Fès",
     description:

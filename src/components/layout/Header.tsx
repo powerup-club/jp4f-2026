@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import Image from "next/image";
 import type { NavigationItem, SiteLocale } from "@/content/types";
 import { localizeHref } from "@/lib/routing";
 import { NavMenu } from "./NavMenu";
@@ -18,6 +19,14 @@ export function Header({ locale, nav, siteName }: HeaderProps) {
             href={localizeHref(locale, "/")}
             className="inline-flex items-center gap-2 rounded-full px-2 py-1"
           >
+            <Image
+              src="/images/event logo/1.png"
+              alt=""
+              width={36}
+              height={36}
+              priority
+              className="h-9 w-9"
+            />
             <span
               id="site-logo-text"
               className="font-display text-base font-semibold uppercase tracking-[0.06em] sm:text-lg"

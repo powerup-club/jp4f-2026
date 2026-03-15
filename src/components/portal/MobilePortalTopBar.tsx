@@ -13,6 +13,7 @@ const TITLES: Record<SiteLocale, Record<string, string>> = {
     evaluate: "Evaluation",
     orientation: "Orientation",
     quiz: "Quiz",
+    games: "Jeux",
     chat: "Assistant",
     contact: "Contact"
   },
@@ -23,6 +24,7 @@ const TITLES: Record<SiteLocale, Record<string, string>> = {
     evaluate: "Evaluation",
     orientation: "Orientation",
     quiz: "Quiz",
+    games: "Games",
     chat: "Chat",
     contact: "Contact"
   },
@@ -33,6 +35,7 @@ const TITLES: Record<SiteLocale, Record<string, string>> = {
     evaluate: "التقييم",
     orientation: "التوجيه",
     quiz: "الاختبار",
+    games: "الألعاب",
     chat: "المساعد",
     contact: "التواصل"
   }

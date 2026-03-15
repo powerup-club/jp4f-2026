@@ -13,6 +13,7 @@ type TabKey =
   | "evaluate"
   | "orientation"
   | "quiz"
+  | "games"
   | "chat"
   | "contact"
   | "logout";
@@ -25,6 +26,7 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     evaluate: "Evaluation",
     orientation: "Orientation",
     quiz: "Quiz",
+    games: "Jeux",
     chat: "Chat",
     contact: "Contact",
     logout: "Quitter"
@@ -37,6 +39,7 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     orientation: "Orientation",
     chat: "Chat",
     quiz: "Quiz",
+    games: "Games",
     contact: "Contact",
     logout: "Sign out"
   },
@@ -48,6 +51,7 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
     orientation: "التوجيه",
     chat: "المساعد",
     quiz: "الاختبار",
+    games: "الألعاب",
     contact: "التواصل",
     logout: "خروج"
   }
@@ -56,7 +60,7 @@ const TAB_COPY: Record<SiteLocale, Record<TabKey, string>> = {
 const TABS: Array<{
   key: TabKey;
   href: string;
-  icon: "home" | "form" | "rules" | "evaluate" | "orientation" | "quiz" | "chat" | "contact" | "logout";
+  icon: "home" | "form" | "rules" | "evaluate" | "orientation" | "quiz" | "games" | "chat" | "contact" | "logout";
 }> = [
   { key: "home", href: "/application", icon: "home" },
   { key: "form", href: "/application/form", icon: "form" },
@@ -64,6 +68,7 @@ const TABS: Array<{
   { key: "evaluate", href: "/application/evaluate", icon: "evaluate" },
   { key: "orientation", href: "/application/orientation", icon: "orientation" },
   { key: "quiz", href: "/application/quiz", icon: "quiz" },
+  { key: "games", href: "/application/games", icon: "games" },
   { key: "chat", href: "/application/chat", icon: "chat" },
   { key: "contact", href: "/application/contact", icon: "contact" },
   { key: "logout", href: "/", icon: "logout" }
@@ -79,6 +84,7 @@ function TabIcon({
     | "evaluate"
     | "orientation"
     | "quiz"
+    | "games"
     | "chat"
     | "contact"
     | "logout";
@@ -130,6 +136,18 @@ function TabIcon({
         <circle cx="12" cy="12" r="8.5" />
         <path d="m12 12 5-5" />
         <path d="M12 7v5l3 3" />
+      </svg>
+    );
+  }
+
+  if (kind === "games") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M7.5 10.5h9A4.5 4.5 0 0 1 21 15v1.25A2.75 2.75 0 0 1 18.25 19h-.4a2.75 2.75 0 0 1-2.27-1.2l-.55-.8H9l-.55.8A2.75 2.75 0 0 1 6.18 19h-.43A2.75 2.75 0 0 1 3 16.25V15a4.5 4.5 0 0 1 4.5-4.5Z" />
+        <path d="M7 13.5h3" />
+        <path d="M8.5 12v3" />
+        <path d="M15.9 13.6h.01" />
+        <path d="M17.6 12.9h.01" />
       </svg>
     );
   }
