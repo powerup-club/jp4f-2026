@@ -489,7 +489,7 @@ export default async function SponsorsPage({ params }: { params: Promise<{ local
               </div>
               <p className="text-sm text-ink/65">{item.description}</p>
               <a
-                href={index === 0 ? "/sponsors/dossier.pdf" : "/sponsors/presentation.pdf"}
+                href={index === 0 ? "/sponsors/dossier.pdf" : "/Documents/INNOVE'INDUSTRY 2026.pdf"}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-auto inline-flex w-fit rounded-full border border-edge/70 bg-panel/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-ink/75 transition hover:border-accent hover:text-accent"

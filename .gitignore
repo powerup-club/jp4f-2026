@@ -10,6 +10,19 @@ playwright-report
 test-results
 coverage
 
+.next
+.next copy
+.next_stale_*/
+
+node_modules/
+
+
+# Misc
+*.log
+.DS_Store
+
+
+
 # env
 .env
 .env.local
@@ -32,3 +45,5 @@ node_modules copy/
 .env
 .env.local
 .next/
+
+
