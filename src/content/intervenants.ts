@@ -8,7 +8,6 @@ export const FRENCH_2026_SPEAKERS: Speaker[] = [
     intervention: "Ouverture — Jour 1",
     biography:
       "Professeur de l'enseignement supérieur, Pr. Mustapha Ijjaali est Président de l'USMBA depuis plusieurs années, après avoir occupé les fonctions de Doyen de la Faculté des Sciences et Techniques (FST) de Fès puis de Vice-Doyen chargé de la recherche, de la formation continue et des relations extérieures. Sous sa présidence, l'USMBA — plus de 100 000 étudiants, 13 établissements — a déployé le Pacte ESRI 2030, étendu son offre de formation (98 nouvelles filières) et obtenu le meilleur score national en « qualité de la recherche ». Il multiplie les partenariats internationaux (Canada, Europe, Afrique) et soutient activement les dynamiques d'entrepreneuriat et d'innovation étudiante à l'USMBA, dont la Cité de l'Innovation.",
-    image: "/images/intervenants/mustapha-ijjaali.jpg",
     links: [
       { label: "Site institutionnel", href: "https://www.usmba.ac.ma/~usmba2/new/president/", external: true },
       {
