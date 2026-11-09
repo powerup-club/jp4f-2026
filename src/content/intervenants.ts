@@ -62,7 +62,6 @@ export const FRENCH_2026_SPEAKERS: Speaker[] = [
     image: "/images/intervenants/hassane-moustabchir.jpg",
     links: [
       { label: "Laboratoire LISA / ENSA Fès", href: "https://www.ensaf.ac.ma", external: true },
-      { label: "ORCID", href: "https://orcid.org/0000-0001-9185-6848", external: true },
       { label: "Email académique", href: "mailto:hassane.moustabchir@usmba.ac.ma" }
     ]
   },
