@@ -7,7 +7,7 @@ export const FRENCH_2026_SPEAKERS: Speaker[] = [
     affiliation: "USMBA",
     intervention: "Ouverture — Jour 1",
     biography:
-      "Professeur de l'enseignement supérieur, Pr. Mustapha Ijjaali est Président de l'USMBA depuis plusieurs années, après avoir occupé les fonctions de Doyen de la Faculté des Sciences et Techniques (FST) de Fès puis de Vice-Doyen chargé de la recherche, de la formation continue et des relations extérieures. Sous sa présidence, l'USMBA — plus de 100 000 étudiants, 13 établissements — a déployé le Pacte ESRI 2030, étendu son offre de formation (98 nouvelles filières) et obtenu le meilleur score national en « qualité de la recherche ». Il multiplie les partenariats internationaux (Canada, Europe, Afrique) et soutient activement les dynamiques d'entrepreneuriat et d'innovation étudiante à l'USMBA, dont la Cité de l'Innovation.",
+      "Professeur de l’enseignement supérieur, Pr. Mustapha Ijjaali préside l’USMBA après avoir été doyen de la FST de Fès et vice-doyen chargé de la recherche, de la formation continue et des relations extérieures. Sous sa présidence, l’université a développé son offre de formation et renforcé son soutien à l’innovation et à l’entrepreneuriat étudiant.",
     links: [
       { label: "Site institutionnel", href: "https://www.usmba.ac.ma/~usmba2/new/president/", external: true },
       {
@@ -24,11 +24,10 @@ export const FRENCH_2026_SPEAKERS: Speaker[] = [
     affiliation: "ENSA Fès",
     intervention: "Ouverture — Jour 1",
     biography:
-      "Pr. Abderrahim Lahrach dirige l'École Nationale des Sciences Appliquées (ENSA) de Fès. Géologue de formation, il a été Chef du Département de Géologie à la FST de Fès et responsable de l'équipe « Hydrosciences et changements climatiques » du Laboratoire LGRE. Ses recherches portent sur l'hydrogéologie, la télédétection et les SIG appliqués à l'étalement urbain et à l'érosion éolienne dans la région de Fès. Il encadre de nombreuses thèses et pilote depuis plusieurs années le développement pédagogique et scientifique de l'ENSA Fès.",
+      "Géologue et directeur de l’ENSA Fès, Pr. Abderrahim Lahrach a dirigé le Département de Géologie de la FST de Fès et l’équipe « Hydrosciences et changements climatiques » du laboratoire LGRE. Ses recherches portent sur l’hydrogéologie, la télédétection et les SIG; il contribue au développement pédagogique et scientifique de l’ENSA Fès.",
     image: "/images/intervenants/abderrahim-lahrach.jpg",
     links: [
       { label: "Site ENSA Fès", href: "https://www.ensaf.ac.ma", external: true },
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/abderrahim-lahrach-179421383", external: true },
       {
         label: "Google Scholar",
         href: "https://scholar.google.com/citations?user=xAmitVUAAAAJ&hl=en",
