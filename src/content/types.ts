@@ -36,8 +36,11 @@ export interface Speaker {
   name: string;
   role: string;
   affiliation: string;
-  topic: string;
+  topic?: string;
   image?: string;
+  biography?: string;
+  intervention?: string;
+  links?: FooterLink[];
 }
 
 export interface Club {
