@@ -454,6 +454,186 @@ a:hover {
   justify-self: end;
 }
 
+.speaker-card {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  border-radius: 1.5rem;
+  background: var(--panel);
+}
+
+.speaker-card__photo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 25%, var(--panel)), var(--panel));
+  transition: transform 550ms ease-out;
+}
+
+.speaker-card__photo img {
+  transition: transform 550ms ease-out;
+}
+
+.speaker-card__base {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  padding: 3rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, color-mix(in srgb, var(--paper) 98%, transparent), transparent);
+  transition: opacity 200ms ease;
+}
+
+.speaker-card__trigger {
+  position: absolute;
+  z-index: 3;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--edge);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  color: var(--ink);
+  font-weight: 700;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.speaker-card__trigger:hover,
+.speaker-card__trigger:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.speaker-card__panel {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  height: 72%;
+  overflow-y: auto;
+  border-top: 1px solid var(--edge);
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: color-mix(in srgb, var(--panel) 95%, transparent);
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition:
+    transform 280ms ease-in,
+    opacity 200ms ease-in;
+  backdrop-filter: blur(14px);
+}
+
+.speaker-card__content {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 250ms ease-out,
+    transform 250ms ease-out;
+  transition-delay: 0ms;
+}
+
+.speaker-card__links {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 250ms ease-out,
+    transform 250ms ease-out;
+  transition-delay: 0ms;
+}
+
+.speaker-card[data-open="true"] .speaker-card__photo img,
+.speaker-card:focus-within .speaker-card__photo img {
+  transform: scale(1.03);
+}
+
+.speaker-card[data-open="true"] .speaker-card__base,
+.speaker-card:focus-within .speaker-card__base {
+  opacity: 0;
+}
+
+.speaker-card[data-open="true"] .speaker-card__panel,
+.speaker-card:focus-within .speaker-card__panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    transform 380ms cubic-bezier(0.4, 0.2, 0.2, 1),
+    opacity 200ms ease;
+}
+
+.speaker-card[data-open="true"] .speaker-card__content,
+.speaker-card:focus-within .speaker-card__content,
+.speaker-card[data-open="true"] .speaker-card__links,
+.speaker-card:focus-within .speaker-card__links {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 70ms;
+}
+
+.speaker-card[data-open="true"] .speaker-card__links,
+.speaker-card:focus-within .speaker-card__links {
+  transition-delay: 150ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .speaker-card:hover .speaker-card__photo img {
+    transform: scale(1.03);
+  }
+
+  .speaker-card:hover .speaker-card__base {
+    opacity: 0;
+  }
+
+  .speaker-card:hover .speaker-card__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition:
+      transform 380ms cubic-bezier(0.4, 0.2, 0.2, 1),
+      opacity 200ms ease;
+  }
+
+  .speaker-card:hover .speaker-card__content,
+  .speaker-card:hover .speaker-card__links {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 70ms;
+  }
+
+  .speaker-card:hover .speaker-card__links {
+    transition-delay: 150ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-card__photo,
+  .speaker-card__photo img,
+  .speaker-card__base,
+  .speaker-card__panel,
+  .speaker-card__content,
+  .speaker-card__links {
+    transition-duration: 150ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .speaker-card__panel {
+    transform: none;
+  }
+
+  .speaker-card[data-open="true"] .speaker-card__photo img,
+  .speaker-card:focus-within .speaker-card__photo img,
+  .speaker-card:hover .speaker-card__photo img {
+    transform: none;
+  }
+}
+
 
 @media (max-width: 900px) {
   .timeline-center-line,

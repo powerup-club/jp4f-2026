@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageIntro } from "@/components/sections/PageIntro";
-import { SpeakerCard } from "@/components/sections/SpeakerCard";
-import { Reveal } from "@/components/ui/Reveal";
+import { SpeakerGrid } from "@/components/sections/SpeakerGrid";
 import { getSiteContent } from "@/content";
 import { FRENCH_2026_SPEAKERS } from "@/content/intervenants";
 import { getValidatedLocale } from "@/lib/locale-page";
@@ -41,21 +40,18 @@ export default async function IntervenantsPage({ params }: { params: Promise<{ l
   const labels = {
     fr: {
       biography: "Biographie",
-      intervention: "Intervention",
       details: "Présentation",
       showDetails: "Découvrir la biographie",
       hideDetails: "Retour à la fiche"
     },
     en: {
       biography: "Biography",
-      intervention: "Talk",
       details: "About",
       showDetails: "View details",
       hideDetails: "Back to profile"
     },
     ar: {
       biography: "نبذة",
-      intervention: "المداخلة",
       details: "نبذة",
       showDetails: "عرض التفاصيل",
       hideDetails: "العودة إلى البطاقة"
@@ -70,13 +66,7 @@ export default async function IntervenantsPage({ params }: { params: Promise<{ l
         subtitle={content.intervenants.subtitle}
       />
       <section className="section-shell mt-8">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {speakers.map((speaker) => (
-            <Reveal key={speaker.name} className="h-full">
-              <SpeakerCard speaker={speaker} labels={labels} />
-            </Reveal>
-          ))}
-        </div>
+        <SpeakerGrid speakers={speakers} labels={labels} />
       </section>
     </>
   );
