@@ -19,7 +19,6 @@ export function AdminLoginCard({
     <GoogleLoginCard
       callbackUrl={callbackUrl}
       errorCode={errorCode}
-      mode="admin"
       setupReady={setupReady}
       setupIssues={setupIssues}
     />

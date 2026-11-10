@@ -3,13 +3,23 @@ const PUBLIC_FILE = /\.(.*)$/;
 
 type ProxyAction =
   | { type: "next" }
-  | { type: "redirect"; pathname: string };
+  | { type: "redirect"; pathname: string }
+  | { type: "not-found" };
 
 function isKnownLocale(value: string): value is (typeof LOCALES)[number] {
   return LOCALES.includes(value as (typeof LOCALES)[number]);
 }
 
 export function getProxyAction(pathname: string): ProxyAction {
+  if (pathname === "/api/application" || pathname.startsWith("/api/application/")) {
+    return { type: "not-found" };
+  }
+
+  const applicationRoute = pathname.match(/^\/(fr|en|ar)\/application(?:\/|$)/);
+  if (applicationRoute) {
+    return { type: "redirect", pathname: `/${applicationRoute[1]}` };
+  }
+
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||

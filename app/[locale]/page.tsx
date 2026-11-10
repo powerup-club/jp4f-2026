@@ -4,7 +4,6 @@ import { HomeIntro } from "@/components/intro/HomeIntro";
 import { HomeHero } from "@/components/sections/HomeHero";
 import { FilieresPreview } from "@/components/sections/FilieresPreview";
 import { ClubsPreview } from "@/components/sections/ClubsPreview";
-import { ChallengePanel } from "@/components/sections/ChallengePanel";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { SEO_KEYWORDS } from "@/lib/seo";
 
@@ -56,7 +55,6 @@ export default async function LocaleHomePage({ params }: { params: Promise<{ loc
         title={content.home.clubsTitle}
         subtitle={content.home.clubsSubtitle}
       />
-      <ChallengePanel locale={locale} home={content.home} />
     </HomeIntro>
   );
 }

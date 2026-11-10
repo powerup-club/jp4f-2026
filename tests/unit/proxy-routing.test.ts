@@ -22,4 +22,10 @@ describe("proxy routing", () => {
     expect(getProxyAction("/api/auth/signin")).toEqual({ type: "next" });
     expect(getProxyAction("/api/quiz/save")).toEqual({ type: "next" });
   });
+
+  it("disables applicant portal pages and APIs", () => {
+    expect(getProxyAction("/fr/application")).toEqual({ type: "redirect", pathname: "/fr" });
+    expect(getProxyAction("/en/application/form")).toEqual({ type: "redirect", pathname: "/en" });
+    expect(getProxyAction("/api/application/contact")).toEqual({ type: "not-found" });
+  });
 });

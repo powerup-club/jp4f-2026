@@ -84,8 +84,6 @@ export interface HomeContent {
   subtitle: string;
   slogan: string;
   primaryCta: FooterLink;
-  secondaryCta: FooterLink;
-  countdownLabel: string;
   dateLabel: string;
   locationLabel: string;
   challengeLabel: string;
@@ -97,14 +95,6 @@ export interface HomeContent {
   clubsTag: string;
   clubsTitle: string;
   clubsSubtitle: string;
-  challengeTag: string;
-  challengeTitle: string;
-  challengeSubtitle: string;
-  registrationHighlight: {
-    deadlineLabel: string;
-    ctaLabel: string;
-    ctaHref: string;
-  };
 }
 
 export interface ProgrammeContent {
@@ -148,8 +138,6 @@ export interface CompetitionContent {
   partners: string[];
   contact: CompetitionContact;
   registrationHeading: string;
-  registrationLabel: string;
-  registrationUrl: string;
   deadlineLabel: string;
 }
 

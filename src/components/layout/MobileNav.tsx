@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavigationItem, SiteLocale } from "@/content/types";
 import { localizeHref } from "@/lib/routing";
-import { isLocalizedNavItemActive, withPortalNavItem } from "./nav-items";
+import { isLocalizedNavItemActive } from "./nav-items";
 
 interface MobileNavProps {
   locale: SiteLocale;
@@ -13,7 +13,6 @@ interface MobileNavProps {
 
 export function MobileNav({ locale, items }: MobileNavProps) {
   const pathname = usePathname();
-  const navItems = withPortalNavItem(locale, items);
   const isPortal = pathname?.includes("/application");
 
   if (isPortal) {
@@ -22,8 +21,8 @@ export function MobileNav({ locale, items }: MobileNavProps) {
 
   return (
     <nav className="fixed inset-x-3 bottom-3 z-40 rounded-3xl border border-edge/80 bg-panel/95 p-2 shadow-card backdrop-blur lg:hidden">
-      <ul className="grid gap-1" style={{ gridTemplateColumns: `repeat(${navItems.length}, minmax(0, 1fr))` }}>
-        {navItems.map((item) => {
+      <ul className="grid gap-1" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+        {items.map((item) => {
           const href = localizeHref(locale, item.href);
           const active = isLocalizedNavItemActive(pathname, href);
           return (

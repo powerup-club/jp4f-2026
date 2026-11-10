@@ -8,6 +8,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (action.type === "not-found") {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
   const url = request.nextUrl.clone();
   url.pathname = action.pathname;
   return NextResponse.redirect(url);
