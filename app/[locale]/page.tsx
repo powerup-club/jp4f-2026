@@ -7,32 +7,21 @@ import { ClubsPreview } from "@/components/sections/ClubsPreview";
 import { getValidatedLocale } from "@/lib/locale-page";
 import { SEO_KEYWORDS } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Innov'Industry 2026 ENSA Fès | Journée de l'Innovation Industrielle & Technologique",
-  description:
-    "Innov'Industry 2026 : 17 & 18 Avril à l'ENSA Fès. Journée de l'Innovation Industrielle & Technologique, programme, challenge Innov'Dom, intervenants et clubs organisateurs.",
-  keywords: SEO_KEYWORDS,
-  authors: [{ name: "Innov'Industry 2026 - ENSA Fès" }],
-  openGraph: {
-    title: "Innov'Industry 2026 ENSA Fès | Journée de l'Innovation Industrielle & Technologique",
-    description:
-      "Innov'Industry 2026 : 17 & 18 Avril à l'ENSA Fès. Journée de l'Innovation Industrielle & Technologique, programme, challenge Innov'Dom, intervenants et clubs organisateurs.",
-    url: "https://enginov-days.vercel.app/[locale]",
-    siteName: "Innov'Industry 2026",
-    locale: "fr_FR",
-    type: "website",
-    images: [{ url: "https://enginov-days.vercel.app/og-image.png", width: 1200, height: 630 }]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Innov'Industry 2026 ENSA Fès | Journée de l'Innovation Industrielle & Technologique",
-    description:
-      "Innov'Industry 2026 : 17 & 18 Avril à l'ENSA Fès. Journée de l'Innovation Industrielle & Technologique, programme, challenge Innov'Dom, intervenants et clubs organisateurs."
-  },
-  alternates: {
-    canonical: "https://enginov-days.vercel.app/[locale]"
-  }
-};
+import { buildPageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const locale = await getValidatedLocale(params);
+  const content = getSiteContent(locale);
+  return {
+    ...buildPageMetadata(
+      locale,
+      content.meta.siteName,
+      content.meta.description,
+      `/${locale}`
+    ),
+    keywords: SEO_KEYWORDS
+  };
+}
 
 export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await getValidatedLocale(params);

@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Inter, JetBrains_Mono } from "next/font/google";
 import { SEO_KEYWORDS } from "@/lib/seo";
+import { getMetadataBase } from "@/lib/site-url";
 import "./globals.css";
 
 const display = Barlow_Condensed({
@@ -21,7 +22,17 @@ const mono = JetBrains_Mono({
   weight: ["400", "500", "600"]
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#050811" }
+  ]
+};
+
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: "Innov'Industry 2026 – Journée de l'Innovation Industrielle & Technologique ENSA Fès",
   description:
     "Innov'Industry 2026 : 17 & 18 Avril à l'ENSA Fès - Journée de l'Innovation Industrielle & Technologique. Programme, conférences, compétition et partenaires.",
@@ -32,6 +43,13 @@ export const metadata: Metadata = {
     telephone: false,
     email: false,
     address: false
+  },
+
+  verification: {
+    google: "googleec61ce8a2377f8ef",
+    other: {
+      "msvalidate.01": "A8B6CD4B3A1C4FE9FD598DEB7EA9D89C"
+    }
   },
 
   icons: {

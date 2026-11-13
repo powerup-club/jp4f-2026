@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { PortalFooter } from "@/components/layout/PortalFooter";
@@ -6,6 +6,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { BackgroundCanvas } from "@/components/ui/BackgroundCanvas";
 import { getSiteContent } from "@/content";
 import { DEFAULT_LOCALE, SITE_LOCALES, isSiteLocale, localeDirection } from "@/config/locales";
+import { getMetadataBase } from "@/lib/site-url";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const content = getSiteContent(locale);
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://enginov-days.vercel.app"),
+    metadataBase: getMetadataBase(),
     title: {
       default: content.meta.siteName,
       template: `%s | ${content.meta.siteName}`
